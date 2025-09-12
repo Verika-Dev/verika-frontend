@@ -36,11 +36,11 @@ export default function SignupPage() {
 
   const handleNext = () => {
     if (selected === "student") {
-      router.push("/signup/student");
+      router.push("/signUp/student");
     } else if (selected === "tutor") {
-      router.push("/signup/tutor");
+      router.push("/signUp/tutor");
     } else if (selected === "institution") {
-      router.push("/signup/institution");
+      router.push("/signUp/institution");
     }
   };
 
@@ -111,13 +111,13 @@ export default function SignupPage() {
         </div>
 
         {/* Continue Button */}
-        {/* <div className="flex justify-center">
+        <div className="flex justify-center">
           <button
             onClick={handleNext}
             className="rounded-lg bg-[#192BC2] px-6 py-2 text-white font-medium hover:bg-[#192BC2] cursor-pointer transition">
             Continue
           </button>
-        </div> */}
+        </div>
 
         {/* Login Link */}
         <p className="mt-6 text-center font-outfit font-normal text-[24px] leading-[36px] text-[#1B1B1B] w-[343px] h-[36px] mx-auto">
