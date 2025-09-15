@@ -17,8 +17,8 @@ export default function StudentForm ()  {
             <input
               type="text"
               name="firstName"
-              value={formData.firstName}
-              onChange={handleInputChange}
+              // value={formData.firstName}
+              // onChange={handleInputChange}
               placeholder="Enter first name here"
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
             />
@@ -30,8 +30,8 @@ export default function StudentForm ()  {
             <input
               type="text"
               name="lastName"
-              value={formData.lastName}
-              onChange={handleInputChange}
+              // value={formData.lastName}
+              // onChange={handleInputChange}
               placeholder="Enter last name here"
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
             />
@@ -46,8 +46,8 @@ export default function StudentForm ()  {
           <input
             type="email"
             name="email"
-            value={formData.email}
-            onChange={handleInputChange}
+            // value={formData.email}
+            // onChange={handleInputChange}
             placeholder="Enter email here"
             className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
           />
@@ -61,8 +61,8 @@ export default function StudentForm ()  {
           <input
             type="tel"
             name="phoneNumber"
-            value={formData.phoneNumber}
-            onChange={handleInputChange}
+            // value={formData.phoneNumber}
+            // onChange={handleInputChange}
             placeholder="Enter phone number here"
             className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
           />
@@ -76,8 +76,8 @@ export default function StudentForm ()  {
           <div className="relative">
             <select
               name="school"
-              value={formData.school}
-              onChange={handleInputChange}
+              // value={formData.school}
+              // onChange={handleInputChange}
               className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm bg-white appearance-none cursor-pointer transition-all duration-200">
               <option value="" disabled>
                 Select School Level Class
@@ -112,18 +112,18 @@ export default function StudentForm ()  {
           </label>
           <div className="relative">
             <input
-              type={showPassword ? "text" : "password"}
+              // type={showPassword ? "text" : "password"}
               name="password"
-              value={formData.password}
-              onChange={handleInputChange}
+              // value={formData.password}
+              // onChange={handleInputChange}
               placeholder="Enter password here"
               className="w-full px-3 py-2.5 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
             />
             <button
               type="button"
-              onClick={() => setShowPassword(!showPassword)}
+              // onClick={() => setShowPassword(!showPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
-              {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              {/* {showPassword ? <EyeOff size={18} /> : <Eye size={18} />} */}
             </button>
           </div>
         </div>
@@ -135,18 +135,18 @@ export default function StudentForm ()  {
           </label>
           <div className="relative">
             <input
-              type={showConfirmPassword ? "text" : "password"}
+              // type={showConfirmPassword ? "text" : "password"}
               name="confirmPassword"
-              value={formData.confirmPassword}
-              onChange={handleInputChange}
+              // value={formData.confirmPassword}
+              // onChange={handleInputChange}
               placeholder="Enter password here"
               className="w-full px-3 py-2.5 pr-10 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm placeholder-gray-400 transition-all duration-200"
             />
             <button
               type="button"
-              onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+              // onClick={() => setShowConfirmPassword(!showConfirmPassword)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-400 hover:text-gray-600 transition-colors duration-200">
-              {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+              {/* {showConfirmPassword ? <EyeOff size={18} /> : <Eye size={18} />} */}
             </button>
           </div>
         </div>
@@ -160,8 +160,8 @@ export default function StudentForm ()  {
             <div className="relative">
               <select
                 name="state"
-                value={formData.state}
-                onChange={handleInputChange}
+                // value={formData.state}
+                // onChange={handleInputChange}
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm bg-white appearance-none cursor-pointer transition-all duration-200">
                 <option value="" disabled>
                   Select state
@@ -227,8 +227,8 @@ export default function StudentForm ()  {
             <div className="relative">
               <select
                 name="city"
-                value={formData.city}
-                onChange={handleInputChange}
+                // value={formData.city}
+                // onChange={handleInputChange}
                 className="w-full px-3 py-2.5 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-purple-500 text-sm bg-white appearance-none cursor-pointer transition-all duration-200">
                 <option value="" disabled>
                   Select city
@@ -274,7 +274,7 @@ export default function StudentForm ()  {
 
         {/* Submit Button */}
         <button
-          onClick={handleSubmit}
+          // onClick={handleSubmit}
           className="w-full bg-purple-600 text-white py-3 px-4 rounded-lg font-semibold hover:bg-purple-700 active:bg-purple-800 transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 mt-8 shadow-lg hover:shadow-xl transform hover:-translate-y-0.5">
           Create Account
         </button>
