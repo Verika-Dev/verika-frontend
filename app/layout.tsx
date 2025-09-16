@@ -10,6 +10,9 @@ const outfit = Outfit({
 export const metadata: Metadata = {
   title: "Verika",
   description: "",
+  icons: {
+    icon: "/verikaLogo.svg",
+  },
 };
 
 export default function RootLayout({
