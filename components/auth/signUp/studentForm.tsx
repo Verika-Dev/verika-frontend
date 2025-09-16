@@ -1,244 +1,433 @@
-"use client";
 import React, { useState } from "react";
 import {
+  Eye,
+  EyeOff,
   User,
   Mail,
   Phone,
-  Lock,
-  Eye,
-  EyeOff,
-  MapPin,
   GraduationCap,
+  Lock,
+  MapPin,
+  ChevronDown,
 } from "lucide-react";
 
-interface StudentSignupFormData {
-  firstName: string;
-  lastName: string;
-  email: string;
-  phoneNumber: string;
-  schoolLevel: string;
-  password: string;
-  confirmPassword: string;
-  state: string;
-  city: string;
+interface StudentRegistrationFormProps {
+  onSubmit?: (data: {
+    firstName: string;
+    lastName: string;
+    email: string;
+    phoneNumber: string;
+    schoolLevel: string;
+    password: string;
+    confirmPassword: string;
+    state: string;
+    city: string;
+  }) => void;
 }
 
-export default function StudentSignupForm() {
-  const [formData, setFormData] = useState<StudentSignupFormData>({
-    firstName: "",
-    lastName: "",
-    email: "",
+function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
+  const [formData, setFormData] = useState({
+    firstName: "Jane",
+    lastName: "James",
+    email: "jane@gmail.com",
     phoneNumber: "",
-    schoolLevel: "",
-    password: "",
-    confirmPassword: "",
-    state: "",
-    city: "",
+    schoolLevel: "SS 1",
+    password: "●●●●●●",
+    confirmPassword: "●●●●●●",
+    state: "Akwa Ibom",
+    city: "Uyo",
   });
 
-  const [showPassword, setShowPassword] = useState<boolean>(false);
-  const [showConfirmPassword, setShowConfirmPassword] =
-    useState<boolean>(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ): void => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+  const schoolLevelOptions = [
+    {
+      category: "Nursery / Preschool",
+      levels: ["Nursery 1", "Nursery 2", "Kindergarten"],
+    },
+    {
+      category: "Primary",
+      levels: [
+        "Primary 1",
+        "Primary 2",
+        "Primary 3",
+        "Primary 4",
+        "Primary 5",
+        "Primary 6",
+        "Kindergarten",
+      ],
+    },
+    { category: "Junior Secondary (JSS)", levels: ["JS 1", "JS 2", "JS 3"] },
+    { category: "Senior Secondary (SSS)", levels: ["SS 1", "SS 2", "SS 3"] },
+    {
+      category: "JAMB/UTME Candidates",
+      levels: [
+        "Scratch Track",
+        "Apex Track",
+        "Commercial Track",
+        "General Studies",
+      ],
+    },
+  ];
+
+  const nigerianStates = [
+    "Abia",
+    "Adamawa",
+    "Akwa Ibom",
+    "Anambra",
+    "Bauchi",
+    "Bayelsa",
+    "Benue",
+    "Borno",
+    "Cross River",
+    "Delta",
+    "Ebonyi",
+    "Edo",
+    "Ekiti",
+    "Enugu",
+    "FCT",
+    "Gombe",
+    "Imo",
+    "Jigawa",
+    "Kaduna",
+    "Kano",
+    "Katsina",
+    "Kebbi",
+    "Kogi",
+    "Kwara",
+    "Lagos",
+    "Nasarawa",
+    "Niger",
+    "Ogun",
+    "Ondo",
+    "Osun",
+    "Oyo",
+    "Plateau",
+    "Rivers",
+    "Sokoto",
+    "Taraba",
+    "Yobe",
+    "Zamfara",
+  ];
+
+  const cityOptions = {
+    "Akwa Ibom": ["Uyo", "Ikot Ekpene", "Eket", "Oron", "Abak"],
+    Lagos: ["Lagos Island", "Ikeja", "Surulere", "Victoria Island", "Ikoyi"],
+    Abuja: ["Garki", "Wuse", "Maitama", "Asokoro", "Gwarinpa"],
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    console.log("Form Submitted:", formData);
+  const getCurrentCities = () => {
+    return cityOptions[formData.state as keyof typeof cityOptions] || ["Uyo"];
+  };
+
+  const handleInputChange = (field: keyof typeof formData, value: string) => {
+    setFormData((prev) => ({
+      ...prev,
+      [field]: value,
+    }));
+
+    // Reset city when state changes
+    if (field === "state") {
+      const newCities = cityOptions[value as keyof typeof cityOptions] || [""];
+      setFormData((prev) => ({
+        ...prev,
+        city: newCities[0] || "",
+      }));
+    }
+  };
+
+  const handleSubmit = () => {
+    if (onSubmit) {
+      onSubmit(formData);
+    }
+  };
+
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
+
+  const toggleConfirmPasswordVisibility = () => {
+    setShowConfirmPassword(!showConfirmPassword);
   };
 
   return (
-    <form
-      onSubmit={handleSubmit}
-      className="max-w-xl mx-auto p-6 space-y-4 text-sm">
-      {/* First & Last Name */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-1 font-medium">First name</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <User className="w-4 h-4 mr-2 text-gray-500" />
-            <input
-              type="text"
-              name="firstName"
-              value={formData.firstName}
-              onChange={handleChange}
-              placeholder="Enter first name here"
-              className="w-full outline-none"
-              required
-            />
+    <div className="max-w-md mx-auto p-6 bg-white">
+      <div className="space-y-5">
+        {/* First Name and Last Name Row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              htmlFor="firstName"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              First name
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="firstName"
+                type="text"
+                value={formData.firstName}
+                onChange={(e) => handleInputChange("firstName", e.target.value)}
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
           </div>
-        </div>
-        <div>
-          <label className="block mb-1 font-medium">Last name</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <User className="w-4 h-4 mr-2 text-gray-500" />
-            <input
-              type="text"
-              name="lastName"
-              value={formData.lastName}
-              onChange={handleChange}
-              placeholder="Enter last name here"
-              className="w-full outline-none"
-              required
-            />
-          </div>
-        </div>
-      </div>
 
-      {/* Email & Phone */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-1 font-medium">Email</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <Mail className="w-4 h-4 mr-2 text-gray-500" />
-            <input
-              type="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              placeholder="Enter email here"
-              className="w-full outline-none"
-              required
-            />
+          <div>
+            <label
+              htmlFor="lastName"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              Last name
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <User className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="lastName"
+                type="text"
+                value={formData.lastName}
+                onChange={(e) => handleInputChange("lastName", e.target.value)}
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
           </div>
         </div>
-        <div>
-          <label className="block mb-1 font-medium">Phone Number</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <Phone className="w-4 h-4 mr-2 text-gray-500" />
-            <input
-              type="tel"
-              name="phoneNumber"
-              value={formData.phoneNumber}
-              onChange={handleChange}
-              placeholder="Enter phone number here"
-              className="w-full outline-none"
-              required
-            />
+
+        {/* Email and Phone Number Row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              htmlFor="email"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              Email
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Mail className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="email"
+                type="email"
+                value={formData.email}
+                onChange={(e) => handleInputChange("email", e.target.value)}
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="phoneNumber"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              Phone Number
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <Phone className="h-5 w-5 text-gray-400" />
+              </div>
+              <input
+                id="phoneNumber"
+                type="tel"
+                value={formData.phoneNumber}
+                onChange={(e) =>
+                  handleInputChange("phoneNumber", e.target.value)
+                }
+                placeholder="Enter phone number here"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              />
+            </div>
           </div>
         </div>
-      </div>
 
-      {/* School Level */}
-      <div>
-        <label className="block mb-1 font-medium">School Level/ Class</label>
-        <div className="flex items-center border rounded-lg px-3 py-2">
-          <GraduationCap className="w-4 h-4 mr-2 text-gray-500" />
-          <select
-            name="schoolLevel"
-            value={formData.schoolLevel}
-            onChange={handleChange}
-            className="w-full outline-none bg-transparent"
-            required>
-            <option value="">Select school level/ Class</option>
-            <option value="junior">Junior</option>
-            <option value="senior">Senior</option>
-            <option value="university">University</option>
-          </select>
+        {/* School Level Field */}
+        <div>
+          <label
+            htmlFor="schoolLevel"
+            className="block text-sm font-medium text-gray-900 mb-2">
+            School Level/ Class
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <GraduationCap className="h-5 w-5 text-gray-400" />
+            </div>
+            <select
+              id="schoolLevel"
+              value={formData.schoolLevel}
+              onChange={(e) => handleInputChange("schoolLevel", e.target.value)}
+              className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              {schoolLevelOptions.map((category) => (
+                <optgroup key={category.category} label={category.category}>
+                  {category.levels.map((level) => (
+                    <option key={level} value={level}>
+                      {level}
+                    </option>
+                  ))}
+                </optgroup>
+              ))}
+            </select>
+            <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+              <ChevronDown className="h-5 w-5 text-gray-400" />
+            </div>
+          </div>
         </div>
-      </div>
 
-      {/* Password */}
-      <div>
-        <label className="block mb-1 font-medium">Password</label>
-        <div className="flex items-center border rounded-lg px-3 py-2">
-          <Lock className="w-4 h-4 mr-2 text-gray-500" />
-          <input
-            type={showPassword ? "text" : "password"}
-            name="password"
-            value={formData.password}
-            onChange={handleChange}
-            placeholder="Enter password here"
-            className="w-full outline-none"
-            required
-          />
+        {/* Password Field */}
+        <div>
+          <label
+            htmlFor="password"
+            className="block text-sm font-medium text-gray-900 mb-2">
+            Password
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="password"
+              type={showPassword ? "text" : "password"}
+              value={showPassword ? "password123" : formData.password}
+              onChange={(e) => handleInputChange("password", e.target.value)}
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <button
+              type="button"
+              onClick={togglePasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center">
+              {showPassword ? (
+                <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              ) : (
+                <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              )}
+            </button>
+          </div>
+        </div>
+
+        {/* Confirm Password Field */}
+        <div>
+          <label
+            htmlFor="confirmPassword"
+            className="block text-sm font-medium text-gray-900 mb-2">
+            Confirm password
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Lock className="h-5 w-5 text-gray-400" />
+            </div>
+            <input
+              id="confirmPassword"
+              type={showConfirmPassword ? "text" : "password"}
+              value={
+                showConfirmPassword ? "password123" : formData.confirmPassword
+              }
+              onChange={(e) =>
+                handleInputChange("confirmPassword", e.target.value)
+              }
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+            />
+            <button
+              type="button"
+              onClick={toggleConfirmPasswordVisibility}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center">
+              {showConfirmPassword ? (
+                <EyeOff className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              ) : (
+                <Eye className="h-5 w-5 text-gray-400 hover:text-gray-600" />
+              )}
+            </button>
+          </div>
+          {/* Password strength indicator */}
+          <div className="flex space-x-1 mt-2">
+            <div className="h-1 w-6 bg-yellow-400 rounded"></div>
+            <div className="h-1 w-6 bg-gray-200 rounded"></div>
+            <div className="h-1 w-6 bg-gray-200 rounded"></div>
+            <div className="h-1 w-6 bg-gray-200 rounded"></div>
+            <div className="h-1 w-6 bg-gray-200 rounded"></div>
+          </div>
+        </div>
+
+        {/* State and City Row */}
+        <div className="grid grid-cols-2 gap-4">
+          <div>
+            <label
+              htmlFor="state"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              State
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MapPin className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="state"
+                value={formData.state}
+                onChange={(e) => handleInputChange("state", e.target.value)}
+                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                {nigerianStates.map((state) => (
+                  <option key={state} value={state}>
+                    {state}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <ChevronDown className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label
+              htmlFor="city"
+              className="block text-sm font-medium text-gray-900 mb-2">
+              City
+            </label>
+            <div className="relative">
+              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                <MapPin className="h-5 w-5 text-gray-400" />
+              </div>
+              <select
+                id="city"
+                value={formData.city}
+                onChange={(e) => handleInputChange("city", e.target.value)}
+                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                {getCurrentCities().map((city) => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+              <div className="absolute inset-y-0 right-0 pr-3 flex items-center pointer-events-none">
+                <ChevronDown className="h-5 w-5 text-gray-400" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Create Account Button */}
+        <button
+          type="button"
+          onClick={handleSubmit}
+          className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium py-3 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 mt-6">
+          Create Account
+        </button>
+
+        {/* Login Link */}
+        <div className="text-center">
+          <span className="text-gray-600 text-sm">
+            Already have an account?{" "}
+          </span>
           <button
             type="button"
-            onClick={() => setShowPassword((prev) => !prev)}
-            className="ml-2 text-gray-500">
-            {showPassword ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
-            )}
+            className="text-purple-600 hover:text-purple-700 font-medium text-sm focus:outline-none focus:underline">
+            Login
           </button>
         </div>
       </div>
-
-      {/* Confirm Password */}
-      <div>
-        <label className="block mb-1 font-medium">Confirm password</label>
-        <div className="flex items-center border rounded-lg px-3 py-2">
-          <Lock className="w-4 h-4 mr-2 text-gray-500" />
-          <input
-            type={showConfirmPassword ? "text" : "password"}
-            name="confirmPassword"
-            value={formData.confirmPassword}
-            onChange={handleChange}
-            placeholder="Enter password here"
-            className="w-full outline-none"
-            required
-          />
-          <button
-            type="button"
-            onClick={() => setShowConfirmPassword((prev) => !prev)}
-            className="ml-2 text-gray-500">
-            {showConfirmPassword ? (
-              <EyeOff className="w-4 h-4" />
-            ) : (
-              <Eye className="w-4 h-4" />
-            )}
-          </button>
-        </div>
-      </div>
-
-      {/* State & City */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-        <div>
-          <label className="block mb-1 font-medium">State</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <MapPin className="w-4 h-4 mr-2 text-gray-500" />
-            <select
-              name="state"
-              value={formData.state}
-              onChange={handleChange}
-              className="w-full outline-none bg-transparent"
-              required>
-              <option value="">Select state</option>
-              <option value="lagos">Lagos</option>
-              <option value="abuja">Abuja</option>
-            </select>
-          </div>
-        </div>
-        <div>
-          <label className="block mb-1 font-medium">City</label>
-          <div className="flex items-center border rounded-lg px-3 py-2">
-            <MapPin className="w-4 h-4 mr-2 text-gray-500" />
-            <select
-              name="city"
-              value={formData.city}
-              onChange={handleChange}
-              className="w-full outline-none bg-transparent"
-              required>
-              <option value="">Select city</option>
-              <option value="ikeja">Ikeja</option>
-              <option value="gwarimpa">Gwarimpa</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      {/* Submit */}
-      <button
-        type="submit"
-        className="w-full bg-[#192BC2] text-white cursor-pointer py-3 rounded-lg font-medium hover:bg-[#3A00B5] transition">
-        Create Account
-      </button>
-    </form>
+    </div>
   );
 }
+
+export default StudentRegistrationForm;
