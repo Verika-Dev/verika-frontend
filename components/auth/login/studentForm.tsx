@@ -1,5 +1,6 @@
+"use client";
 import React, { useState } from "react";
-import { Eye, EyeOff, User, Lock } from "lucide-react";
+import { Eye, EyeOff, User, LockKeyhole } from "lucide-react";
 
 interface LoginFormProps {
   onSubmit?: (data: {
@@ -9,7 +10,7 @@ interface LoginFormProps {
   }) => void;
 }
 
-const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
+function LoginForm({ onSubmit }: LoginFormProps) {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
@@ -60,7 +61,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               value={formData.username}
               onChange={(e) => handleInputChange("username", e.target.value)}
               placeholder="Enter username here"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
           </div>
         </div>
@@ -74,7 +75,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock className="h-5 w-5 text-gray-400" />
+              <LockKeyhole className="h-5 w-5 text-gray-400" />
             </div>
             <input
               id="password"
@@ -82,7 +83,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
               value={formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
               placeholder="Enter password here"
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -114,7 +115,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           </label>
           <div className="relative">
             <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <Lock className="h-5 w-5 text-gray-400" />
+              <LockKeyhole className="h-5 w-5 text-gray-400" />
             </div>
             <input
               id="confirmPassword"
@@ -124,7 +125,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
                 handleInputChange("confirmPassword", e.target.value)
               }
               placeholder="Enter password here"
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -151,7 +152,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium py-3 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200">
+          className="w-full bg-gradient-to-r cursor-pointer from-[#192BC2] to-[#192BC2] text-white font-medium py-3 px-4 rounded-lg hover:from-[#192BC2] hover:to-[#192BC2] focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 transition-all duration-200">
           Login
         </button>
 
@@ -160,13 +161,13 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           <span className="text-gray-600 text-sm">Don't have an account? </span>
           <button
             type="button"
-            className="text-purple-600 hover:text-purple-700 font-medium text-sm focus:outline-none focus:underline">
+            className="text-[#192BC2] hover:text-[#192BC2] cursor-pointer hover:underline font-medium text-sm focus:outline-none focus:underline">
             Create account
           </button>
         </div>
       </div>
     </div>
   );
-};
+}
 
 export default LoginForm;
