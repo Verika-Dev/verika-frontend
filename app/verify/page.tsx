@@ -1,10 +1,11 @@
 import AuthAsideBg from "@/components/ui/common/authAsideBg";
 import DynamicHeader from "@/components/ui/common/dynamicHeader";
 
-export default function SignUpPage() {
+export default function Verify() {
   return (
     <div className="flex">
       <AuthAsideBg />
+
       <div>
         <DynamicHeader />
       </div>

@@ -1,9 +1,14 @@
 import SignUpPage from "@/components/auth/signUp";
+import AuthAsideBg from "@/components/ui/common/authAsideBg";
+import DynamicHeader from "@/components/ui/common/dynamicHeader";
 
-export default function Login() {
+export default function LoginPage() {
   return (
-    <div>
-      <SignUpPage />
+    <div className="flex">
+      <AuthAsideBg />
+      <div>
+        <DynamicHeader />
+      </div>
     </div>
   );
 }
