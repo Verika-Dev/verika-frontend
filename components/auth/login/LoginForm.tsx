@@ -1,6 +1,7 @@
 "use client";
 import React, { useState } from "react";
 import { Eye, EyeOff, User, LockKeyhole } from "lucide-react";
+import Link from "next/link";
 
 interface LoginFormProps {
   onSubmit?: (data: {
@@ -159,11 +160,11 @@ function LoginForm({ onSubmit }: LoginFormProps) {
         {/* Create Account Link */}
         <div className="text-center">
           <span className="text-gray-600 text-sm">Don't have an account? </span>
-          <button
-            type="button"
+          <Link
+            href="/signUp"
             className="text-[#192BC2] hover:text-[#192BC2] cursor-pointer hover:underline font-medium text-sm focus:outline-none focus:underline">
             Create account
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -153,7 +153,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white">
+    <div className="w-full mx-auto h-full bg-white p-6 ">
       <div className="space-y-5">
         {/* First Name and Last Name Row */}
         <div className="grid grid-cols-2 gap-4">
@@ -172,7 +172,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                 type="text"
                 value={formData.firstName}
                 onChange={(e) => handleInputChange("firstName", e.target.value)}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
               />
             </div>
           </div>
@@ -192,7 +192,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                 type="text"
                 value={formData.lastName}
                 onChange={(e) => handleInputChange("lastName", e.target.value)}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring[#192BC2] focus:border-transparent"
               />
             </div>
           </div>
@@ -215,7 +215,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                 type="email"
                 value={formData.email}
                 onChange={(e) => handleInputChange("email", e.target.value)}
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
               />
             </div>
           </div>
@@ -238,7 +238,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                   handleInputChange("phoneNumber", e.target.value)
                 }
                 placeholder="Enter phone number here"
-                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
               />
             </div>
           </div>
@@ -259,7 +259,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
               id="schoolLevel"
               value={formData.schoolLevel}
               onChange={(e) => handleInputChange("schoolLevel", e.target.value)}
-              className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
               {schoolLevelOptions.map((category) => (
                 <optgroup key={category.category} label={category.category}>
                   {category.levels.map((level) => (
@@ -292,7 +292,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
               type={showPassword ? "text" : "password"}
               value={showPassword ? "password123" : formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -327,7 +327,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
               onChange={(e) =>
                 handleInputChange("confirmPassword", e.target.value)
               }
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -366,7 +366,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                 id="state"
                 value={formData.state}
                 onChange={(e) => handleInputChange("state", e.target.value)}
-                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {nigerianStates.map((state) => (
                   <option key={state} value={state}>
                     {state}
@@ -393,7 +393,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
                 id="city"
                 value={formData.city}
                 onChange={(e) => handleInputChange("city", e.target.value)}
-                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {getCurrentCities().map((city) => (
                   <option key={city} value={city}>
                     {city}
@@ -411,7 +411,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium py-3 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 mt-6">
+          className="w-full cursor-pointer bg-gradient-to-r from-[#192BC2] to-[#192BC2] text-white font-medium py-3 px-4 rounded-lg hover:from-[#192BC2] hover:to-[#192BC2] focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 transition-all duration-200 mt-6">
           Create Account
         </button>
 
@@ -422,7 +422,7 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
           </span>
           <button
             type="button"
-            className="text-purple-600 hover:text-purple-700 font-medium text-sm focus:outline-none focus:underline">
+            className="text-[#192BC2] hover:text-[#192BC2] font-medium text-sm focus:outline-none focus:underline">
             Login
           </button>
         </div>
