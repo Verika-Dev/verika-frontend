@@ -6,9 +6,9 @@ export default function LoginPage() {
   return (
     <div className="flex">
       <AuthAsideBg />
-      <div className=" flex items-center flex-col justify-center md:w-1/2 w-full" >
+      <div className=" flex items-center flex-col justify-center md:w-1/2 w-full px-6 ">
         <DynamicHeader />
-        <LoginForm/>
+        <LoginForm />
       </div>
     </div>
   );
