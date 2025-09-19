@@ -45,27 +45,19 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
   const schoolLevelOptions = [
     {
       category: "Nursery / Preschool",
-      levels: ["Nursery 1", "Nursery 2", "Kindergarten"],
+      levels: ["Playgroup/ Creche", "Nursery 1", "Nursery 2", "Kindergarten"],
     },
     {
       category: "Primary",
-      levels: [
-        "Primary 1",
-        "Primary 2",
-        "Primary 3",
-        "Primary 4",
-        "Primary 5",
-        "Primary 6",
-        "Kindergarten",
-      ],
+      levels: ["Primary 1", "Primary 2", "Primary 3", "Kindergarten"],
     },
     { category: "Junior Secondary (JSS)", levels: ["JS 1", "JS 2", "JS 3"] },
     { category: "Senior Secondary (SSS)", levels: ["SS 1", "SS 2", "SS 3"] },
     {
-      category: "JAMB/UTME Candidates",
+      category: "JAMBites (UTME Candidates)",
       levels: [
-        "Scratch Track",
-        "Apex Track",
+        "Science Track",
+        "Arts Track",
         "Commercial Track",
         "General Studies",
       ],
