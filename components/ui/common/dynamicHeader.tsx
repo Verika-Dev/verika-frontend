@@ -32,7 +32,7 @@ function DynamicHeader() {
   const { title, subtitle } = getHeaderContent();
 
   return (
-    <div className="w-full max-w-md mx-auto p-6">
+    <div className="w-full mx-auto p-6">
       {/* Dynamic Header Content */}
       <div className="text-left">
         <h1 className="text-2xl font-bold text-gray-900 mb-2">{title}</h1>

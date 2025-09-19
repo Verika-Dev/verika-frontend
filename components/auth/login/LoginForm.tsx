@@ -42,7 +42,7 @@ function LoginForm({ onSubmit }: LoginFormProps) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white">
+    <div className="w-full mx-auto p-6 bg-white">
       <div className="space-y-6">
         {/* Username Field */}
         <div>
