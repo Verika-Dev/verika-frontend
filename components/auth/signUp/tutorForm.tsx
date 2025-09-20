@@ -1,4 +1,5 @@
-"use client"
+"use client";
+import Link from "next/link";
 import React, { useState } from "react";
 import {
   Eye,
@@ -25,7 +26,7 @@ interface RegistrationFormProps {
   }) => void;
 }
 
-function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
+function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
   const [formData, setFormData] = useState({
     fullName: "Kristin Watson",
     email: "debra.holt@example.com",
@@ -104,7 +105,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 bg-white">
+    <div className="w-full mx-auto p-6 bg-white">
       <div className="space-y-5">
         {/* Full Name Field */}
         <div>
@@ -122,7 +123,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
               type="text"
               value={formData.fullName}
               onChange={(e) => handleInputChange("fullName", e.target.value)}
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
           </div>
         </div>
@@ -143,7 +144,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
               type="email"
               value={formData.email}
               onChange={(e) => handleInputChange("email", e.target.value)}
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
           </div>
         </div>
@@ -163,7 +164,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
                 onChange={(e) =>
                   handleInputChange("yearsExperience", e.target.value)
                 }
-                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {yearsOptions.map((year) => (
                   <option key={year} value={year}>
                     {year}
@@ -189,7 +190,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
                 onChange={(e) =>
                   handleInputChange("subjectsExpertise", e.target.value)
                 }
-                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {subjectOptions.map((subject) => (
                   <option key={subject} value={subject}>
                     {subject}
@@ -218,7 +219,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
               id="location"
               value={formData.location}
               onChange={(e) => handleInputChange("location", e.target.value)}
-              className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+              className="block w-full appearance-none pl-10 pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
               {locationOptions.map((location) => (
                 <option key={location} value={location}>
                   {location}
@@ -244,7 +245,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
                 id="bank"
                 value={formData.bank}
                 onChange={(e) => handleInputChange("bank", e.target.value)}
-                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent">
+                className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {bankOptions.map((bank) => (
                   <option key={bank} value={bank}>
                     {bank}
@@ -271,7 +272,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
                 onChange={(e) =>
                   handleInputChange("accountNumber", e.target.value)
                 }
-                className="block w-full pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="block w-full pr-10 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
               />
               {isAccountVerified && (
                 <div className="absolute inset-y-0 right-0 pr-3 flex items-center">
@@ -300,7 +301,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
               type={showPassword ? "text" : "password"}
               value={showPassword ? "password123" : formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -343,7 +344,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
               onChange={(e) =>
                 handleInputChange("confirmPassword", e.target.value)
               }
-              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+              className="block w-full pl-10 pr-12 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent"
             />
             <button
               type="button"
@@ -370,7 +371,7 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-gradient-to-r from-purple-600 to-purple-700 text-white font-medium py-3 px-4 rounded-lg hover:from-purple-700 hover:to-purple-800 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 transition-all duration-200 mt-6">
+          className="w-full bg-gradient-to-r from-[#192BC2] to-[#192BC2] text-white font-medium py-3 px-4 rounded-lg hover:from-[#192BC2] hover:to-[#192BC2] focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 transition-all duration-200 mt-6">
           Create Account
         </button>
 
@@ -379,15 +380,15 @@ function RegistrationForm ({ onSubmit }:RegistrationFormProps) {
           <span className="text-gray-600 text-sm">
             Already have an account?{" "}
           </span>
-          <button
-            type="button"
-            className="text-purple-600 hover:text-purple-700 font-medium text-sm focus:outline-none focus:underline">
+          <Link
+            href="/login"
+            className="text-[#192BC2] hover:text-[#192BC2] font-medium text-sm focus:outline-none focus:underline">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </div>
   );
-};
+}
 
-export default RegistrationForm;
+export default TutorRegistrationForm;

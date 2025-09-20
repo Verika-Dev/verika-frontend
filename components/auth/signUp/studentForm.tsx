@@ -1,5 +1,6 @@
 "use client";
 import React, { useState } from "react";
+import Link from "next/link";
 import {
   Eye,
   EyeOff,
@@ -412,11 +413,11 @@ function StudentRegistrationForm({ onSubmit }: StudentRegistrationFormProps) {
           <span className="text-gray-600 text-sm">
             Already have an account?{" "}
           </span>
-          <button
-            type="button"
+          <Link
+            href="/login"
             className="text-[#192BC2] hover:text-[#192BC2] font-medium text-sm focus:outline-none focus:underline">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </div>

@@ -1,17 +1,27 @@
 "use client";
-import React, { useState, ChangeEvent, FormEvent } from "react";
-import { Eye, EyeOff } from "lucide-react";
+import React, { useState } from "react";
 
-type UserRole = "Student" | "Tutor" | "Institution";
-function UserRoleTab() {
+export type UserRole = "Student" | "Tutor" | "Institution";
+
+interface UserRoleTabProps {
+  onChange: (role: UserRole) => void;
+}
+
+function UserRoleTab({ onChange }: UserRoleTabProps) {
   const [activeTab, setActiveTab] = useState<UserRole>("Student");
+
+  const handleTabClick = (tab: UserRole) => {
+    setActiveTab(tab);
+    onChange(tab); // notify parent
+  };
+
   return (
-    <div className="flex gap-2 w-full  mb-6 rounded-lg p-1">
+    <div className="flex gap-2 px-6 md:px-0 w-full mb-6 rounded-lg p-1">
       {(["Student", "Tutor", "Institution"] as UserRole[]).map((tab) => (
         <button
           key={tab}
           type="button"
-          onClick={() => setActiveTab(tab)}
+          onClick={() => handleTabClick(tab)}
           className={`flex-1 py-2 px-3 cursor-pointer text-sm font-medium rounded-md transition-all duration-200 ${
             activeTab === tab
               ? "bg-[#192BC2] text-white shadow-sm"
