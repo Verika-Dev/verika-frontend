@@ -371,7 +371,7 @@ function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
         <button
           type="button"
           onClick={handleSubmit}
-          className="w-full bg-gradient-to-r from-[#192BC2] to-[#192BC2] text-white font-medium py-3 px-4 rounded-lg hover:from-[#192BC2] hover:to-[#192BC2] focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 transition-all duration-200 mt-6">
+          className="w-full bg-gradient-to-r from-[#192BC2] to-[#192BC2] text-white font-medium py-3 px-4 rounded-lg hover:from-[#192BC2] hover:to-[#192BC2] focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 transition-all duration-200 mt-6 cursor-pointer">
           Create Account
         </button>
 
