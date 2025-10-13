@@ -1,6 +1,10 @@
 "use client";
 import React from "react";
 import { BookOpen } from "lucide-react";
+import book from "@/public/images/Book.svg";
+import Image from "next/image";
+import bg from "@/public/images/coursesBg.png";
+// import book from "@/public/images/Book.svg"
 
 export default function AvailableCourses() {
   const courses = [
@@ -58,21 +62,27 @@ export default function AvailableCourses() {
               key={index}
               className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
               {/* Book Icon Section */}
-              <div
-                className={`h-40 bg-gradient-to-br ${course.color} flex items-center justify-center p-6`}>
-                <div className="relative">
-                  <div className="w-24 h-28 bg-white rounded-lg shadow-lg relative overflow-hidden">
-                    {/* Book pages effect */}
-                    <div className="absolute inset-0 flex">
-                      <div className="w-1/2 border-r-2 border-gray-200"></div>
-                      <div className="w-1/2"></div>
-                    </div>
-                    {/* Book binding */}
-                    <div className="absolute left-1/2 top-0 bottom-0 w-1 bg-gradient-to-b from-purple-600 to-blue-600 transform -translate-x-1/2"></div>
-                  </div>
-                  {/* Bookmark */}
-                  <div className="absolute top-0 right-2 w-4 h-8 bg-gradient-to-b from-pink-500 to-red-500 rounded-b-sm shadow-md"></div>
-                </div>
+              <div className="h-40 flex relative items-center justify-center p-6 overflow-hidden rounded-t-2xl">
+                {/* Background image */}
+                <Image
+                  src={bg}
+                  alt="background"
+                  fill
+                  priority
+                  className="object-cover absolute inset-0 z-0"
+                />
+
+                {/* Gradient overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#FF9E58] to-[#FF9E58]/96 z-10" />
+
+                {/* Book image (in front) */}
+                <Image
+                  src={book}
+                  alt="Book"
+                  width={100}
+                  height={100}
+                  className="relative z-20 object-contain"
+                />
               </div>
 
               {/* Content Section */}
@@ -99,7 +109,7 @@ export default function AvailableCourses() {
                 <p className="text-gray-500 text-xs mb-4">{course.students}</p>
 
                 {/* Explore Button */}
-                <button className="w-full py-2.5 text-purple-600 font-semibold text-sm hover:text-purple-700 transition-colors border-2 border-purple-600 rounded-lg hover:bg-purple-50">
+                <button className="w-full py-2.5 text-[#1E40AF] font-semibold text-base transition-colors cursor-pointer rounded-lg bg-[#EAF2FF]">
                   Explore Courses
                 </button>
               </div>
@@ -109,7 +119,7 @@ export default function AvailableCourses() {
 
         {/* Explore More Button */}
         <div className="text-center">
-          <button className="px-8 py-3 bg-purple-600 hover:bg-purple-700 text-white font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+          <button className="px-8 py-3 bg-[#0A5DEC] text-white cursor-pointer font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
             Explore More Courses
           </button>
         </div>
