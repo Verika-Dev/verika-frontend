@@ -4,9 +4,9 @@ import { useState } from "react";
 import InstitutionRegistrationForm from "@/components/auth/signUp/instituteForm";
 import StudentRegistrationForm from "@/components/auth/signUp/studentForm";
 import TutorRegistrationForm from "@/components/auth/signUp/tutorForm";
-import AuthAsideBg from "@/components/ui/common/authAsideBg";
-import DynamicHeader from "@/components/ui/common/dynamicHeader";
-import UserRoleTab, { UserRole } from "@/components/ui/common/userRole";
+import AuthAsideBg from "@/components/common/authAsideBg";
+import DynamicHeader from "@/components/common/dynamicHeader";
+import UserRoleTab, { UserRole } from "@/components/common/userRole";
 
 export default function SignUpPage() {
   const [selectedRole, setSelectedRole] = useState<UserRole>("Student");

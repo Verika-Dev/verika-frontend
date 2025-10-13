@@ -2,9 +2,9 @@
 
 import { useState } from "react";
 import LoginForm from "@/components/auth/login/LoginForm";
-import AuthAsideBg from "@/components/ui/common/authAsideBg";
-import DynamicHeader from "@/components/ui/common/dynamicHeader";
-import UserRoleTab, { UserRole } from "@/components/ui/common/userRole";
+import AuthAsideBg from "@/components/common/authAsideBg";
+import DynamicHeader from "@/components/common/dynamicHeader";
+import UserRoleTab, { UserRole } from "@/components/common/userRole";
 
 export default function LoginPage() {
   const [selectedRole, setSelectedRole] = useState<UserRole>("Student");
