@@ -1,9 +1,10 @@
 "use client";
 import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
 
 export default function FAQ() {
-  const [openIndex, setOpenIndex] = useState(0);
+  const [openIndex, setOpenIndex] = useState<number | null>(0);
 
   const faqs = [
     {
@@ -29,7 +30,7 @@ export default function FAQ() {
     {
       question: "What payment options do you offer?",
       answer:
-        "We accept multiple payment methods including debit/credit cards, bank transfers, mobile money, and USSD. We also offer flexible subscription plans - monthly, quarterly, and annual - to suit different budgets.",
+        "We accept multiple payment methods including debit/credit cards, bank transfers, mobile money, and USSD. We also offer flexible subscription plans — monthly, quarterly, and annual — to suit different budgets.",
     },
     {
       question: "Is the content regularly updated for exams?",
@@ -39,52 +40,74 @@ export default function FAQ() {
   ];
 
   const toggleFAQ = (index: number) => {
-    setOpenIndex(openIndex === index ? index : index);
+    setOpenIndex(openIndex === index ? null : index);
+  };
+
+  // Framer Motion variants for smooth scroll animation
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: { opacity: 1, y: 0 },
   };
 
   return (
-    <section className="bg-gray-50 py-12 px-4 sm:px-6 lg:px-16">
+    <section className="bg-gray-50 py-16 px-5 sm:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
-        <div className="grid lg:grid-cols-2 gap-8 lg:gap-12">
+        <motion.div
+          className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start"
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.2 }}
+          transition={{ staggerChildren: 0.15 }}>
           {/* Left Column - Title and Description */}
-          <div className="lg:pr-8">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-              Frequently Asked
-              <span className="inline-block bg-cyan-400 text-white px-2 ml-1">
+          <motion.div
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: "easeOut" }}
+            className="lg:pr-8 text-center lg:text-left">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+              Frequently Asked{" "}
+              <span className="inline-block bg-cyan-400 text-white px-2 rounded-md">
                 Questions
               </span>
             </h2>
-            <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              Get answers to common questions about Prypar's features and
+            <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
+              Get answers to common questions about Prypar’s features and
               services.
             </p>
-          </div>
+          </motion.div>
 
           {/* Right Column - FAQ Accordion */}
-          <div className="space-y-4">
+          <motion.div
+            className="space-y-4 w-full"
+            variants={fadeInUp}
+            transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}>
             {faqs.map((faq, index) => (
-              <div
+              <motion.div
                 key={index}
-                className="bg-white rounded-lg border border-gray-200 overflow-hidden transition-shadow hover:shadow-md">
+                variants={fadeInUp}
+                transition={{
+                  duration: 0.5,
+                  ease: "easeOut",
+                  delay: index * 0.1,
+                }}
+                viewport={{ once: true, amount: 0.1 }}
+                whileInView="visible"
+                initial="hidden"
+                className="bg-white rounded-lg border border-gray-200 overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                 <button
                   onClick={() => toggleFAQ(index)}
-                  className="w-full flex items-start justify-between p-4 sm:p-5 text-left focus:outline-none focus:ring-2 focus:ring-cyan-400 focus:ring-inset"
+                  className="w-full flex justify-between items-center text-left p-5 sm:p-6 focus:outline-none  focus:ring-offset-2"
                   aria-expanded={openIndex === index}>
-                  <span className="flex items-start gap-2 flex-1 pr-4">
-                    <span className="text-gray-400 mt-0.5 flex-shrink-0">
-                      •
-                    </span>
-                    <span className="font-medium text-gray-900 text-sm sm:text-base">
+                  <span className="flex items-start gap-3 flex-1 pr-4">
+                    {/* <span className="text-cyan-500 mt-1">•</span> */}
+                    <span className="font-medium text-gray-900 text-sm sm:text-base leading-snug">
                       {faq.question}
                     </span>
                   </span>
-                  <span className="flex-shrink-0 text-gray-400">
-                    {openIndex === index ? (
-                      <ChevronUp className="w-5 h-5" />
-                    ) : (
-                      <ChevronDown className="w-5 h-5" />
-                    )}
-                  </span>
+                  {openIndex === index ? (
+                    <ChevronUp className="w-5 h-5 text-cyan-500 flex-shrink-0" />
+                  ) : (
+                    <ChevronDown className="w-5 h-5 text-gray-400 flex-shrink-0" />
+                  )}
                 </button>
 
                 <div
@@ -93,16 +116,14 @@ export default function FAQ() {
                       ? "max-h-96 opacity-100"
                       : "max-h-0 opacity-0"
                   } overflow-hidden`}>
-                  <div className="px-4 sm:px-5 pb-4 sm:pb-5 pt-0">
-                    <p className="text-gray-600 text-sm sm:text-base leading-relaxed pl-5">
-                      {faq.answer}
-                    </p>
+                  <div className="px-5 sm:px-6 pb-5 text-gray-600 text-sm sm:text-base leading-relaxed">
+                    {faq.answer}
                   </div>
                 </div>
-              </div>
+              </motion.div>
             ))}
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
     </section>
   );
