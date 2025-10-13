@@ -7,7 +7,6 @@ import student2 from "@/public/images/pryparStudent1.svg";
 import student3 from "@/public/images/pryparStudent2.svg";
 import Image from "next/image";
 
-
 export default function HeroSection() {
   const [scrollOffset, setScrollOffset] = useState(0);
 
