@@ -55,7 +55,7 @@ export default function AvailableCourses() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
-          variants={fadeUp}
+          // variants={fadeUp}
           className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
             Available
@@ -75,7 +75,7 @@ export default function AvailableCourses() {
             <motion.div
               key={index}
               custom={index}
-              variants={fadeUp}
+              // variants={fadeUp}
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true, amount: 0.2 }}
@@ -141,7 +141,7 @@ export default function AvailableCourses() {
           viewport={{ once: true }}
           transition={{ duration: 0.6, ease: "easeOut" }}
           className="text-center">
-          <button className="px-8 py-3 bg-[#0A5DEC] text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-[#094cd6] transition-all duration-200">
+          <button className="px-8 py-3 bg-[#0A5DEC] cursor-pointer text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-[#094cd6] transition-all duration-200">
             Explore More Courses
           </button>
         </motion.div>
