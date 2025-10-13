@@ -1,24 +1,28 @@
 "use client";
-import React, { useState } from 'react';
-import { Home, Phone, Mail } from 'lucide-react';
+import React, { useState } from "react";
+import { Home, Phone, Mail } from "lucide-react";
+import home from "@/public/icons/Home.svg";
+import phone from "@/public/icons/Calling.svg";
+import mail from "@/public/icons/gmail.svg";
+import Image from "next/image";
 
 export default function ContactSection() {
   const [formData, setFormData] = useState({
-    fullName: '',
-    email: '',
-    message: ''
+    fullName: "",
+    email: "",
+    message: "",
   });
 
-  const handleChange = (e) => {
+  const handleChange = (e: { target: { name: any; value: any } }) => {
     setFormData({
       ...formData,
-      [e.target.name]: e.target.value
+      [e.target.name]: e.target.value,
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = (e: { preventDefault: () => void }) => {
     e.preventDefault();
-    console.log('Form submitted:', formData);
+    console.log("Form submitted:", formData);
     // Add your form submission logic here
   };
 
@@ -37,7 +41,9 @@ export default function ContactSection() {
           {/* Left Side - Contact Info */}
           <div>
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
-              <span className="inline-block bg-cyan-400 text-white px-2">Contact</span>
+              <span className="inline-block bg-cyan-400 text-white px-2">
+                Contact
+              </span>
               <span className="ml-1">us</span>
             </h2>
             <p className="text-gray-600 text-sm sm:text-base italic mb-12">
@@ -48,8 +54,12 @@ export default function ContactSection() {
             <div className="space-y-6">
               {/* Location */}
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Home className="w-6 h-6 text-purple-600" />
+                <div className="flex-shrink-0 w-12 h-12 rounded-lg flex items-center justify-center">
+                  <Image
+                    src={home}
+                    alt="home"
+                    className="w-6 h-6 text-[#0A5DEC]"
+                  />
                 </div>
                 <div className="flex-1 pt-2">
                   <p className="text-gray-800 font-medium">Lagos, Nigeria</p>
@@ -58,15 +68,19 @@ export default function ContactSection() {
 
               {/* Phone Numbers */}
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Phone className="w-6 h-6 text-purple-600" />
+                <div className="flex-shrink-0 w-12 h-12  rounded-lg flex items-center justify-center">
+                  <Image src={phone} alt="" className="w-6 h-6 " />
                 </div>
                 <div className="flex-1 pt-2">
                   <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-4">
-                    <a href="tel:+2348008PRYPAR" className="text-gray-800 font-medium hover:text-purple-600 transition-colors">
+                    <a
+                      href="tel:+2348008PRYPAR"
+                      className="text-gray-800 font-medium hover:text-[#0A5DEC] transition-colors">
                       +234 (0) 800 PRYPAR
                     </a>
-                    <a href="tel:+2348008PRYPAR" className="text-gray-800 font-medium hover:text-purple-600 transition-colors">
+                    <a
+                      href="tel:+2348008PRYPAR"
+                      className="text-gray-800 font-medium hover:text-[#0A5DEC] transition-colors">
                       +234 (0) 800 PRYPAR
                     </a>
                   </div>
@@ -75,14 +89,13 @@ export default function ContactSection() {
 
               {/* Email */}
               <div className="flex items-start gap-4">
-                <div className="flex-shrink-0 w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center">
-                  <Mail className="w-6 h-6 text-purple-600" />
+                <div className="flex-shrink-0 w-12 h-12  rounded-lg flex items-center justify-center">
+                  <Image src={mail} alt="mail" className="w-6 h-6" />
                 </div>
                 <div className="flex-1 pt-2">
-                  <a 
-                    href="mailto:support@prypar.com" 
-                    className="text-gray-800 font-medium hover:text-purple-600 transition-colors"
-                  >
+                  <a
+                    href="mailto:support@prypar.com"
+                    className="text-gray-800 font-medium hover:text-[#0A5DEC] transition-colors">
                     support@prypar.com
                   </a>
                 </div>
@@ -102,7 +115,9 @@ export default function ContactSection() {
             <div onSubmit={handleSubmit}>
               {/* Full Name */}
               <div className="mb-4">
-                <label htmlFor="fullName" className="block text-gray-700 text-sm font-medium mb-2">
+                <label
+                  htmlFor="fullName"
+                  className="block text-gray-700 text-sm font-medium mb-2">
                   Full name
                 </label>
                 <input
@@ -112,14 +127,16 @@ export default function ContactSection() {
                   value={formData.fullName}
                   onChange={handleChange}
                   placeholder="Enter your name here"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
                   required
                 />
               </div>
 
               {/* Email Address */}
               <div className="mb-4">
-                <label htmlFor="email" className="block text-gray-700 text-sm font-medium mb-2">
+                <label
+                  htmlFor="email"
+                  className="block text-gray-700 text-sm font-medium mb-2">
                   Email address
                 </label>
                 <input
@@ -129,14 +146,16 @@ export default function ContactSection() {
                   value={formData.email}
                   onChange={handleChange}
                   placeholder="Enter email address here"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] focus:border-transparent transition-all text-gray-900 placeholder-gray-400"
                   required
                 />
               </div>
 
               {/* Your Message */}
               <div className="mb-6">
-                <label htmlFor="message" className="block text-gray-700 text-sm font-medium mb-2">
+                <label
+                  htmlFor="message"
+                  className="block text-gray-700 text-sm font-medium mb-2">
                   Your message
                 </label>
                 <textarea
@@ -145,18 +164,16 @@ export default function ContactSection() {
                   value={formData.message}
                   onChange={handleChange}
                   placeholder="Enter message here"
-                  rows="5"
-                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-all text-gray-900 placeholder-gray-400 resize-none"
-                  required
-                ></textarea>
+                  // rows="5"
+                  className="w-full px-4 py-3 bg-gray-50 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] focus:border-transparent transition-all text-gray-900 placeholder-gray-400 resize-none"
+                  required></textarea>
               </div>
 
               {/* Submit Button */}
               <button
                 type="submit"
                 onClick={handleSubmit}
-                className="w-full py-4 bg-purple-600 hover:bg-purple-700 text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02]"
-              >
+                className="w-full py-4 bg-[#0A5DEC] cursor-pointer text-white font-bold rounded-lg transition-all duration-200 shadow-md hover:shadow-lg transform hover:scale-[1.02]">
                 Send Message Now
               </button>
             </div>

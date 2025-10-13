@@ -7,7 +7,7 @@ export default function PricingPage() {
   return (
     <div>
       <Navbar />
-      <PricingSection />
+      {/* <PricingSection /> */}
       <FAQ />
       <Footer />
     </div>
