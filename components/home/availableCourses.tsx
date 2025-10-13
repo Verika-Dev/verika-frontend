@@ -1,10 +1,10 @@
 "use client";
+
 import React from "react";
-import { BookOpen } from "lucide-react";
-import book from "@/public/images/Book.svg";
+import { motion } from "framer-motion";
 import Image from "next/image";
+import book from "@/public/images/Book.svg";
 import bg from "@/public/images/coursesBg.png";
-// import book from "@/public/images/Book.svg"
 
 export default function AvailableCourses() {
   const courses = [
@@ -32,20 +32,34 @@ export default function AvailableCourses() {
     {
       title: "SSS",
       description: "Senior Secondary School with specialized tracks.",
-      subjects: ["Commercial track", "Science Track"],
-      students: "Arts Track    +2 mins",
+      subjects: ["Commercial track", "Science Track", "Arts Track"],
+      students: "+2 mins",
       color: "from-orange-300 to-orange-400",
     },
   ];
+
+  const fadeUp = {
+    hidden: { opacity: 0, y: 40 },
+    visible: (i: number) => ({
+      opacity: 1,
+      y: 0,
+      transition: { delay: i * 0.2, duration: 0.6, ease: "easeOut" },
+    }),
+  };
 
   return (
     <section className="bg-gray-50 py-12 sm:py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
-        <div className="text-center mb-8 sm:mb-12">
+        <motion.div
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: true, amount: 0.3 }}
+          variants={fadeUp}
+          className="text-center mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
             Available
-            <span className="inline-block bg-cyan-400 text-white px-2 ml-1">
+            <span className="inline-block bg-cyan-400 text-white px-2 ml-1 rounded-md">
               Courses
             </span>
           </h2>
@@ -53,17 +67,22 @@ export default function AvailableCourses() {
             Comprehensive learning paths designed for every stage of your
             educational journey.
           </p>
-        </div>
+        </motion.div>
 
         {/* Course Cards Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-10">
           {courses.map((course, index) => (
-            <div
+            <motion.div
               key={index}
-              className="bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
-              {/* Book Icon Section */}
-              <div className="h-40 flex relative items-center justify-center p-6 overflow-hidden rounded-t-2xl">
-                {/* Background image */}
+              custom={index}
+              variants={fadeUp}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true, amount: 0.2 }}
+              className="flex flex-col bg-white rounded-2xl overflow-hidden shadow-md hover:shadow-xl transition-shadow duration-300">
+              {/* Top Section with Image */}
+              <div className="h-40 relative flex items-center justify-center overflow-hidden rounded-t-2xl">
+                {/* Background Image */}
                 <Image
                   src={bg}
                   alt="background"
@@ -71,11 +90,9 @@ export default function AvailableCourses() {
                   priority
                   className="object-cover absolute inset-0 z-0"
                 />
-
-                {/* Gradient overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-[#FF9E58] to-[#FF9E58]/96 z-10" />
-
-                {/* Book image (in front) */}
+                {/* Overlay */}
+                <div className="absolute inset-0 bg-gradient-to-t from-[#FF9E58] to-[#FF9E58]/95 z-10" />
+                {/* Book Image */}
                 <Image
                   src={book}
                   alt="Book"
@@ -86,7 +103,7 @@ export default function AvailableCourses() {
               </div>
 
               {/* Content Section */}
-              <div className="p-5">
+              <div className="flex flex-col flex-grow p-5">
                 <h3 className="text-xl font-bold text-gray-900 mb-2">
                   {course.title}
                 </h3>
@@ -94,7 +111,7 @@ export default function AvailableCourses() {
                   {course.description}
                 </p>
 
-                {/* Subjects Tags */}
+                {/* Subjects */}
                 <div className="flex flex-wrap gap-2 mb-3">
                   {course.subjects.map((subject, idx) => (
                     <span
@@ -105,24 +122,29 @@ export default function AvailableCourses() {
                   ))}
                 </div>
 
-                {/* Students Count */}
+                {/* Students */}
                 <p className="text-gray-500 text-xs mb-4">{course.students}</p>
 
                 {/* Explore Button */}
-                <button className="w-full py-2.5 text-[#1E40AF] font-semibold text-base transition-colors cursor-pointer rounded-lg bg-[#EAF2FF]">
+                <button className="mt-auto w-full py-2.5 cursor-pointer bg-[#EAF2FF] text-[#1E40AF] font-semibold text-base rounded-lg hover:bg-[#D9E8FF] transition-colors">
                   Explore Courses
                 </button>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
         {/* Explore More Button */}
-        <div className="text-center">
-          <button className="px-8 py-3 bg-[#0A5DEC] text-white cursor-pointer font-semibold rounded-lg transition-colors duration-200 shadow-lg hover:shadow-xl">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.6, ease: "easeOut" }}
+          className="text-center">
+          <button className="px-8 py-3 bg-[#0A5DEC] text-white font-semibold rounded-lg shadow-md hover:shadow-lg hover:bg-[#094cd6] transition-all duration-200">
             Explore More Courses
           </button>
-        </div>
+        </motion.div>
       </div>
     </section>
   );
