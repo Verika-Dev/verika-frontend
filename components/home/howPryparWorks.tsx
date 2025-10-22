@@ -50,17 +50,23 @@ export default function HowPryparWorks() {
     <section className="bg-gradient-to-b from-white to-gray-50 py-12 sm:py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Trusted By Section */}
-        <div className="text-center mb-12">
-          <p className="text-gray-500 text-sm mb-4">We Are Trusted By</p>
-          <div className="flex flex-wrap items-center justify-center gap-6 sm:gap-8 lg:gap-12">
+        <div className="text-center mb-12 px-4">
+          <p className="text-gray-500 text-sm sm:text-base mb-4">
+            We Are Trusted By
+          </p>
+
+          <div className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
             {trustedLogos.map((logo, index) => (
-              <div key={index} className="flex items-center justify-center">
+              <div
+                key={index}
+                className="flex items-center justify-center flex-shrink-0">
                 <Image
                   src={logo}
                   alt="logo brand"
-                  height={20}
-                  width={120}
-                  className="object-contain opacity-80 hover:opacity-100 transition"
+                  height={40}
+                  width={140}
+                  className="object-contain opacity-80 hover:opacity-100 transition
+                     w-20 sm:w-24 md:w-28 lg:w-32 xl:w-36 h-auto"
                 />
               </div>
             ))}
