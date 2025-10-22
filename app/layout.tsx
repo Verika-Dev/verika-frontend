@@ -8,10 +8,10 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  title: "Verika",
+  title: "Prypar",
   description: "",
   icons: {
-    icon: "/verikaLogo.svg",
+    icon: "/pryparLogo.svg",
   },
 };
 

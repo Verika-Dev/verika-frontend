@@ -26,7 +26,7 @@ export default function Navbar() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
-          <div className="flex-shrink-0">
+          <div className="flex-shrink-0  cursor-pointer">
             <Image
               src={pryparLogo}
               alt="Prypar Logo"
@@ -63,7 +63,7 @@ export default function Navbar() {
           {/* Get Started Button - Desktop */}
           <div className="hidden md:block">
             <Link
-              href="/get-started"
+              href="/signUp"
               className="px-6 py-2.5 bg-[#0A5DEC] hover:bg-[#0A5DEC]/90 text-white font-semibold rounded-lg transition-colors duration-200 text-base">
               Get Started
             </Link>
@@ -117,7 +117,7 @@ export default function Navbar() {
           })}
 
           <Link
-            href="/get-started"
+            href="/signUp"
             className="block w-full px-4 py-3 mt-3 bg-[#0A5DEC] text-white font-semibold rounded-lg transition-colors duration-200 text-base text-center"
             onClick={() => setIsMenuOpen(false)}>
             Get Started
