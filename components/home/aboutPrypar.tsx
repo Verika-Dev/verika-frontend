@@ -4,10 +4,7 @@ import Image from "next/image";
 import target from "@/public/icons/aboutUsmission.svg"
 import vision from "@/public/icons/aboutUsVision.svg"
 import solution from "@/public/icons/aboutUsSolution.svg"
-import gamification from "@/public/icons/gamification.svg";
-import mentorship from "@/public/icons/mentorship.svg";
-import access from "@/public/icons/access.svg";
-import ai from "@/public/icons/aiInsight.svg";
+
 
 export default function AboutPrypar() {
   return (
