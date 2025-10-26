@@ -1,5 +1,13 @@
 import React from "react";
 import { Target, Lightbulb, Award } from "lucide-react";
+import Image from "next/image";
+import target from "@/public/icons/aboutUsmission.svg"
+import vision from "@/public/icons/aboutUsVision.svg"
+import solution from "@/public/icons/aboutUsSolution.svg"
+import gamification from "@/public/icons/gamification.svg";
+import mentorship from "@/public/icons/mentorship.svg";
+import access from "@/public/icons/access.svg";
+import ai from "@/public/icons/aiInsight.svg";
 
 export default function AboutPrypar() {
   return (
@@ -28,8 +36,8 @@ export default function AboutPrypar() {
         <div className="grid md:grid-cols-2 gap-6 mb-6">
           {/* Our Mission Card */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-pink-400 to-red-500 rounded-xl flex items-center justify-center mb-4 shadow-md">
-              <Target className="w-7 h-7 text-white" />
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 shadow-md">
+              <Image src={target} alt="" className="object-cover text-white" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Our Mission
@@ -43,8 +51,8 @@ export default function AboutPrypar() {
 
           {/* Our Vision Card */}
           <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-            <div className="w-14 h-14 bg-gradient-to-br from-yellow-400 to-orange-500 rounded-xl flex items-center justify-center mb-4 shadow-md">
-              <Award className="w-7 h-7 text-white" />
+            <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 shadow-md">
+              <Image src={vision} alt="" className="object-cover text-white" />
             </div>
             <h3 className="text-2xl font-bold text-gray-900 mb-3">
               Our Vision
@@ -58,8 +66,8 @@ export default function AboutPrypar() {
 
         {/* Problem We Solve Card - Full Width */}
         <div className="bg-white rounded-2xl p-8 shadow-lg hover:shadow-xl transition-shadow duration-300">
-          <div className="w-14 h-14 bg-gradient-to-br from-purple-400 to-pink-500 rounded-xl flex items-center justify-center mb-4 shadow-md">
-            <Lightbulb className="w-7 h-7 text-white" />
+          <div className="w-14 h-14 rounded-xl flex items-center justify-center mb-4 shadow-md">
+            <Image src={solution} alt="" className=" object-cover text-white" />
           </div>
           <h3 className="text-2xl font-bold text-gray-900 mb-3">
             Problem We Solve
