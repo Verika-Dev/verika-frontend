@@ -6,15 +6,16 @@ import {
   Eye,
   Edit2,
   TrendingUp,
-  TrendingDown,
   Users,
   DollarSign,
   UserCheck,
+  X,
 } from "lucide-react";
 
 const OrganizationManagement = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [filterType, setFilterType] = useState("All Types");
+  const [showModal, setShowModal] = useState(false);
 
   const stats = [
     {
@@ -72,54 +73,6 @@ const OrganizationManagement = () => {
       plan: "Standard",
       planColor: "text-blue-600 bg-blue-50",
     },
-    {
-      id: 3,
-      name: "Hope Foundation NGO",
-      enrolled: "2023-08-11",
-      type: "NGO",
-      contact: "Fatima Yusuf",
-      email: "info@hopefoundation.org",
-      students: 450,
-      revenue: "₦155,000",
-      plan: "Enterprise",
-      planColor: "text-green-600 bg-green-50",
-    },
-    {
-      id: 4,
-      name: "Lagos State College",
-      enrolled: "2021-04-18",
-      type: "University",
-      contact: "Mrs. Aduni Ogundimu",
-      email: "admin@lagosstatecollege.edu.ng",
-      students: 450,
-      revenue: "₦155,000",
-      plan: "Basic",
-      planColor: "text-gray-600 bg-gray-50",
-    },
-    {
-      id: 5,
-      name: "Lagos State College",
-      enrolled: "2023-04-16",
-      type: "NGO",
-      contact: "Mrs. Aduni Ogundimu",
-      email: "admin@lagosstatecollege.edu.ng",
-      students: 450,
-      revenue: "₦155,000",
-      plan: "Enterprise",
-      planColor: "text-green-600 bg-green-50",
-    },
-    {
-      id: 6,
-      name: "Lagos State College",
-      enrolled: "2023-04-16",
-      type: "Private School",
-      contact: "Mrs. Aduni Ogundimu",
-      email: "admin@lagosstatecollege.edu.ng",
-      students: 450,
-      revenue: "₦155,000",
-      plan: "Enterprise",
-      planColor: "text-green-600 bg-green-50",
-    },
   ];
 
   const filteredOrgs = organizations.filter((org) => {
@@ -131,8 +84,14 @@ const OrganizationManagement = () => {
     return matchesSearch && matchesType;
   });
 
+  const handleAddOrganization = (e: React.FormEvent) => {
+    e.preventDefault();
+    // Add submit logic here (e.g. send to API)
+    setShowModal(false);
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50 p-6">
+    <div className="min-h-screen bg-gray-50 p-6 relative">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <div className="flex justify-between items-center mb-6">
@@ -144,8 +103,10 @@ const OrganizationManagement = () => {
               Manage institutional partnerships and group accounts
             </p>
           </div>
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
-            Add Organization
+          <button
+            onClick={() => setShowModal(true)}
+            className="bg-[#1E40AF] text-white px-4 py-2 rounded-lg font-medium transition-colors hover:bg-[#1E3A8A]">
+            Add Institution
           </button>
         </div>
 
@@ -170,15 +131,19 @@ const OrganizationManagement = () => {
           ))}
         </div>
 
-        {/* Organization Directory */}
+        {/* Directory Table */}
         <div className="bg-white rounded-lg shadow-sm border border-gray-100">
-          <div className="p-5 border-b border-gray-100">
+          <div className="p-5 border-b border-gray-100 flex justify-between items-center">
             <h2 className="text-lg font-semibold text-gray-900">
               Organization Directory
             </h2>
+            <button className="flex items-center gap-2 px-3 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition">
+              <Download size={18} />
+              Export
+            </button>
           </div>
 
-          {/* Search and Filter */}
+          {/* Search */}
           <div className="p-5 border-b border-gray-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
             <div className="relative flex-1 max-w-md">
               <Search
@@ -190,25 +155,19 @@ const OrganizationManagement = () => {
                 placeholder="Search organization..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent"
+                className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
               />
             </div>
-            <div className="flex gap-3">
-              <select
-                value={filterType}
-                onChange={(e) => setFilterType(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
-                <option>All Types</option>
-                <option>Government School</option>
-                <option>Private School</option>
-                <option>NGO</option>
-                <option>University</option>
-              </select>
-              <button className="flex items-center gap-2 px-4 py-2 border border-gray-200 rounded-lg hover:bg-gray-50 transition-colors">
-                <Download size={18} />
-                Export
-              </button>
-            </div>
+            <select
+              value={filterType}
+              onChange={(e) => setFilterType(e.target.value)}
+              className="px-4 py-2 border border-gray-200 rounded-lg focus:ring-2 focus:ring-blue-500 bg-white">
+              <option>All Types</option>
+              <option>Government School</option>
+              <option>Private School</option>
+              <option>NGO</option>
+              <option>University</option>
+            </select>
           </div>
 
           {/* Table */}
@@ -234,9 +193,6 @@ const OrganizationManagement = () => {
                   <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
                     Plan
                   </th>
-                  <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
-                    Actions
-                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-gray-100">
@@ -244,61 +200,26 @@ const OrganizationManagement = () => {
                   <tr
                     key={org.id}
                     className="hover:bg-gray-50 transition-colors">
-                    <td className="py-4 px-5">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-semibold">
-                          {org.name.charAt(0)}
-                        </div>
-                        <div>
-                          <p className="font-medium text-gray-900">
-                            {org.name}
-                          </p>
-                          <p className="text-xs text-gray-500">
-                            Enrolled: {org.enrolled}
-                          </p>
-                        </div>
-                      </div>
+                    <td className="py-4 px-5 font-medium text-gray-900">
+                      {org.name}
                     </td>
-                    <td className="py-4 px-5">
-                      <span className="text-sm text-gray-700">{org.type}</span>
+                    <td className="py-4 px-5 text-sm text-gray-700">
+                      {org.type}
                     </td>
-                    <td className="py-4 px-5">
-                      <div>
-                        <p className="text-sm font-medium text-gray-900">
-                          {org.contact}
-                        </p>
-                        <p className="text-xs text-gray-500">{org.email}</p>
-                      </div>
+                    <td className="py-4 px-5 text-sm text-gray-700">
+                      {org.contact}
                     </td>
-                    <td className="py-4 px-5">
-                      <span className="text-sm text-gray-900">
-                        {org.students}
-                      </span>
+                    <td className="py-4 px-5 text-sm text-gray-700">
+                      {org.students}
                     </td>
-                    <td className="py-4 px-5">
-                      <span className="text-sm font-medium text-gray-900">
-                        {org.revenue}
-                      </span>
+                    <td className="py-4 px-5 text-sm text-gray-700">
+                      {org.revenue}
                     </td>
                     <td className="py-4 px-5">
                       <span
                         className={`px-3 py-1 rounded-full text-xs font-medium ${org.planColor}`}>
                         {org.plan}
                       </span>
-                    </td>
-                    <td className="py-4 px-5">
-                      <div className="flex gap-2">
-                        <button
-                          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                          title="View">
-                          <Eye size={16} className="text-gray-500" />
-                        </button>
-                        <button
-                          className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
-                          title="Edit">
-                          <Edit2 size={16} className="text-gray-500" />
-                        </button>
-                      </div>
                     </td>
                   </tr>
                 ))}
@@ -307,6 +228,118 @@ const OrganizationManagement = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black/40 flex items-center justify-center z-50">
+          <div className="bg-white rounded-lg shadow-lg w-full max-w-lg p-6 relative">
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-4 right-4 cursor-pointer text-gray-500 hover:text-gray-800">
+              <X size={20} />
+            </button>
+
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              Add New Organization
+            </h2>
+
+            <form onSubmit={handleAddOrganization} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Organization Name
+                </label>
+                <input
+                  type="text"
+                  required
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  placeholder="Enter institution name"
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-medium text-gray-700 mb-1">
+                  Organization Type
+                </label>
+                <select
+                  className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                  required>
+                  <option value="">Select type</option>
+                  <option>Government School</option>
+                  <option>Private School</option>
+                  <option>University</option>
+                  <option>NGO</option>
+                </select>
+              </div>
+
+              <div className="grid grid-cols-2 md:grid-cols-1 gap-4">
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Contact Person
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter contact name"
+                  />
+                </div>
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Email
+                  </label>
+                  <input
+                    type="email"
+                    required
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Enter email address"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Expected Students
+                  </label>
+                  <input
+                    type="text"
+                    required
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    placeholder="Expected number of students"
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-sm font-medium text-gray-700 mb-1">
+                    Subscription Plan
+                  </label>
+                  <select
+                    className="w-full border border-gray-300 rounded-md px-3 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none"
+                    required>
+                    <option value="">Select type</option>
+                    <option>Government School</option>
+                    <option>Private School</option>
+                    <option>University</option>
+                    <option>NGO</option>
+                  </select>
+                </div>
+              </div>
+
+              <div className="flex justify-center gap-3 pt-3">
+                <button
+                  type="button"
+                  onClick={() => setShowModal(false)}
+                  className="px-4 py-2 border border-gray-300 w-1/2 cursor-pointer text-[#1E40AF] rounded-md bg-[#EAF2FF]">
+                  Cancel
+                </button>
+                <button
+                  type="submit"
+                  className="px-4 py-2 bg-[#1E40AF] text-white w-1/2 cursor-pointer rounded-md hover:bg-[#1E3A8A]">
+                  Register Organization
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
