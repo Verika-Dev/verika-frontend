@@ -49,7 +49,7 @@ const menuItems = [
     icon: Users,
     href: "/dashboard/admin/assignment",
   },
-  { id: "wallet", label: "Wallet", icon: Wallet, href: "/wallet" },
+  { id: "wallet", label: "Wallet", icon: Wallet, href: "/dashboard/admin/wallet" },
   {
     id: "community",
     label: "Community Moderation",
