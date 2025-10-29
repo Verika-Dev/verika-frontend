@@ -166,7 +166,7 @@ const CourseContentManagement = () => {
               Manage educational content, courses, and learning materials
             </p>
           </div>
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors">
+          <button className="bg-[#0A5DEC] cursor-pointer text-white px-4 py-2 rounded-lg font-medium transition-colors">
             Add New Course
           </button>
         </div>

@@ -139,6 +139,8 @@ const Dashboard = () => {
     <div className="min-h-screen bg-gray-50 p-6">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
+
+        {/* <AdminNav */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
           <p className="text-gray-500 text-sm mt-1">
@@ -178,7 +180,7 @@ const Dashboard = () => {
               <select
                 value={revenueView}
                 onChange={(e) => setRevenueView(e.target.value)}
-                className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
+                className="px-3 py-1.5 border border-gray-200 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] bg-white">
                 <option>Monthly</option>
                 <option>Weekly</option>
                 <option>Yearly</option>
@@ -305,7 +307,7 @@ const Dashboard = () => {
               <select
                 value={typeFilter}
                 onChange={(e) => setTypeFilter(e.target.value)}
-                className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white text-sm">
+                className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] bg-white text-sm">
                 <option>All Types</option>
                 <option>Course Sale</option>
                 <option>Live Class</option>

@@ -257,17 +257,23 @@ const TutorManagement = () => {
         {/* Header */}
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Tutor Management</h1>
-          <p className="text-gray-500 text-sm mt-1">Manage tutor applications, performance, and status</p>
+          <p className="text-gray-500 text-sm mt-1">
+            Manage tutor applications, performance, and status
+          </p>
         </div>
 
         {/* Stats Cards */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           {stats.map((stat, index) => (
-            <div key={index} className={`bg-white rounded-lg p-5 shadow-sm ${stat.borderColor}`}>
+            <div
+              key={index}
+              className={`bg-white rounded-lg p-5 shadow-sm ${stat.borderColor}`}>
               <div className="flex items-center justify-between">
                 <div className="flex-1">
                   <p className="text-gray-500 text-sm mb-1">{stat.label}</p>
-                  <p className="text-2xl font-bold text-gray-900">{stat.value}</p>
+                  <p className="text-2xl font-bold text-gray-900">
+                    {stat.value}
+                  </p>
                 </div>
                 <div className={`${stat.bgColor} ${stat.color} p-3 rounded-lg`}>
                   <stat.icon size={24} />
@@ -280,39 +286,36 @@ const TutorManagement = () => {
         {/* Tabs */}
         <div className="flex gap-2 mb-6">
           <button
-            onClick={() => setActiveTab('applications')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'applications'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
+            onClick={() => setActiveTab("applications")}
+            className={`px-4 py-2 flex items-center cursor-pointer rounded-lg font-medium transition-colors ${
+              activeTab === "applications"
+                ? "bg-[#C4CAFD] text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}>
             Applications
-            <span className="ml-2 bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+            <span className="ml-2 flex items-center justify-center bg-[#1E40AF] text-white px-2 py-0.5 rounded-full text-xs font-semibold">
               8
             </span>
           </button>
           <button
-            onClick={() => setActiveTab('active')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'active'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
+            onClick={() => setActiveTab("active")}
+            className={`px-4 py-2 flex items-center cursor-pointer rounded-lg font-medium transition-colors ${
+              activeTab === "active"
+                ? "bg-[#C4CAFD] text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}>
             Active Tutors
-            <span className="ml-2 bg-purple-100 text-purple-700 px-2 py-0.5 rounded-full text-xs font-semibold">
+            <span className="ml-2 bg-[#1E40AF] flex items-center justify-center text-white px-2 py-0.5 rounded-full text-xs font-semibold">
               8
             </span>
           </button>
           <button
-            onClick={() => setActiveTab('issues')}
-            className={`px-4 py-2 rounded-lg font-medium transition-colors ${
-              activeTab === 'issues'
-                ? 'bg-white text-gray-900 shadow-sm'
-                : 'text-gray-600 hover:text-gray-900'
-            }`}
-          >
+            onClick={() => setActiveTab("issues")}
+            className={`px-4 py-2 rounded-lg font-medium cursor-pointer transition-colors ${
+              activeTab === "issues"
+                ? "bg-[#C4CAFD] text-gray-900 shadow-sm"
+                : "text-gray-600 hover:text-gray-900"
+            }`}>
             Issues & Reports
           </button>
         </div>
@@ -320,14 +323,19 @@ const TutorManagement = () => {
         {/* Content */}
         <div className="bg-white rounded-lg shadow-sm">
           {/* Applications Tab */}
-          {activeTab === 'applications' && (
+          {activeTab === "applications" && (
             <>
               <div className="p-5 border-b border-gray-100">
-                <h2 className="text-lg font-semibold text-gray-900">Tutor Applications</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Tutor Applications
+                </h2>
               </div>
               <div className="p-5 border-b border-gray-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
                 <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Search
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={20}
+                  />
                   <input
                     type="text"
                     placeholder="Search application"
@@ -339,8 +347,7 @@ const TutorManagement = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
-                >
+                  className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
                   <option>All Status</option>
                   <option>Pending</option>
                   <option>Approved</option>
@@ -351,41 +358,76 @@ const TutorManagement = () => {
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b border-gray-100">
                     <tr>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Name</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Subject</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Experience</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Education</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Applied Date</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Status</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Name
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Subject
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Experience
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Education
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Applied Date
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Status
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {applications.map((app) => (
-                      <tr key={app.id} className="hover:bg-gray-50 transition-colors">
+                      <tr
+                        key={app.id}
+                        className="hover:bg-gray-50 transition-colors">
                         <td className="py-4 px-5">
                           <div className="flex items-center gap-3">
-                            <img src={app.avatar} alt={app.name} className="w-10 h-10 rounded-full" />
-                            <span className="font-medium text-gray-900">{app.name}</span>
+                            <img
+                              src={app.avatar}
+                              alt={app.name}
+                              className="w-10 h-10 rounded-full"
+                            />
+                            <span className="font-medium text-gray-900">
+                              {app.name}
+                            </span>
                           </div>
                         </td>
                         <td className="py-4 px-5">
                           <div>
-                            <p className="text-sm text-gray-900">{app.subject}</p>
-                            <p className="text-xs text-gray-500">{app.subjectCount}</p>
+                            <p className="text-sm text-gray-900">
+                              {app.subject}
+                            </p>
+                            <p className="text-xs text-gray-500">
+                              {app.subjectCount}
+                            </p>
                           </div>
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-700">{app.experience}</span>
+                          <span className="text-sm text-gray-700">
+                            {app.experience}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-700">{app.education}</span>
+                          <span className="text-sm text-gray-700">
+                            {app.education}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-700">{app.appliedDate}</span>
+                          <span className="text-sm text-gray-700">
+                            {app.appliedDate}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(app.status)}`}>
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                              app.status
+                            )}`}>
                             {app.status}
                           </span>
                         </td>
@@ -403,14 +445,19 @@ const TutorManagement = () => {
           )}
 
           {/* Active Tutors Tab */}
-          {activeTab === 'active' && (
+          {activeTab === "active" && (
             <>
               <div className="p-5 border-b border-gray-100">
-                <h2 className="text-lg font-semibold text-gray-900">Active Tutors</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Active Tutors
+                </h2>
               </div>
               <div className="p-5 border-b border-gray-100 flex flex-col sm:flex-row gap-4 items-center justify-between">
                 <div className="relative flex-1 max-w-md">
-                  <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400" size={20} />
+                  <Search
+                    className="absolute left-3 top-1/2 transform -translate-y-1/2 text-gray-400"
+                    size={20}
+                  />
                   <input
                     type="text"
                     placeholder="Search application"
@@ -422,8 +469,7 @@ const TutorManagement = () => {
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white"
-                >
+                  className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
                   <option>All Status</option>
                   <option>Active</option>
                   <option>Suspended</option>
@@ -434,39 +480,71 @@ const TutorManagement = () => {
                 <table className="w-full">
                   <thead className="bg-gray-50 border-b border-gray-100">
                     <tr>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Tutor</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Subject</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Students</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Rating</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Earnings</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Progress</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Status</th>
-                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">Actions</th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Tutor
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Subject
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Students
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Rating
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Earnings
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Progress
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Status
+                      </th>
+                      <th className="text-left py-3 px-5 text-xs font-semibold text-gray-600 uppercase">
+                        Actions
+                      </th>
                     </tr>
                   </thead>
                   <tbody className="divide-y divide-gray-100">
                     {activeTutors.map((tutor) => (
-                      <tr key={tutor.id} className="hover:bg-gray-50 transition-colors">
+                      <tr
+                        key={tutor.id}
+                        className="hover:bg-gray-50 transition-colors">
                         <td className="py-4 px-5">
                           <div className="flex items-center gap-3">
-                            <img src={tutor.avatar} alt={tutor.name} className="w-10 h-10 rounded-full" />
+                            <img
+                              src={tutor.avatar}
+                              alt={tutor.name}
+                              className="w-10 h-10 rounded-full"
+                            />
                             <div>
-                              <p className="font-medium text-gray-900">{tutor.name}</p>
-                              <p className="text-xs text-gray-500">{tutor.email}</p>
+                              <p className="font-medium text-gray-900">
+                                {tutor.name}
+                              </p>
+                              <p className="text-xs text-gray-500">
+                                {tutor.email}
+                              </p>
                             </div>
                           </div>
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-700">{tutor.subject}</span>
+                          <span className="text-sm text-gray-700">
+                            {tutor.subject}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-900 font-medium">{tutor.students}</span>
+                          <span className="text-sm text-gray-900 font-medium">
+                            {tutor.students}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
                           <StarRating rating={tutor.rating} />
                         </td>
                         <td className="py-4 px-5">
-                          <span className="text-sm text-gray-900 font-medium">{tutor.earnings}</span>
+                          <span className="text-sm text-gray-900 font-medium">
+                            {tutor.earnings}
+                          </span>
                         </td>
                         <td className="py-4 px-5">
                           <div className="flex items-center gap-2">
@@ -476,20 +554,29 @@ const TutorManagement = () => {
                                 style={{ width: `${tutor.progress}%` }}
                               />
                             </div>
-                            <span className="text-xs text-gray-600">{tutor.progress}%</span>
+                            <span className="text-xs text-gray-600">
+                              {tutor.progress}%
+                            </span>
                           </div>
                         </td>
                         <td className="py-4 px-5">
-                          <span className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(tutor.status)}`}>
+                          <span
+                            className={`px-3 py-1 rounded-full text-xs font-medium ${getStatusColor(
+                              tutor.status
+                            )}`}>
                             {tutor.status}
                           </span>
                         </td>
                         <td className="py-4 px-5">
                           <div className="flex gap-2">
-                            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="View">
+                            <button
+                              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                              title="View">
                               <Eye size={16} className="text-gray-500" />
                             </button>
-                            <button className="p-2 hover:bg-gray-100 rounded-lg transition-colors" title="Suspend">
+                            <button
+                              className="p-2 hover:bg-gray-100 rounded-lg transition-colors"
+                              title="Suspend">
                               <UserX size={16} className="text-gray-500" />
                             </button>
                           </div>
@@ -503,41 +590,50 @@ const TutorManagement = () => {
           )}
 
           {/* Issues & Reports Tab */}
-          {activeTab === 'issues' && (
+          {activeTab === "issues" && (
             <>
               <div className="p-5 border-b border-gray-100">
-                <h2 className="text-lg font-semibold text-gray-900">Issues & Report</h2>
+                <h2 className="text-lg font-semibold text-gray-900">
+                  Issues & Report
+                </h2>
               </div>
               <div className="p-6 space-y-4">
                 {issues.map((issue) => {
                   const styles = getPriorityStyles(issue.priority);
                   return (
-                    <div key={issue.id} className={`${styles.bg} ${styles.border} rounded-lg p-5`}>
+                    <div
+                      key={issue.id}
+                      className={`${styles.bg} ${styles.border} rounded-lg p-5`}>
                       <div className="flex items-start justify-between mb-3">
                         <div className="flex-1">
-                          <span className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2 ${styles.label}`}>
+                          <span
+                            className={`inline-block px-3 py-1 rounded-full text-xs font-medium mb-2 ${styles.label}`}>
                             {styles.text}
                           </span>
-                          <h3 className="font-semibold text-gray-900 mb-1">{issue.title}</h3>
-                          <p className="text-sm text-gray-600">{issue.description}</p>
+                          <h3 className="font-semibold text-gray-900 mb-1">
+                            {issue.title}
+                          </h3>
+                          <p className="text-sm text-gray-600">
+                            {issue.description}
+                          </p>
                         </div>
-                        {issue.priority !== 'resolved' && (
+                        {issue.priority !== "resolved" && (
                           <div className="flex gap-2 ml-4">
-                            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
+                            <button className="bg-[#0A5DEC] cursor-pointer text-white px-4 py-2 rounded-lg text-sm font-medium flex items-center gap-2 transition-colors">
                               <Send size={16} />
                               Send Warning
                             </button>
-                            <button className="bg-white hover:bg-gray-50 text-purple-600 px-4 py-2 rounded-lg text-sm font-medium border border-purple-600 transition-colors">
+                            <button className="bg-[#EAF2FF] text-[#0A5DEC] px-4 py-2 cursor-pointer rounded-lg text-sm font-medium transition-colors">
                               View Details
                             </button>
                           </div>
                         )}
-                        {issue.priority === 'resolved' && (
+                        {issue.priority === "resolved" && (
                           <div className="flex gap-2 ml-4">
-                            <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg text-sm font-medium transition-colors">
+                            <button className="bg-[#0A5DEC] text-white cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                               Contact Tutor
                             </button>
-                            <button className="bg-white hover:bg-gray-50 text-purple-600 px-4 py-2 rounded-lg text-sm font-medium border border-purple-600 transition-colors">
+                            <button className="bg-[#EAF2FF] text-[#0A5DEC]  cursor-pointer px-4 py-2 rounded-lg text-sm font-medium transition-colors">
                               View Feedbacks
                             </button>
                           </div>

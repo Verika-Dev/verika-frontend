@@ -186,7 +186,7 @@ const WalletManagement = () => {
               Manage your platform finances and payouts
             </p>
           </div>
-          <button className="bg-purple-600 hover:bg-purple-700 text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
+          <button className="bg-[#0A5DEC] cursor-pointer text-white px-4 py-2 rounded-lg font-medium transition-colors flex items-center gap-2">
             Payout Request
           </button>
         </div>
@@ -216,26 +216,26 @@ const WalletManagement = () => {
         <div className="flex gap-1 mb-6 border-b border-gray-200">
           <button
             onClick={() => setActiveTab("transactions")}
-            className={`px-4 py-2 font-medium transition-colors relative ${
+            className={`px-4 py-2 font-medium cursor-pointer transition-colors relative ${
               activeTab === "transactions"
-                ? "text-purple-600"
+                ? "text-[#0A5DEC]"
                 : "text-gray-600 hover:text-gray-900"
             }`}>
             Transactions
             {activeTab === "transactions" && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-600"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0A5DEC]"></div>
             )}
           </button>
           <button
             onClick={() => setActiveTab("payout")}
-            className={`px-4 py-2 font-medium transition-colors relative ${
+            className={`px-4 py-2 font-medium cursor-pointer transition-colors relative ${
               activeTab === "payout"
-                ? "text-purple-600"
+                ? "text-[#0A5DEC]"
                 : "text-gray-600 hover:text-gray-900"
             }`}>
             Pay out
             {activeTab === "payout" && (
-              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-purple-600"></div>
+              <div className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#0A5DEC]"></div>
             )}
           </button>
         </div>
@@ -263,14 +263,14 @@ const WalletManagement = () => {
                     placeholder="Search transaction..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC]"
                   />
                 </div>
                 <div className="flex gap-3">
                   <select
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value)}
-                    className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
+                    className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] bg-white">
                     <option>All Types</option>
                     <option>Course Sale</option>
                     <option>Live Class</option>
@@ -384,14 +384,14 @@ const WalletManagement = () => {
                     placeholder="Search transaction..."
                     value={searchTerm}
                     onChange={(e) => setSearchTerm(e.target.value)}
-                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500"
+                    className="w-full pl-10 pr-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC]"
                   />
                 </div>
                 <div className="flex gap-3">
                   <select
                     value={typeFilter}
                     onChange={(e) => setTypeFilter(e.target.value)}
-                    className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 bg-white">
+                    className="px-4 py-2 border border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#0A5DEC] bg-white">
                     <option>All Types</option>
                     <option>completed</option>
                     <option>pending</option>

@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Eye, EyeOff, User, LockKeyhole } from "lucide-react";
 import Link from "next/link";
-import { useLogin } from "@/hooks/useLogin"; // adjust import path if needed
+import { useLogin } from "@/hooks/useLogin"; 
 
 function LoginForm() {
   const [formData, setFormData] = useState({
@@ -34,7 +34,7 @@ function LoginForm() {
 
     // call login hook
     await login({
-      email: formData.username, // map username field to email
+      email: formData.username,
       password: formData.password,
     });
   };
