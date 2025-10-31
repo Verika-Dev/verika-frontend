@@ -32,7 +32,7 @@ export const useLogin = () => {
 
     try {
       const response = await axios.post<LoginResponse>(
-        "http://localhost:3000/api/v1/auth/login",
+        "http://178.128.64.203:8080/api/v1/auth/login",
         formData,
         {
           headers: {
