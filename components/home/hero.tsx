@@ -33,10 +33,10 @@ export default function HeroSection() {
   const currentWord = words[wordIndex];
 
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 lg:py-20 px-4 overflow-hidden">
-      <div className="max-w-7xl mx-auto">
-        {/* ✅ Trust Badge */}
-        <div className="flex items-center justify-center gap-2 mb-6">
+    <section className=" py-12 sm:py-16 lg:py-20 px-4 overflow-hidden">
+      <div className=" mx-auto">
+        {/*Trust Badge */}
+        <div className="flex items-center justify-center max-w-80 rounded-[100px] mx-auto bg-white p-3 border-2 gap-2 mb-6">
           <div className="flex -space-x-2">
             <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 border-2 border-white flex items-center justify-center">
               <Image src={student1} alt="" width={100} height={100} />
@@ -54,11 +54,15 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* ✅ Main Heading */}
+        {/* Main Heading */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-gray-900 mb-4 leading-tight">
+          <h1
+            className="text-3xl sm:text-4xl lg:text-6xl font-bold text-[#111827] mb-4 leading-tight"
+            style={{ lineHeight: 1.2 }}>
             Prepare{" "}
-            <span className="inline-block relative whitespace-nowrap min-w-max">
+            <span
+              className="relative inline-flex items-center align-baseline whitespace-nowrap"
+              style={{ verticalAlign: "baseline" }}>
               <AnimatePresence mode="wait">
                 <motion.span
                   key={currentWord}
@@ -66,8 +70,38 @@ export default function HeroSection() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -20 }}
                   transition={{ duration: 0.9, ease: "easeInOut" }}
-                  className="inline-block bg-cyan-400 text-white px-2 py-1 rounded-sm">
-                  {currentWord}
+                  style={{
+                    position: "relative",
+                    display: "inline-flex",
+                    alignItems: "center",
+                    justifyContent: "center",
+                    padding: "4px 10px",
+                    borderRadius: "6px",
+                    color: "#fff",
+                    overflow: "hidden",
+                    verticalAlign: "middle",
+                  }}>
+                  {/* background image */}
+                  <div
+                    style={{
+                      position: "absolute",
+                      inset: 0,
+                      backgroundImage: "url('/images/gradientText.svg')",
+                      backgroundSize: "cover",
+                      backgroundPosition: "center",
+                      zIndex: 0,
+                      opacity: 0.9,
+                    }}></div>
+
+                  {/* text in front */}
+                  <span
+                    style={{
+                      position: "relative",
+                      zIndex: 1,
+                      fontWeight: 700,
+                    }}>
+                    {currentWord}
+                  </span>
                 </motion.span>
               </AnimatePresence>
             </span>{" "}
