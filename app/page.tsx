@@ -18,13 +18,13 @@ export default function Home() {
   return (
     <div>
       <Navbar/>
-      <HeroSection/>
-      <HowPryparWorks/>
-      <AvailableCourses/>
-      <CTASection/>
-      <Testimonials/>
-      <FAQ/>
-      <Footer />
+      {/* <HeroSection/> */}
+      {/* <HowPryparWorks/> */}
+      {/* <AvailableCourses/> */}
+      {/* <CTASection/> */}
+      {/* <Testimonials/> */}
+      {/* <FAQ/> */}
+      {/* <Footer /> */}
     </div>
   );
 }

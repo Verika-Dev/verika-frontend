@@ -4,13 +4,13 @@ import React, { useState } from "react";
 import { Menu, X } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import { usePathname } from "next/navigation"; // ✅ for detecting active route
+import { usePathname } from "next/navigation";
 
 import pryparLogo from "@/public/images/pryparLogo.svg";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname(); // ✅ get current path
+  const pathname = usePathname(); // get current path
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -22,8 +22,8 @@ export default function Navbar() {
   ];
 
   return (
-    <nav className="bg-white shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav className="bg-white ">
+      <div className="max-w-[90%] mx-auto  p-6   sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0  cursor-pointer">
@@ -48,7 +48,7 @@ export default function Navbar() {
                   href={link.href}
                   className={`px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
                     isActive
-                      ? "text-[#0A5DEC]"
+                      ? "text-[#0A5DEC] bg-[#EBEFFF] rounded-[100px]"
                       : "text-gray-600 hover:text-[#0A5DEC] hover:bg-gray-50"
                   }`}>
                   {isActive && (
@@ -64,7 +64,7 @@ export default function Navbar() {
           <div className="hidden md:block">
             <Link
               href="/signUp"
-              className="px-6 py-2.5 bg-[#0A5DEC] hover:bg-[#0A5DEC]/90 text-white font-semibold rounded-lg transition-colors duration-200 text-base">
+              className="px-8 py-4 bg-[#0A5DEC] hover:bg-[#0A5DEC]/90 text-white font-semibold rounded-lg transition-colors duration-200 text-base">
               Get Started
             </Link>
           </div>
