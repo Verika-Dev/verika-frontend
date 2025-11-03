@@ -33,7 +33,7 @@ export default function HeroSection() {
   const currentWord = words[wordIndex];
 
   return (
-    <section className=" py-12 sm:py-16 lg:py-20 px-4 overflow-hidden">
+    <section className=" py-12 sm:py-16 lg:py-20 overflow-hidden">
       <div className=" mx-auto">
         {/*Trust Badge */}
         <div className="flex items-center justify-center max-w-80 rounded-[100px] mx-auto bg-white p-3 border-2 gap-2 mb-6">
