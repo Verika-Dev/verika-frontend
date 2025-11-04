@@ -9,7 +9,7 @@ interface SignupData {
   email: string;
   password: string;
   confirmPassword: string;
-  role: string; // "student" | "tutor" | "teacher"
+  role: string; // "student" | "tutor" | "institution"
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
@@ -25,6 +25,24 @@ interface SignupData {
   bankName?: string;
   rank?: string;
   accountNumber?: string;
+
+  // institution fields
+  organizationName?: string;
+  officialEmail?: string;
+  agreements?: boolean;
+  typeOfOrganization?: string;
+  registrationNumber?: string;
+  phone?: string;
+  estimatedStudents?: string;
+  contactPerson?: string;
+
+  website?: string;
+  country?: string;
+  state?: string;
+  city?: string;
+  address?: string;
+  minStudents?: string;
+  maxStudents?: string;
 }
 
 interface SignupResponse {
@@ -73,6 +91,27 @@ export const useSignup = () => {
         };
       }
 
+   if (formData.role === "organization") {
+     payload = {
+       role: "organization",
+       organizationName: formData.organizationName,
+       typeOfOrganization: formData.typeOfOrganization,
+       registrationNumber: formData.registrationNumber,
+       officialEmail: formData.officialEmail,
+       phoneNumber: formData.phoneNumber,
+       website: formData.website,
+       country: formData.country,
+       state: formData.state,
+       city: formData.city,
+       estimatedStudents: formData.maxStudents || "0",
+       contactPerson: formData.firstName || "Admin",
+       agreements: true,
+       password: formData.password,
+       confirmPassword: formData.confirmPassword,
+     };
+   }
+
+
       const response = await axios.post<SignupResponse>(
         "http://178.128.64.203:8080/api/v1/auth/signup",
         payload,
@@ -86,7 +125,7 @@ export const useSignup = () => {
       // For all roles, save email to localStorage for OTP verification
       if (
         formData.role === "student" ||
-        formData.role === "institution" ||
+        formData.role === "organization" ||
         formData.role === "tutor"
       ) {
         localStorage.setItem("signupEmail", formData.email);
