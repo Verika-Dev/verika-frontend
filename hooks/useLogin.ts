@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 interface LoginData {
   email: string;
   password: string;
+  role: string;
 }
 
 interface Profile {
@@ -42,10 +43,17 @@ export const useLogin = () => {
     setLoading(true);
     setError(null);
 
+    console.log("payload", formData);
+
     try {
       const response = await axios.post<LoginResponse>(
-        "http://178.128.64.203:8080/api/v1/auth/login",
-        formData,
+        formData.role == "user"
+          ? "http://178.128.64.203:8080/api/v1/auth/login"
+          : "http://178.128.64.203:8080/api/v1/auth/admin-login",
+        {
+          email: formData.email,
+          password: formData.password,
+        },
         {
           headers: {
             "Content-Type": "application/json",
@@ -77,6 +85,8 @@ export const useLogin = () => {
 
       return resData;
     } catch (err: unknown) {
+      console.log("login error", err);
+
       const axiosError = err as AxiosError<{
         message?: string;
         error?: string;

@@ -1,21 +1,18 @@
 "use client";
 
 import React, { useState } from "react";
-import { Eye, EyeOff, User, LockKeyhole } from "lucide-react";
+import { Eye, EyeOff, User, LockKeyhole, Shield } from "lucide-react";
 import Link from "next/link";
-import { useLogin } from "@/hooks/useLogin"; 
+import { useLogin } from "@/hooks/useLogin";
 
 function LoginForm() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    confirmPassword: "",
+    role: "user", // default role
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-  // useLogin hook
   const { login, loading, error, data } = useLogin();
 
   const handleInputChange = (field: keyof typeof formData, value: string) => {
@@ -26,27 +23,46 @@ function LoginForm() {
   };
 
   const handleSubmit = async () => {
-    // basic client-side validation
     if (!formData.username || !formData.password) {
       alert("Please enter both email and password.");
       return;
     }
 
-    // call login hook
     await login({
       email: formData.username,
       password: formData.password,
+      role: formData.role,
     });
   };
 
   const togglePasswordVisibility = () => setShowPassword(!showPassword);
-  const toggleConfirmPasswordVisibility = () =>
-    setShowConfirmPassword(!showConfirmPassword);
 
   return (
     <div className="w-full mx-auto p-6 bg-white">
       <div className="space-y-6">
-        {/* Username Field */}
+        {/* Role Selector */}
+        <div>
+          <label
+            htmlFor="role"
+            className="block text-sm font-medium text-gray-900 mb-2">
+            Select Role
+          </label>
+          <div className="relative">
+            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+              <Shield className="h-5 w-5 text-gray-400" />
+            </div>
+            <select
+              id="role"
+              value={formData.role}
+              onChange={(e) => handleInputChange("role", e.target.value)}
+              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+          </div>
+        </div>
+
+        {/* Email Field */}
         <div>
           <label
             htmlFor="username"
