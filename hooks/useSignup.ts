@@ -1,28 +1,42 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useState } from "react";
 import axios, { AxiosError } from "axios";
 import { useRouter } from "next/navigation";
 
-
 interface SignupData {
   email: string;
   password: string;
   confirmPassword: string;
-  role: string;
-  firstName: string;
-  lastName: string;
-  phoneNumber: string;
-  parentEmail: string;
-  parentPhoneNumber: string;
-  schoolLevel: string;
+  role: string; // "student" | "tutor" | "teacher"
+  firstName?: string;
+  lastName?: string;
+  phoneNumber?: string;
+  parentEmail?: string;
+  parentPhoneNumber?: string;
+  schoolLevel?: string;
+
+  // tutor fields
+  fullName?: string;
+  yearsOfExperience?: string;
+  subjectOfExpertise?: string[];
+  location?: string;
+  bankName?: string;
+  rank?: string;
+  accountNumber?: string;
 }
 
 interface SignupResponse {
+  status?: string;
   message?: string;
-  token?: string;
-  user?: Record<string, any>;
-  [key: string]: any;
+  data?: {
+    accessToken?: string;
+    refreshToken?: string;
+    role?: string;
+    profile?: Record<string, any>;
+    [key: string]: any;
+  };
 }
 
 export const useSignup = () => {
@@ -38,25 +52,49 @@ export const useSignup = () => {
     setError(null);
 
     try {
+      // prepare payload — rename fields where necessary
+      let payload = { ...formData };
+
+      // If the user is a tutor, adapt payload to API’s expected fields
+      if (formData.role === "tutor") {
+        const [firstName, ...rest] = (formData.fullName || "").split(" ");
+        payload = {
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
+          role: "tutor",
+          fullName: formData.fullName,
+          yearsOfExperience: formData.yearsOfExperience, // ✅ correct key for backend
+          subjectOfExpertise: formData.subjectOfExpertise, // ✅ correct key for backend
+          location: formData.location,
+          bankName: formData.bankName, // ✅ renamed
+          accountNumber: formData.accountNumber,
+          rank: formData.rank, // ✅ required by backend (set default or let user choose)
+        };
+      }
+
       const response = await axios.post<SignupResponse>(
         "http://178.128.64.203:8080/api/v1/auth/signup",
-        formData,
-        {
-          headers: {
-            "Content-Type": "application/json",
-          },
-        }
+        payload,
+        { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log("sign up res", response);
-      localStorage.setItem("signupEmail", formData.email);
-      router.push("/verify-otp");
+      console.log("Signup response:", response.data);
+      const resData = response.data;
+      setData(resData);
 
-      setData(response.data);
-      return response.data;
+      // For all roles, save email to localStorage for OTP verification
+      if (
+        formData.role === "student" ||
+        formData.role === "institution" ||
+        formData.role === "tutor"
+      ) {
+        localStorage.setItem("signupEmail", formData.email);
+        router.push("/verify-otp");
+      }
+
+      return resData;
     } catch (err: unknown) {
-      console.log("error", err);
-
       const axiosError = err as AxiosError<{
         message?: string;
         error?: string;
@@ -66,7 +104,6 @@ export const useSignup = () => {
         axiosError.response?.data?.error ||
         axiosError.message ||
         "Signup failed. Please try again.";
-
       setError(errorMessage);
       console.error("Signup error:", errorMessage);
     } finally {
