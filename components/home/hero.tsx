@@ -116,7 +116,7 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* ✅ CTA Button with Link */}
+        {/* CTA Button with Link */}
         <div className="text-center mb-12 sm:mb-16">
           <Link href="/signUp">
             <button className="px-8 py-3.5 bg-[#0A5DEC] cursor-pointer text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">

@@ -14,10 +14,10 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { useSignup } from "@/hooks/useSignup"; // ✅ adjust path if needed
+import { useSignup } from "@/hooks/useSignup"; 
 
 function StudentRegistrationForm() {
-  const { signup, loading, error, data } = useSignup(); // ✅ use the hook
+  const { signup, loading, error, data } = useSignup();
 
   const [formData, setFormData] = useState({
     firstName: "",
@@ -133,7 +133,7 @@ function StudentRegistrationForm() {
       firstName: formData.firstName,
       lastName: formData.lastName,
       phoneNumber: formData.phoneNumber,
-      parentEmail: "", // optional or can be added later
+      parentEmail: "",
       parentPhoneNumber: "",
       schoolLevel: formData.schoolLevel,
     });
@@ -298,7 +298,7 @@ function StudentRegistrationForm() {
           type="button"
           onClick={handleSubmit}
           disabled={loading}
-          className="w-full bg-[#192BC2] text-white py-3 rounded-lg mt-4 hover:bg-[#101e85] flex justify-center items-center">
+          className="w-full bg-[#192BC2] text-white py-3 cursor-pointer rounded-lg mt-4 hover:bg-[#101e85] flex justify-center items-center">
           {loading ? (
             <>
               <Loader2 className="animate-spin mr-2 h-5 w-5" /> Creating

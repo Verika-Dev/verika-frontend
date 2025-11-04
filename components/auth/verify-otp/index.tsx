@@ -45,7 +45,7 @@ function OtpVerificationForm({
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (value && index < 3) {
+    if (value && index <5) {
       inputRefs.current[index + 1]?.focus();
     }
 
@@ -87,14 +87,14 @@ function OtpVerificationForm({
 
   const handleCreateAccount = () => {
     const otpCode = otp.join("");
-    if (otpCode.length === 4) {
+    if (otpCode.length === 6) {
       handleVerify(otpCode);
     }
   };
 
   const handleResend = async () => {
     setTimeLeft(expirationTime * 60);
-    setOtp(["", "", "", ""]);
+    setOtp(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
     // await resendOtp();
   };

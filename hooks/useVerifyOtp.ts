@@ -44,10 +44,10 @@ export const useVerifyOtp = () => {
 
       setResponse(res.data);
 
-      // ✅ clear localStorage after successful verification
+      //  clear localStorage after successful verification
       localStorage.removeItem("signupEmail");
 
-      // optional: redirect to login or dashboard
+  
       router.push("/login");
 
       return res.data;
