@@ -9,7 +9,7 @@ interface SignupData {
   email: string;
   password: string;
   confirmPassword: string;
-  role: string; // "student" | "tutor" | "institution"
+  role: "student" | "tutor" | "organization";
   firstName?: string;
   lastName?: string;
   phoneNumber?: string;
@@ -17,25 +17,28 @@ interface SignupData {
   parentPhoneNumber?: string;
   schoolLevel?: string;
 
-  // tutor fields
+  // Tutor fields
   fullName?: string;
   yearsOfExperience?: string;
-  subjectOfExpertise?: string[];
+  subjectOfExpertise?: string[]; // must be array
   location?: string;
   bankName?: string;
   rank?: string;
   accountNumber?: string;
 
-  // institution fields
+  // Organization fields
   organizationName?: string;
   officialEmail?: string;
-  agreements?: boolean;
+  agreements?: {
+    termsAndConditions: boolean;
+    dataPrivacyPolicy: boolean;
+  };
+
   typeOfOrganization?: string;
   registrationNumber?: string;
   phone?: string;
   estimatedStudents?: string;
   contactPerson?: string;
-
   website?: string;
   country?: string;
   state?: string;
@@ -70,30 +73,43 @@ export const useSignup = () => {
     setError(null);
 
     try {
-      // prepare payload — rename fields where necessary
-      let payload = { ...formData };
+      let payload: Record<string, any> = { ...formData };
 
-      // If the user is a tutor, adapt payload to API’s expected fields
+      /**
+       * 🧩 Tutor signup
+       * Backend expects:
+       * - subjectOfExpertise: string[]
+       * - rank, bankName, etc.
+       */
       if (formData.role === "tutor") {
-        const [firstName, ...rest] = (formData.fullName || "").split(" ");
         payload = {
           email: formData.email,
           password: formData.password,
           confirmPassword: formData.confirmPassword,
           role: "tutor",
           fullName: formData.fullName,
-          yearsOfExperience: formData.yearsOfExperience, // ✅ correct key for backend
-          subjectOfExpertise: formData.subjectOfExpertise, // ✅ correct key for backend
+          yearsOfExperience: formData.yearsOfExperience,
+          subjectOfExpertise: Array.isArray(formData.subjectOfExpertise)
+            ? formData.subjectOfExpertise
+            : formData.subjectOfExpertise
+            ? [formData.subjectOfExpertise]
+            : [],
           location: formData.location,
-          bankName: formData.bankName, // ✅ renamed
+          bankName: formData.bankName,
           accountNumber: formData.accountNumber,
-          rank: formData.rank, // ✅ required by backend (set default or let user choose)
+          rank: formData.rank,
         };
       }
 
+      /**
+       * 🏫 Organization signup
+       * Matches the expected structure exactly
+       */
       if (formData.role === "organization") {
         payload = {
-          email: "",
+          email: formData.email,
+          password: formData.password,
+          confirmPassword: formData.confirmPassword,
           role: "organization",
           organizationName: formData.organizationName,
           typeOfOrganization: formData.typeOfOrganization,
@@ -104,13 +120,25 @@ export const useSignup = () => {
           country: formData.country,
           state: formData.state,
           city: formData.city,
-          estimatedStudents: formData.maxStudents || "0",
-          contactPerson: formData.firstName || "Admin",
-          agreements: true,
-          password: formData.password,
-          confirmPassword: formData.confirmPassword,
+          estimatedStudents: formData.estimatedStudents,
+          contactPerson: {
+            fullName: formData.firstName || "Admin",
+            officialRole: formData.rank || "Administrator",
+            emailAddress: formData.officialEmail || formData.email,
+            phoneNumber: formData.phoneNumber,
+            alternateContact: {
+              email: formData.parentEmail || "",
+              phone: formData.parentPhoneNumber || "",
+            },
+          },
+          agreements: {
+            termsAndConditions: true,
+            dataPrivacyPolicy: true,
+          },
         };
       }
+
+      console.log("🟩 Final signup payload:", JSON.stringify(payload, null, 2));
 
       const response = await axios.post<SignupResponse>(
         "http://178.128.64.203:8080/api/v1/auth/signup",
@@ -118,22 +146,20 @@ export const useSignup = () => {
         { headers: { "Content-Type": "application/json" } }
       );
 
-      console.log("Signup response:", response.data);
+      console.log("✅ Signup response:", response.data);
       const resData = response.data;
       setData(resData);
 
-      // For all roles, save email to localStorage for OTP verification
-      if (
-        formData.role === "student" ||
-        formData.role === "organization" ||
-        formData.role === "tutor"
-      ) {
+      // Save email for OTP verification redirect
+      if (["student", "organization", "tutor"].includes(formData.role)) {
         localStorage.setItem("signupEmail", formData.email);
         router.push("/verify-otp");
       }
 
       return resData;
     } catch (err: unknown) {
+      console.log("error", err);
+
       const axiosError = err as AxiosError<{
         message?: string;
         error?: string;
@@ -144,7 +170,7 @@ export const useSignup = () => {
         axiosError.message ||
         "Signup failed. Please try again.";
       setError(errorMessage);
-      console.error("Signup error:", errorMessage);
+      console.error("❌ Signup error:", errorMessage);
     } finally {
       setLoading(false);
     }

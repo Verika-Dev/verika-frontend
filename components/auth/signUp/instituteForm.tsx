@@ -1,47 +1,95 @@
 "use client";
 
-import Link from "next/link";
-import React, { useState } from "react";
-import {
-  Mail,
-  Building2,
-  Phone,
-  Globe,
-  MapPin,
-  ChevronDown,
-  Check,
-  Lock,
-} from "lucide-react";
+import React, { useState, useEffect } from "react";
+import { Mail, Building2, Phone, Check, Lock } from "lucide-react";
 import { useSignup } from "@/hooks/useSignup";
 
-interface InstitutionRegistrationFormProps {
-  onSubmit?: (data: Record<string, string>) => void;
-}
-
-export default function InstitutionRegistrationForm({
-  onSubmit,
-}: InstitutionRegistrationFormProps) {
+export default function InstitutionRegistrationForm() {
   const { signup, loading, error } = useSignup();
 
+  const [studentRange, setStudentRange] = useState({ min: "", max: "" });
+  const [rangeError, setRangeError] = useState("");
+
   const [formData, setFormData] = useState({
+    email: "",
+    password: "",
+    confirmPassword: "",
+    role: "organization" as "student" | "tutor" | "organization",
     organizationName: "",
     typeOfOrganization: "",
-    registrationNumber: "",
     officialEmail: "",
     phoneNumber: "",
-    website: "",
-    role: "organization",
     country: "",
     state: "",
     city: "",
     estimatedStudents: "",
-    contactPerson: "",
-    agreements: true,
-    password: "",
-    confirmPassword: "",
+    contactPerson: {
+      fullName: "",
+      officialRole: "",
+      emailAddress: "",
+      phoneNumber: "",
+      alternateContact: {
+        email: "",
+        phone: "",
+      },
+    },
+    agreements: {
+      termsAndConditions: false,
+      dataPrivacyPolicy: false,
+    },
   });
 
   const [isVerified, setIsVerified] = useState(false);
+
+  // Helper to update nested values
+  const handleInputChange = (path: string, value: any) => {
+    setFormData((prev) => {
+      const keys = path.split(".");
+      const updated = { ...prev };
+      let obj: any = updated;
+      for (let i = 0; i < keys.length - 1; i++) {
+        obj[keys[i]] = { ...obj[keys[i]] };
+        obj = obj[keys[i]];
+      }
+      obj[keys[keys.length - 1]] = value;
+      return updated;
+    });
+  };
+
+  // Automatically update estimatedStudents when both min & max are valid
+  useEffect(() => {
+    const { min, max } = studentRange;
+
+    if (min && max) {
+      if (Number(min) >= Number(max)) {
+        setRangeError("Min should be less than Max");
+        handleInputChange("estimatedStudents", "");
+      } else {
+        setRangeError("");
+        handleInputChange("estimatedStudents", `${min}-${max}`);
+      }
+    } else {
+      handleInputChange("estimatedStudents", "");
+    }
+  }, [studentRange]);
+
+  const handleSubmit = async () => {
+    if (!formData.estimatedStudents) {
+      setRangeError("Please enter a valid student range");
+      return;
+    }
+
+    try {
+      const payload = {
+        ...formData,
+        email: formData.officialEmail,
+      };
+      await signup(payload);
+      setIsVerified(true);
+    } catch (error) {
+      console.error("Institution signup error:", error);
+    }
+  };
 
   const organizationTypes = [
     "School",
@@ -60,33 +108,12 @@ export default function InstitutionRegistrationForm({
     "Ibadan",
   ];
 
-  const handleInputChange = (field: keyof typeof formData, value: string) => {
-    setFormData((prev) => ({
-      ...prev,
-      [field]: value,
-    }));
-  };
-
-  const handleSubmit = async () => {
-    try {
-      await signup({
-        ...formData,
-        email: formData.officialEmail,
-      });
-      setIsVerified(true);
-    } catch (error) {
-      console.error("Institution signup error:", error);
-    }
-  };
-
   return (
     <div className="w-full mx-auto p-6 bg-white">
       <div className="space-y-5">
         {/* Organization Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Organization Name <span className="text-red-500">*</span>
-          </label>
+          <label className="font-medium text-gray-900">Organization Name</label>
           <div className="relative">
             <Building2 className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
             <input
@@ -95,56 +122,33 @@ export default function InstitutionRegistrationForm({
               onChange={(e) =>
                 handleInputChange("organizationName", e.target.value)
               }
-              placeholder="e.g. Bright Minds Academy"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2]"
+              placeholder="e.g. Tech Academy"
+              className="block w-full pl-10 pr-3 py-3 border rounded-lg"
             />
           </div>
         </div>
 
         {/* Type of Organization */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Type of Organization <span className="text-red-500">*</span>
+          <label className="font-medium text-gray-900">
+            Type of Organization
           </label>
-          <div className="relative">
-            <select
-              value={formData.typeOfOrganization}
-              onChange={(e) =>
-                handleInputChange("typeOfOrganization", e.target.value)
-              }
-              className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-[#192BC2]">
-              <option value="">Select Type</option>
-              {organizationTypes.map((type) => (
-                <option key={type} value={type}>
-                  {type}
-                </option>
-              ))}
-            </select>
-            <ChevronDown className="absolute right-3 top-3.5 h-5 w-5 text-gray-400 pointer-events-none" />
-          </div>
-        </div>
-
-        {/* Registration Number */}
-        <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Registration/License Number
-          </label>
-          <input
-            type="text"
-            value={formData.registrationNumber}
+          <select
+            value={formData.typeOfOrganization}
             onChange={(e) =>
-              handleInputChange("registrationNumber", e.target.value)
+              handleInputChange("typeOfOrganization", e.target.value)
             }
-            placeholder="e.g. RC-102938"
-            className="block w-full px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:ring-2 focus:ring-[#192BC2]"
-          />
+            className="block w-full px-3 py-3 border rounded-lg">
+            <option value="">Select Type</option>
+            {organizationTypes.map((type) => (
+              <option key={type}>{type}</option>
+            ))}
+          </select>
         </div>
 
         {/* Official Email */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Official Email Address <span className="text-red-500">*</span>
-          </label>
+          <label className="font-medium text-gray-900">Official Email</label>
           <div className="relative">
             <Mail className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
             <input
@@ -153,52 +157,63 @@ export default function InstitutionRegistrationForm({
               onChange={(e) =>
                 handleInputChange("officialEmail", e.target.value)
               }
-              placeholder="contact@organization.com"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
+              placeholder="org@example.com"
+              className="block w-full pl-10 pr-3 py-3 border rounded-lg"
             />
           </div>
         </div>
 
-        {/* Phone Number */}
+        {/* Estimated Students Range */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Phone Number <span className="text-red-500">*</span>
+          <label className="font-medium text-gray-900">
+            Estimated Students
           </label>
+          <div className="grid grid-cols-2 gap-3">
+            <input
+              type="number"
+              placeholder="Min (e.g. 100)"
+              value={studentRange.min}
+              onChange={(e) =>
+                setStudentRange((prev) => ({ ...prev, min: e.target.value }))
+              }
+              className="px-3 py-3 border rounded-lg"
+            />
+            <input
+              type="number"
+              placeholder="Max (e.g. 200)"
+              value={studentRange.max}
+              onChange={(e) =>
+                setStudentRange((prev) => ({ ...prev, max: e.target.value }))
+              }
+              className="px-3 py-3 border rounded-lg"
+            />
+          </div>
+          {rangeError && (
+            <p className="text-sm text-red-500 mt-1">{rangeError}</p>
+          )}
+        </div>
+
+        {/* Phone */}
+        <div>
+          <label className="font-medium text-gray-900">Phone Number</label>
           <div className="relative">
             <Phone className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
             <input
               type="tel"
               value={formData.phoneNumber}
               onChange={(e) => handleInputChange("phoneNumber", e.target.value)}
-              placeholder="+234 812 345 6789"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
+              placeholder="+234 801 234 5678"
+              className="block w-full pl-10 pr-3 py-3 border rounded-lg"
             />
           </div>
         </div>
 
-        {/* Website */}
-        <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Website
-          </label>
-          <div className="relative">
-            <Globe className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-            <input
-              type="url"
-              value={formData.website}
-              onChange={(e) => handleInputChange("website", e.target.value)}
-              placeholder="https://organization.com"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
-            />
-          </div>
-        </div>
-
-        {/* Country, State, City */}
+        {/* Country / State / City */}
         <div className="grid grid-cols-3 gap-4">
           <select
             value={formData.country}
             onChange={(e) => handleInputChange("country", e.target.value)}
-            className="px-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]">
+            className="px-3 py-3 border rounded-lg">
             <option value="">Country</option>
             {countryOptions.map((c) => (
               <option key={c}>{c}</option>
@@ -207,7 +222,7 @@ export default function InstitutionRegistrationForm({
           <select
             value={formData.state}
             onChange={(e) => handleInputChange("state", e.target.value)}
-            className="px-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]">
+            className="px-3 py-3 border rounded-lg">
             <option value="">State</option>
             {stateOptions.map((s) => (
               <option key={s}>{s}</option>
@@ -216,7 +231,7 @@ export default function InstitutionRegistrationForm({
           <select
             value={formData.city}
             onChange={(e) => handleInputChange("city", e.target.value)}
-            className="px-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]">
+            className="px-3 py-3 border rounded-lg">
             <option value="">City</option>
             {cityOptions.map((city) => (
               <option key={city}>{city}</option>
@@ -224,46 +239,50 @@ export default function InstitutionRegistrationForm({
           </select>
         </div>
 
-        {/* Estimated Students */}
-        <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Estimated Number of Students
-          </label>
-          <input
-            type="number"
-            value={formData.estimatedStudents}
-            onChange={(e) =>
-              handleInputChange("estimatedStudents", e.target.value)
-            }
-            placeholder="e.g. 500"
-            className="px-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
-          />
-        </div>
-
         {/* Contact Person */}
-        <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Contact Person <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <MapPin className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-            <input
-              type="text"
-              value={formData.contactPerson}
-              onChange={(e) =>
-                handleInputChange("contactPerson", e.target.value)
-              }
-              placeholder="Name of contact person"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
-            />
-          </div>
+        <div className="border-t pt-4">
+          <h3 className="font-medium text-gray-900 mb-3">Contact Person</h3>
+          <input
+            type="text"
+            value={formData.contactPerson.fullName}
+            onChange={(e) =>
+              handleInputChange("contactPerson.fullName", e.target.value)
+            }
+            placeholder="Full Name"
+            className="block w-full mb-3 px-3 py-3 border rounded-lg"
+          />
+          <input
+            type="text"
+            value={formData.contactPerson.officialRole}
+            onChange={(e) =>
+              handleInputChange("contactPerson.officialRole", e.target.value)
+            }
+            placeholder="Official Role"
+            className="block w-full mb-3 px-3 py-3 border rounded-lg"
+          />
+          <input
+            type="email"
+            value={formData.contactPerson.emailAddress}
+            onChange={(e) =>
+              handleInputChange("contactPerson.emailAddress", e.target.value)
+            }
+            placeholder="Email"
+            className="block w-full mb-3 px-3 py-3 border rounded-lg"
+          />
+          <input
+            type="tel"
+            value={formData.contactPerson.phoneNumber}
+            onChange={(e) =>
+              handleInputChange("contactPerson.phoneNumber", e.target.value)
+            }
+            placeholder="Phone Number"
+            className="block w-full mb-3 px-3 py-3 border rounded-lg"
+          />
         </div>
 
         {/* Password */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Password <span className="text-red-500">*</span>
-          </label>
+          <label className="font-medium text-gray-900">Password</label>
           <div className="relative">
             <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
             <input
@@ -271,58 +290,44 @@ export default function InstitutionRegistrationForm({
               value={formData.password}
               onChange={(e) => handleInputChange("password", e.target.value)}
               placeholder="Enter password"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
+              className="block w-full pl-10 pr-3 py-3 border rounded-lg"
             />
           </div>
         </div>
 
         {/* Confirm Password */}
         <div>
-          <label className="block text-sm font-medium text-gray-900 mb-2">
-            Confirm Password <span className="text-red-500">*</span>
-          </label>
-          <div className="relative">
-            <Lock className="absolute left-3 top-3.5 h-5 w-5 text-gray-400" />
-            <input
-              type="password"
-              value={formData.confirmPassword}
-              onChange={(e) =>
-                handleInputChange("confirmPassword", e.target.value)
-              }
-              placeholder="Re-enter password"
-              className="block w-full pl-10 pr-3 py-3 border border-gray-300 rounded-lg text-sm focus:ring-2 focus:ring-[#192BC2]"
-            />
-          </div>
+          <label className="font-medium text-gray-900">Confirm Password</label>
+          <input
+            type="password"
+            value={formData.confirmPassword}
+            onChange={(e) =>
+              handleInputChange("confirmPassword", e.target.value)
+            }
+            placeholder="Re-enter password"
+            className="block w-full px-3 py-3 border rounded-lg"
+          />
         </div>
 
-        {/* Submit Button */}
+        {/* Submit */}
         <button
           type="button"
           disabled={loading}
           onClick={handleSubmit}
-          className="w-full bg-[#192BC2] text-white font-medium py-3 rounded-lg hover:opacity-90 focus:ring-2 focus:ring-[#192BC2] mt-6 transition-all">
+          className="w-full bg-[#192BC2] text-white py-3 rounded-lg mt-4">
           {loading ? "Registering..." : "Register Institution"}
         </button>
 
         {isVerified && (
-          <div className="flex justify-center items-center space-x-2 text-green-600 font-medium mt-3">
-            <Check className="h-4 w-4" />
-            <span>Registration Submitted Successfully!</span>
+          <div className="flex justify-center items-center text-green-600 font-medium mt-3">
+            <Check className="h-4 w-4 mr-1" />
+            Registration Submitted Successfully!
           </div>
         )}
 
         {error && (
           <p className="text-red-600 text-center text-sm mt-3">{error}</p>
         )}
-
-        <div className="text-center">
-          <span className="text-gray-600 text-sm">Already registered? </span>
-          <Link
-            href="/login"
-            className="text-[#192BC2] hover:underline font-medium text-sm">
-            Login
-          </Link>
-        </div>
       </div>
     </div>
   );
