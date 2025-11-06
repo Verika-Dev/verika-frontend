@@ -38,7 +38,16 @@ interface SignupData {
   registrationNumber?: string;
   phone?: string;
   estimatedStudents?: string;
-  contactPerson?: string;
+  contactPerson?: {
+    fullName: string;
+    officialRole: string;
+    emailAddress: string;
+    phoneNumber: string;
+    alternateContact: {
+      email: string;
+      phone: string;
+    };
+  };
   website?: string;
   country?: string;
   state?: string;
