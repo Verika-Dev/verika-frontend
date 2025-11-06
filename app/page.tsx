@@ -1,10 +1,4 @@
-import LoginForm from "@/components/auth/login/LoginForm";
-import StudentLoginForm from "@/components/auth/login/LoginForm";
-import StudentSignupForm from "@/components/auth/signUp/studentForm";
-import AuthAsideBg from "@/components/common/authAsideBg";
 import Image from "next/image";
-import SignupPage from "./signUp/page";
-import OnboardingPage from "@/components/auth/onboarding";
 import Footer from "@/components/common/footer";
 import FAQ from "@/components/home/faq";
 import Testimonials from "@/components/home/testimonials";
@@ -17,8 +11,18 @@ import CTASection from "@/components/home/ctaSection";
 export default function Home() {
   return (
     <div>
-      <Navbar/>
-      <HeroSection/>
+      <div className="relative ">
+        <Image
+          src="/images/bgLandingpage.png"
+          alt="Landing background"
+          fill
+          className="object-cover opacity-10 -z-10"
+          priority
+        />
+        <Navbar />
+        <HeroSection />
+      </div>
+
       <HowPryparWorks/>
       <AvailableCourses/>
       <CTASection/>

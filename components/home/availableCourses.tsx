@@ -57,12 +57,22 @@ export default function AvailableCourses() {
           viewport={{ once: true, amount: 0.3 }}
           // variants={fadeUp}
           className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-            Available
-            <span className="inline-block bg-cyan-400 text-white px-2 ml-1 rounded-md">
-              Courses
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 text-center">
+            Available{" "}
+            <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+              {/* Background gradient image */}
+              <Image
+                src="/images/gradientText.svg"
+                alt="gradient background"
+                fill
+                className="object-cover rounded-md z-0"
+              />
+
+              {/* Foreground text */}
+              <span className="relative z-10 text-white">Courses</span>
             </span>
           </h2>
+
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
             Comprehensive learning paths designed for every stage of your
             educational journey.

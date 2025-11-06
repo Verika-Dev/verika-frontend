@@ -2,6 +2,7 @@
 import React, { useState } from "react";
 import { motion } from "framer-motion";
 import { ChevronDown, ChevronUp } from "lucide-react";
+import Image from "next/image";
 
 export default function FAQ() {
   const [openIndex, setOpenIndex] = useState<number | null>(0);
@@ -63,12 +64,21 @@ export default function FAQ() {
             variants={fadeInUp}
             transition={{ duration: 0.6, ease: "easeOut" }}
             className="lg:pr-8 text-center lg:text-left">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight text-center lg:text-left">
               Frequently Asked{" "}
-              <span className="inline-block bg-cyan-400 text-white px-2 rounded-md">
-                Questions
+              <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+                {/* Background gradient image */}
+                <Image
+                  src="/images/gradientText.svg"
+                  alt="gradient background"
+                  fill
+                  className="object-cover rounded-md z-0"
+                />
+                {/* Foreground text */}
+                <span className="relative z-10 text-white">Questions</span>
               </span>
             </h2>
+
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed max-w-md mx-auto lg:mx-0">
               Get answers to common questions about Prypar’s features and
               services.

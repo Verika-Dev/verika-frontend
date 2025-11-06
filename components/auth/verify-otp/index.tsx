@@ -1,20 +1,19 @@
 "use client";
-import React, { useState, useRef, useEffect } from "react";
 
-interface OtpVerificationFormProps {
-  onSubmit?: (otp: string) => void;
-  onResend?: () => void;
-  expirationTime?: number; // in minutes
-}
+import React, { useState, useRef, useEffect } from "react";
+import { useVerifyOtp } from "@/hooks/useVerifyOtp"; // <-- import your hook
 
 function OtpVerificationForm({
-  onSubmit,
-  onResend,
   expirationTime = 15,
-}: OtpVerificationFormProps) {
-  const [otp, setOtp] = useState(["", "", "", ""]);
+}: {
+  expirationTime?: number;
+}) {
+  const [otp, setOtp] = useState(["", "", "", "", "", ""]);
   const [timeLeft, setTimeLeft] = useState(expirationTime * 60); // Convert to seconds
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
+
+  // from hook
+  const { verifyOtp,  loading, error, response } = useVerifyOtp();
 
   // Timer effect
   useEffect(() => {
@@ -46,13 +45,13 @@ function OtpVerificationForm({
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (value && index < 3) {
+    if (value && index <5) {
       inputRefs.current[index + 1]?.focus();
     }
 
     // Auto-submit when all fields are filled
-    if (newOtp.every((digit) => digit !== "") && onSubmit) {
-      onSubmit(newOtp.join(""));
+    if (newOtp.every((digit) => digit !== "")) {
+      handleVerify(newOtp.join(""));
     }
   };
 
@@ -66,11 +65,11 @@ function OtpVerificationForm({
   const handlePaste = (e: React.ClipboardEvent) => {
     e.preventDefault();
     const pasteData = e.clipboardData.getData("text");
-    const digits = pasteData.replace(/\D/g, "").slice(0, 4).split("");
+    const digits = pasteData.replace(/\D/g, "").slice(0, 6).split("");
 
     const newOtp = [...otp];
     digits.forEach((digit, index) => {
-      if (index < 4) {
+      if (index < 6) {
         newOtp[index] = digit;
       }
     });
@@ -82,27 +81,29 @@ function OtpVerificationForm({
     inputRefs.current[focusIndex]?.focus();
   };
 
+  const handleVerify = async (otpCode: string) => {
+    await verifyOtp(otpCode);
+  };
+
   const handleCreateAccount = () => {
     const otpCode = otp.join("");
-    if (otpCode.length === 4 && onSubmit) {
-      onSubmit(otpCode);
+    if (otpCode.length === 6) {
+      handleVerify(otpCode);
     }
   };
 
-  const handleResend = () => {
+  const handleResend = async () => {
     setTimeLeft(expirationTime * 60);
-    setOtp(["", "", "", ""]);
+    setOtp(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
-    if (onResend) {
-      onResend();
-    }
+    // await resendOtp();
   };
 
   const isExpired = timeLeft <= 0;
   const isComplete = otp.every((digit) => digit !== "");
 
   return (
-    <div className="max-w-sm mx-auto p-6 bg-white">
+    <div className="max-w-sm mx-auto p-6 bg-white rounded-xl shadow-sm">
       <div className="space-y-6">
         {/* OTP Input Fields */}
         <div className="flex justify-center space-x-3">
@@ -119,7 +120,7 @@ function OtpVerificationForm({
               onChange={(e) => handleInputChange(index, e.target.value)}
               onKeyDown={(e) => handleKeyDown(index, e)}
               onPaste={handlePaste}
-              className="w-12 h-12 text-center text-xl font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-purple-500 focus:border-transparent transition-colors"
+              className="w-12 h-12 text-center text-xl font-medium border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent transition-colors"
               autoComplete="one-time-code"
             />
           ))}
@@ -131,7 +132,6 @@ function OtpVerificationForm({
             Code expires after{" "}
             <span className="font-medium">{formatTime(timeLeft)}</span>
           </p>
-
           <div className="text-sm">
             <span className="text-gray-600">Didn't get code? </span>
             <button
@@ -140,7 +140,7 @@ function OtpVerificationForm({
               disabled={!isExpired && timeLeft > 0}
               className={`font-medium focus:outline-none focus:underline ${
                 isExpired || timeLeft <= 0
-                  ? "text-purple-600 hover:text-purple-700 cursor-pointer"
+                  ? "text-[#192BC2] cursor-pointer"
                   : "text-gray-400 cursor-not-allowed"
               }`}>
               Resend
@@ -152,14 +152,22 @@ function OtpVerificationForm({
         <button
           type="button"
           onClick={handleCreateAccount}
-          disabled={!isComplete}
-          className={`w-full font-medium py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-purple-500 focus:ring-offset-2 ${
-            isComplete
-              ? "bg-gradient-to-r from-purple-600 to-purple-700 text-white hover:from-purple-700 hover:to-purple-800"
+          disabled={!isComplete || loading}
+          className={`w-full font-medium py-3 px-4 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:ring-offset-2 ${
+            isComplete && !loading
+              ? "bg-[#192BC2] text-white"
               : "bg-gray-300 text-gray-500 cursor-not-allowed"
           }`}>
-          Create Account
+          {loading ? "Verifying..." : "Create Account"}
         </button>
+
+        {/* Feedback */}
+        {error && <p className="text-center text-sm text-red-500">{error}</p>}
+        {response?.success && (
+          <p className="text-center text-sm text-green-600">
+            {response.message || "OTP verified successfully!"}
+          </p>
+        )}
 
         {/* Login Link */}
         <div className="text-center">
@@ -168,7 +176,7 @@ function OtpVerificationForm({
           </span>
           <button
             type="button"
-            className="text-purple-600 hover:text-purple-700 font-medium text-sm focus:outline-none focus:underline">
+            className="text-[#192BC2] font-medium text-sm focus:outline-none focus:underline">
             Login
           </button>
         </div>

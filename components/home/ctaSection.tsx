@@ -6,7 +6,7 @@ import bg from "@/public/images/signUpBg.png";
 
 export default function CTASection() {
   return (
-    <section className="bg-gradient-to-b from-purple-50 to-white py-12 sm:py-16 px-4 md:px-8">
+    <section className="bg-[#F3F5FF] py-12 sm:py-16 px-4 md:px-8">
       <div className="max-w-7xl mx-auto relative">
         {/* Main CTA Card */}
         <div className="relative bg-gradient-to-br from-purple-700 via-purple-600 to-purple-800 rounded-3xl overflow-hidden shadow-2xl">

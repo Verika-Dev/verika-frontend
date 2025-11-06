@@ -19,7 +19,7 @@ export default function LoginPage() {
       {/* Right Content */}
       <div className="flex items-center flex-col justify-center md:w-1/2 w-full px-6">
         <DynamicHeader />
-        <UserRoleTab onChange={setSelectedRole} />
+        {/* <UserRoleTab onChange={setSelectedRole} /> */}
         <LoginForm />
       </div>
     </div>

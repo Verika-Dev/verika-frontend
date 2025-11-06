@@ -11,15 +11,16 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react";
+import { useSignup } from "@/hooks/useSignup";
 
 interface RegistrationFormProps {
   onSubmit?: (data: {
     fullName: string;
     email: string;
-    yearsExperience: string;
-    subjectsExpertise: string;
+    yearsOfExperience: string;
+    subjectOfExpertise: string | string[];
     location: string;
-    bank: string;
+    bankName: string;
     accountNumber: string;
     password: string;
     confirmPassword: string;
@@ -27,17 +28,19 @@ interface RegistrationFormProps {
 }
 
 function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
-  const [formData, setFormData] = useState({
-    fullName: "Kristin Watson",
-    email: "debra.holt@example.com",
-    yearsExperience: "10",
-    subjectsExpertise: "Math, English, Physics, Chem...",
-    location: "Agege/Lagos",
-    bank: "Zenith Bank",
-    accountNumber: "2425203400",
-    password: "●●●●●●",
-    confirmPassword: "●●●●●●",
-  });
+  const { signup, loading, error } = useSignup();
+ const [formData, setFormData] = useState({
+   fullName: "",
+   email: "",
+   yearsOfExperience: "",
+   subjectOfExpertise: '',
+   location: "",
+   rank:"Senior",
+   bankName: "",
+   accountNumber: "",
+   password: "",
+   confirmPassword: "",
+ });
 
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
@@ -89,12 +92,16 @@ function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
       [field]: value,
     }));
   };
+const handleSubmit = async () => {
+  await signup({
+    ...formData,
+    role: "tutor",
+    subjectOfExpertise: Array.isArray(formData.subjectOfExpertise)
+      ? formData.subjectOfExpertise
+      : [formData.subjectOfExpertise],
+  });
+};
 
-  const handleSubmit = () => {
-    if (onSubmit) {
-      onSubmit(formData);
-    }
-  };
 
   const togglePasswordVisibility = () => {
     setShowPassword(!showPassword);
@@ -160,9 +167,9 @@ function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
             <div className="relative">
               <select
                 id="yearsExperience"
-                value={formData.yearsExperience}
+                value={formData.yearsOfExperience}
                 onChange={(e) =>
-                  handleInputChange("yearsExperience", e.target.value)
+                  handleInputChange("yearsOfExperience", e.target.value)
                 }
                 className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {yearsOptions.map((year) => (
@@ -186,9 +193,9 @@ function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
             <div className="relative">
               <select
                 id="subjectsExpertise"
-                value={formData.subjectsExpertise}
+                value={formData.subjectOfExpertise}
                 onChange={(e) =>
-                  handleInputChange("subjectsExpertise", e.target.value)
+                  handleInputChange("subjectOfExpertise", e.target.value)
                 }
                 className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {subjectOptions.map((subject) => (
@@ -243,8 +250,8 @@ function TutorRegistrationForm({ onSubmit }: RegistrationFormProps) {
             <div className="relative">
               <select
                 id="bank"
-                value={formData.bank}
-                onChange={(e) => handleInputChange("bank", e.target.value)}
+                value={formData.bankName}
+                onChange={(e) => handleInputChange("bankName", e.target.value)}
                 className="block w-full appearance-none px-3 py-3 border border-gray-300 rounded-lg text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent">
                 {bankOptions.map((bank) => (
                   <option key={bank} value={bank}>
