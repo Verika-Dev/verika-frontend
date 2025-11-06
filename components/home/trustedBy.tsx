@@ -34,7 +34,7 @@ export default function TrustedBy() {
         whileInView={{ opacity: 1 }}
         transition={{ duration: 0.8, delay: 0.1 }}
         viewport={{ once: true }}
-        className="flex flex-wrap items-center justify-center gap-4 sm:gap-6 md:gap-8 lg:gap-12">
+        className="flex flex-wrap items-center justify-evenly gap-4 sm:gap-6 md:gap-8 lg:gap-12">
         {trustedLogos.map((logo, index) => (
           <motion.div
             key={index}

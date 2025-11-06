@@ -48,8 +48,8 @@ export default function HowPryparWorks() {
   ];
 
   return (
-    <section className="bg-gradient-to-b from-white to-gray-50 py-12 sm:py-16 px-4">
-      <div className="max-w-7xl mx-auto">
+    <section className="bg-[#F3F5FF] py-12 sm:py-16 ">
+      <div className="max-w-full mx-auto">
         {/* Trusted By Section */}
 
         <TrustedBy />
@@ -59,7 +59,7 @@ export default function HowPryparWorks() {
           {/* Left Side - Laptop Mockup with Background */}
           <div className="relative flex justify-center items-center order-2 lg:order-1">
             {/* Purple background block */}
-            <div className="absolute -top-4 sm:top-0 left-1/2 -translate-x-1/2 lg:-translate-x-0 lg:left-0 w-[85%] sm:w-[70%] lg:w-[65%] h-[300px] sm:h-[380px] lg:h-[420px] rounded-3xl overflow-hidden">
+            <div className="absolute -top-4 sm:top-0 left-1/2 -translate-x-1/2 lg:-translate-x-0 lg:left-0 w-[85%] sm:w-[70%] lg:w-[65%] h-[300px] sm:h-[380px] lg:h-[420px] rounded-br-3xl rounded-tr-3xl overflow-hidden">
               <Image
                 src={bg}
                 alt="background"
@@ -85,11 +85,21 @@ export default function HowPryparWorks() {
           {/* Right Side - Steps */}
           <div className="order-1 lg:order-2">
             <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 text-center lg:text-left">
-              How Prypar
-              <span className="inline-block bg-cyan-400 text-white px-2 ml-1 rounded-md">
-                Works
+              How Prypar{" "}
+              <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+                {/* Background gradient */}
+                <Image
+                  src="/images/gradientText.svg"
+                  alt="gradient background"
+                  fill
+                  className="object-cover rounded-md z-0"
+                />
+
+                {/* Foreground text */}
+                <span className="relative z-10 text-white">Works</span>
               </span>
             </h2>
+
             <p className="text-gray-600 text-sm sm:text-base mb-8 leading-relaxed text-center lg:text-left">
               Our streamlined approach helps you prepare for exams with
               confidence through personalized learning paths.

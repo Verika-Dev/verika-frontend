@@ -17,25 +17,24 @@ import CTASection from "@/components/home/ctaSection";
 export default function Home() {
   return (
     <div>
-      <div
-        style={{
-          backgroundImage: "url('/bgLandingpage.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          backgroundRepeat: "no-repeat",
-          minHeight: "100vh",
-          width: "100%",
-        }}>
+      <div className="relative ">
+        <Image
+          src="/images/bgLandingpage.png"
+          alt="Landing background"
+          fill
+          className="object-cover opacity-10"
+          priority
+        />
         <Navbar />
         <HeroSection />
       </div>
 
-      {/* <HowPryparWorks/> */}
-      {/* <AvailableCourses/> */}
-      {/* <CTASection/> */}
-      {/* <Testimonials/> */}
-      {/* <FAQ/> */}
-      {/* <Footer /> */}
+      <HowPryparWorks/>
+      <AvailableCourses/>
+      <CTASection/>
+      <Testimonials/>
+      <FAQ/>
+      <Footer />
     </div>
   );
 }

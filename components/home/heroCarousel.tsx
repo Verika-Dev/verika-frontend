@@ -12,7 +12,7 @@ export default function ImageShowcaseSection() {
   const images = [img1, img2, img3, img4];
 
   return (
-    <section className="relative py-20 overflow-hidden">
+    <section className="relative py-20 overflow-hidden ">
       <div className="text-center">
         <div className="flex justify-between flex-wrap">
           {images.map((img, index) => {

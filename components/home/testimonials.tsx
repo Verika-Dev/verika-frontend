@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useMemo } from "react";
 import { Star } from "lucide-react";
 import { motion, useAnimation } from "framer-motion";
+import Image from "next/image";
 
 export default function Testimonials() {
   const [isPaused, setIsPaused] = useState(false);
@@ -93,13 +94,22 @@ export default function Testimonials() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6 }}
             viewport={{ once: true }}
-            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 text-center">
             What Our{" "}
-            <span className="inline-block bg-cyan-400 text-white px-3 ml-1 rounded-md">
-              Students
+            <span className="relative inline-block px-3 ml-1 rounded-md align-baseline">
+              {/* Background gradient image */}
+              <Image
+                src="/images/gradientText.svg"
+                alt="gradient background"
+                fill
+                className="object-cover rounded-md z-0"
+              />
+              {/* Foreground text */}
+              <span className="relative z-10 text-white">Students</span>
             </span>{" "}
             Say
           </motion.h2>
+
           <motion.p
             initial={{ opacity: 0, y: 10 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -132,9 +142,11 @@ export default function Testimonials() {
                 {/* User Info */}
                 <div className="flex items-center gap-3 mb-4">
                   <div className="w-12 h-12 sm:w-14 sm:h-14 rounded-full overflow-hidden bg-gradient-to-br from-cyan-400 to-blue-500 flex-shrink-0">
-                    <img
+                    <Image
                       src={t.avatar}
                       alt={t.name}
+                      width={100}
+                      height={100}
                       className="w-full h-full object-cover"
                       draggable="false"
                     />
