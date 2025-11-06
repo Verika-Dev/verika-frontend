@@ -46,7 +46,7 @@ export default function Navbar() {
                 <Link
                   key={link.name}
                   href={link.href}
-                  className={`px-3 lg:px-4 py-2 rounded-lg text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
+                  className={`px-3 lg:px-4 py-2 rounded-lg cursor-pointer text-sm font-medium transition-colors duration-200 flex items-center gap-1.5 ${
                     isActive
                       ? "text-[#0A5DEC] bg-[#EBEFFF] rounded-[100px]"
                       : "text-gray-600 hover:text-[#0A5DEC] hover:bg-gray-50"
@@ -102,7 +102,7 @@ export default function Navbar() {
               <Link
                 key={link.name}
                 href={link.href}
-                className={`block px-4 py-3 rounded-lg text-sm font-medium transition-colors duration-200  items-center gap-2 ${
+                className={`block px-4 py-3 cursor-pointer rounded-lg text-sm font-medium transition-colors duration-200  items-center gap-2 ${
                   isActive
                     ? "text-[#0A5DEC] bg-purple-50"
                     : "text-gray-600 hover:text-[#0A5DEC] hover:bg-gray-50"

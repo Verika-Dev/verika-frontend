@@ -1,10 +1,4 @@
-import LoginForm from "@/components/auth/login/LoginForm";
-import StudentLoginForm from "@/components/auth/login/LoginForm";
-import StudentSignupForm from "@/components/auth/signUp/studentForm";
-import AuthAsideBg from "@/components/common/authAsideBg";
 import Image from "next/image";
-import SignupPage from "./signUp/page";
-import OnboardingPage from "@/components/auth/onboarding";
 import Footer from "@/components/common/footer";
 import FAQ from "@/components/home/faq";
 import Testimonials from "@/components/home/testimonials";
@@ -22,7 +16,7 @@ export default function Home() {
           src="/images/bgLandingpage.png"
           alt="Landing background"
           fill
-          className="object-cover opacity-10"
+          className="object-cover opacity-10 -z-10"
           priority
         />
         <Navbar />
