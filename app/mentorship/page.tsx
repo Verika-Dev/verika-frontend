@@ -28,16 +28,18 @@ export default function MentorshipPage() {
           className="text-center mt-15 mb-8 sm:mb-12">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 leading-tight">
             Get Personalized Support from Top{" "}
-            <span className="relative inline-block px-3 ml-1 rounded-md align-baseline">
+            <span className="relative block w-fit mx-auto mt-2">
               {/* Gradient background */}
-              <Image
-                src="/images/gradientText.svg"
-                alt="gradient background"
-                fill
-                className="object-cover rounded-md z-0"
-              />
+              <span className="absolute inset-0">
+                <Image
+                  src="/images/gradientText.svg"
+                  alt="gradient background"
+                  fill
+                  className="object-cover rounded-md"
+                />
+              </span>
               {/* Foreground text */}
-              <span className="relative z-10 text-white">Mentors</span>
+              <span className="relative z-10 text-white px-3">Mentors</span>
             </span>
           </h2>
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto mb-6">
