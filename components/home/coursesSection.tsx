@@ -135,7 +135,7 @@ export default function CoursesSection() {
   };
 
   return (
-    <section className="bg-gray-50 py-12 sm:py-16 px-4">
+    <section className=" py-12 sm:py-16 px-4">
       <div className="max-w-7xl mx-auto">
         {/* Header */}
         <motion.div
@@ -143,10 +143,18 @@ export default function CoursesSection() {
           whileInView="visible"
           viewport={{ once: true, amount: 0.3 }}
           className="text-center mb-8 sm:mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
-            Explore Our
-            <span className="inline-block bg-cyan-400 text-white px-2 ml-1 rounded-md">
-              Courses
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 leading-tight">
+            Explore Our{" "}
+            <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+              {/* Gradient background */}
+              <Image
+                src="/images/gradientText.svg"
+                alt="gradient background"
+                fill
+                className="object-cover rounded-md z-0"
+              />
+              {/* Foreground text */}
+              <span className="relative z-10 text-white">Courses</span>
             </span>
           </h2>
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">

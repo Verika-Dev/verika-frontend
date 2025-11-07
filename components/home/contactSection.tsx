@@ -40,9 +40,17 @@ export default function ContactSection() {
         <div className="grid lg:grid-cols-2 gap-8 lg:gap-16">
           {/* Left Side - Contact Info */}
           <div>
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2">
-              <span className="inline-block bg-cyan-400 text-white px-2">
-                Contact
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-2 leading-tight">
+              <span className="relative inline-block px-2 rounded-md align-baseline">
+                {/* Gradient background */}
+                <Image
+                  src="/images/gradientText.svg"
+                  alt="gradient background"
+                  fill
+                  className="object-cover rounded-md z-0"
+                />
+                {/* Foreground text */}
+                <span className="relative z-10 text-white">Contact</span>
               </span>
               <span className="ml-1">us</span>
             </h2>
