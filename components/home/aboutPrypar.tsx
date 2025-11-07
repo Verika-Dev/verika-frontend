@@ -8,7 +8,7 @@ import solution from "@/public/icons/aboutUsSolution.svg"
 
 export default function AboutPrypar() {
   return (
-    <section className="bg-gradient-to-b from-gray-50 to-white py-12 sm:py-16 px-4 relative overflow-hidden">
+    <section className=" py-12 sm:py-16 px-4 relative overflow-hidden">
       {/* Decorative Background Elements */}
       <div className="absolute top-10 left-10 w-64 h-64 bg-purple-100 rounded-full opacity-30 blur-3xl"></div>
       <div className="absolute bottom-10 right-10 w-80 h-80 bg-cyan-100 rounded-full opacity-30 blur-3xl"></div>
@@ -17,12 +17,19 @@ export default function AboutPrypar() {
       <div className="max-w-6xl mx-auto relative z-10">
         {/* Header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4">
-            About
-            <span className="inline-block bg-cyan-400 text-white px-2 ml-1">
-              Prypar
+          <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-4 leading-tight text-center">
+            About{" "}
+            <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+              <Image
+                src="/images/gradientText.svg"
+                alt="gradient background"
+                fill
+                className="object-cover rounded-md z-0"
+              />
+              <span className="relative z-10 text-white">Prypar</span>
             </span>
           </h2>
+
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed">
             Transforming education across Africa with personalized, AI-powered
             learning experiences.

@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React from "react";
 import {
   LayoutDashboard,
   Award,
@@ -16,7 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-// import AdminNav from "@/components/dashboard/admin/navbar";
+import AdminNav from "@/components/dashboard/admin/navbar";
 
 const menuItems = [
   {
@@ -93,7 +93,6 @@ export default function DashboardLayout({
 
   return (
     <div className="flex h-screen bg-gray-50">
-      {/* <AdminNav /> */}
       {/* Sidebar */}
       <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
         {/* Menu Items */}
@@ -119,7 +118,7 @@ export default function DashboardLayout({
         </div>
 
         {/* Bottom Items */}
-        <div className=" p-4 space-y-1">
+        <div className="p-4 space-y-1">
           {bottomItems.map(({ id, label, icon: Icon, href }) => {
             const isActive = pathname === href;
             return (
@@ -163,8 +162,14 @@ export default function DashboardLayout({
       </aside>
 
       {/* Main Content */}
-      <main className="flex-1 overflow-y-auto">
-        <div className="p-8">{children}</div>
+      <main className="flex-1 flex flex-col overflow-hidden">
+        {/* Fixed Navbar */}
+        <div className="sticky top-0 z-50">
+          <AdminNav />
+        </div>
+
+        {/* Scrollable Children */}
+        <div className="flex-1 overflow-y-auto p-8 bg-gray-50">{children}</div>
       </main>
     </div>
   );

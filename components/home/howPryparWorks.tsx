@@ -59,7 +59,7 @@ export default function HowPryparWorks() {
           {/* Left Side - Laptop Mockup with Background */}
           <div className="relative flex justify-center items-center order-2 lg:order-1">
             {/* Purple background block */}
-            <div className="absolute -top-4 sm:top-0 left-1/2 -translate-x-1/2 lg:-translate-x-0 lg:left-0 w-[85%] sm:w-[70%] lg:w-[65%] h-[300px] sm:h-[380px] lg:h-[420px] rounded-br-3xl rounded-tr-3xl overflow-hidden">
+            <div className="absolute hidden md:block -top-4 sm:top-0 left-1/2 -translate-x-1/2 lg:-translate-x-0 lg:left-0 w-[85%] sm:w-[70%] lg:w-[65%] h-[300px] sm:h-[380px] lg:h-[420px] rounded-br-3xl rounded-tr-3xl overflow-hidden">
               <Image
                 src={bg}
                 alt="background"
@@ -71,7 +71,7 @@ export default function HowPryparWorks() {
             </div>
 
             {/* Laptop Image */}
-            <div className="relative z-10 w-[85%] sm:w-[75%] lg:w-[90%] md:mt-10 max-w-[480px] mx-auto drop-shadow-2xl">
+            <div className="relative z-10 w-[85%] hidden md:block sm:w-[75%] lg:w-[90%] md:mt-10 max-w-[480px] mx-auto drop-shadow-2xl">
               <Image
                 src={laptop}
                 alt="laptop mockup"
@@ -106,7 +106,7 @@ export default function HowPryparWorks() {
             </p>
 
             {/* Steps List */}
-            <div className="space-y-6">
+            <div className="space-y-6 px-3">
               {steps.map((step, index) => (
                 <div
                   key={index}

@@ -59,10 +59,18 @@ export default function CoreValues() {
 
           {/* Right Side - Core Values */}
           <div className="order-1 lg:order-2">
-            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">
+            <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 leading-tight">
               Our Core{" "}
-              <span className="inline-block bg-cyan-400 text-white px-2 ml-1">
-                Values
+              <span className="relative inline-block px-2 ml-1 rounded-md align-baseline">
+                {/* Gradient background */}
+                <Image
+                  src="/images/gradientText.svg"
+                  alt="gradient background"
+                  fill
+                  className="object-cover rounded-md z-0"
+                />
+                {/* Foreground text */}
+                <span className="relative z-10 text-white">Values</span>
               </span>
             </h2>
             <p className="text-gray-600 text-sm sm:text-base mb-8 leading-relaxed">

@@ -51,7 +51,7 @@ export default function FAQ() {
   };
 
   return (
-    <section className="bg-gray-50 py-16 px-5 sm:px-8 lg:px-16">
+    <section className="bg-white py-16 px-5 sm:px-8 lg:px-16">
       <div className="max-w-7xl mx-auto">
         <motion.div
           className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-start"
