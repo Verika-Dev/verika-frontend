@@ -1,5 +1,4 @@
 "use client";
-
 import Image from "next/image";
 import React from "react";
 import logoipsum from "@/public/icons/logo-ipsuim.svg";
@@ -47,12 +46,42 @@ export default function HowPryparWorks() {
     logoipsum4,
   ];
 
-  return (
-    <section className="bg-[#F3F5FF] py-12 sm:py-16 ">
-      <div className="max-w-full mx-auto">
-        {/* Trusted By Section */}
+  // Duplicate logos for seamless infinite scroll
+  const duplicatedLogos = [...trustedLogos, ...trustedLogos, ...trustedLogos];
 
-        <TrustedBy />
+  return (
+    <section className="bg-[#F3F5FF] py-12 sm:py-16">
+      <div className="max-w-full mx-auto">
+        {/* Trusted By Section with Animated Carousel */}
+        <div className="mb-12 sm:mb-16">
+          <h3 className="text-center text-gray-600 text-sm sm:text-base font-medium mb-6 sm:mb-8">
+            Trusted by leading institutions
+          </h3>
+
+          {/* Carousel Container */}
+          <div className="relative overflow-hidden">
+            {/* Gradient overlays for fade effect */}
+            <div className="absolute left-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-r from-[#F3F5FF] to-transparent z-10 pointer-events-none" />
+            <div className="absolute right-0 top-0 bottom-0 w-20 sm:w-32 bg-gradient-to-l from-[#F3F5FF] to-transparent z-10 pointer-events-none" />
+
+            {/* Animated Logo Track */}
+            <div className="flex animate-scroll hover:pause">
+              {duplicatedLogos.map((logo, index) => (
+                <div
+                  key={index}
+                  className="flex-shrink-0 w-32 sm:w-40 md:w-48 px-6 sm:px-8 flex items-center justify-center">
+                  <Image
+                    src={logo}
+                    alt={`Partner logo ${(index % trustedLogos.length) + 1}`}
+                    width={120}
+                    height={40}
+                    className="object-contain grayscale hover:grayscale-0 transition-all duration-300 opacity-60 hover:opacity-100"
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
 
         {/* Main Content Grid */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -69,7 +98,6 @@ export default function HowPryparWorks() {
               />
               <div className="absolute inset-0 bg-gradient-to-br from-[#0C145C] via-[#192BC2] to-[#192BC2]/90 opacity-95" />
             </div>
-
             {/* Laptop Image */}
             <div className="relative z-10 w-[85%] hidden md:block sm:w-[75%] lg:w-[90%] md:mt-10 max-w-[480px] mx-auto drop-shadow-2xl">
               <Image
@@ -94,12 +122,10 @@ export default function HowPryparWorks() {
                   fill
                   className="object-cover rounded-md z-0"
                 />
-
                 {/* Foreground text */}
                 <span className="relative z-10 text-white">Works</span>
               </span>
             </h2>
-
             <p className="text-gray-600 text-sm sm:text-base mb-8 leading-relaxed text-center lg:text-left">
               Our streamlined approach helps you prepare for exams with
               confidence through personalized learning paths.
@@ -136,6 +162,25 @@ export default function HowPryparWorks() {
           </div>
         </div>
       </div>
+
+      <style jsx>{`
+        @keyframes scroll {
+          0% {
+            transform: translateX(0);
+          }
+          100% {
+            transform: translateX(-33.333%);
+          }
+        }
+
+        .animate-scroll {
+          animation: scroll 20s linear infinite;
+        }
+
+        .animate-scroll:hover {
+          animation-play-state: paused;
+        }
+      `}</style>
     </section>
   );
 }

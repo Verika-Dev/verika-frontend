@@ -3,7 +3,7 @@ import React, { useState } from "react";
 import { Home, Phone, Mail } from "lucide-react";
 import home from "@/public/icons/Home.svg";
 import phone from "@/public/icons/Calling.svg";
-import mail from "@/public/icons/gmail.svg";
+import mail from "@/public/icons/mail.svg";
 import Image from "next/image";
 
 export default function ContactSection() {

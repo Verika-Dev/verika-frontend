@@ -9,46 +9,62 @@ import student2 from "@/public/images/pryparStudent1.svg";
 import student3 from "@/public/images/pryparStudent2.svg";
 
 export default function HeroSection() {
-  const [scrollOffset, setScrollOffset] = useState(0);
+  const [displayedText, setDisplayedText] = useState("");
   const [wordIndex, setWordIndex] = useState(0);
+  const [typing, setTyping] = useState(true);
 
   const words = ["Confidently", "Effectively", "Successfully"];
 
-  // Smooth scroll animation (background effect)
+  // Typewriter animation effect
   useEffect(() => {
-    const interval = setInterval(() => {
-      setScrollOffset((prev) => (prev + 0.15) % 100);
-    }, 30);
-    return () => clearInterval(interval);
-  }, []);
+    let timeout: NodeJS.Timeout;
+    const currentWord = words[wordIndex];
 
-  // Rotate through words
-  useEffect(() => {
-    const interval = setInterval(() => {
-      setWordIndex((prevIndex) => (prevIndex + 1) % words.length);
-    }, 5000);
-    return () => clearInterval(interval);
-  }, [words.length]);
+    if (typing) {
+      if (displayedText.length < currentWord.length) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length + 1));
+        }, 100); // typing speed
+      } else {
+        setTyping(false);
+        timeout = setTimeout(() => {
+          setTyping(false);
+        }, 5000); // pause before deleting
+      }
+    } else {
+      if (displayedText.length > 0) {
+        timeout = setTimeout(() => {
+          setDisplayedText(currentWord.slice(0, displayedText.length - 1));
+        }, 200); // deleting speed
+      } else {
+        setTyping(true);
+        setWordIndex((prev) => (prev + 1) % words.length);
+      }
+    }
 
-  const currentWord = words[wordIndex];
+    return () => clearTimeout(timeout);
+  }, [displayedText, typing, wordIndex, words]);
 
   return (
-    <section className=" py-12 sm:py-16 lg:py-20 overflow-hidden">
-      <div className=" mx-auto">
-        {/*Trust Badge */}
-        <div className="flex items-center justify-center max-w-80 rounded-[100px] mx-auto bg-white p-3 border-2 gap-2 mb-6">
+    <section className="py-12 sm:py-16 lg:py-20 overflow-hidden">
+      <div className="">
+        {/* Trust Badge */}
+        <div className="flex items-center justify-center max-w-xs sm:max-w-sm rounded-full mx-auto bg-white p-3 border-2 gap-2 mb-10 shadow-sm">
           <div className="flex -space-x-2">
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-purple-400 to-pink-500 border-2 border-white flex items-center justify-center">
-              <Image src={student1} alt="" width={100} height={100} />
-            </div>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-blue-400 to-cyan-500 border-2 border-white flex items-center justify-center">
-              <Image src={student2} alt="" width={100} height={100} />
-            </div>
-            <div className="w-8 h-8 rounded-full bg-gradient-to-br from-orange-400 to-red-500 border-2 border-white flex items-center justify-center">
-              <Image src={student3} alt="" width={100} height={100} />
-            </div>
+            {[student1, student2, student3].map((img, i) => (
+              <div
+                key={i}
+                className="w-8 h-8 rounded-full border-2 border-white flex items-center justify-center bg-gradient-to-br from-purple-400 to-pink-500">
+                <Image
+                  src={img}
+                  alt={`student-${i}`}
+                  width={100}
+                  height={100}
+                />
+              </div>
+            ))}
           </div>
-          <p className="text-gray-600 text-sm">
+          <p className="text-gray-600 text-sm sm:text-base">
             Trusted by{" "}
             <span className="font-semibold text-gray-900">5000+</span> students.
           </p>
@@ -56,54 +72,51 @@ export default function HeroSection() {
 
         {/* Main Heading */}
         <div className="text-center mb-6 sm:mb-8">
-          <h1
-            className="text-3xl sm:text-4xl lg:text-6xl font-bold text-[#111827] mb-4 leading-tight"
-            style={{ lineHeight: 1.2 }}>
+          <h1 className="text-3xl sm:text-4xl lg:text-6xl font-bold text-[#111827] leading-tight mb-4">
             Prepare{" "}
-            <span
-              className="relative inline-flex items-center align-baseline whitespace-nowrap"
-              style={{ verticalAlign: "baseline" }}>
-              <AnimatePresence mode="wait">
-                <motion.span
-                  key={currentWord}
-                  initial={{ opacity: 0, y: 20 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -20 }}
-                  transition={{ duration: 0.9, ease: "easeInOut" }}
+            <span className="relative inline-flex items-center align-baseline whitespace-nowrap">
+              <motion.span
+                key={wordIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+                className="relative font-bold"
+                style={{
+                  display: "inline-flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: "4px 10px",
+                  borderRadius: "6px",
+                  overflow: "hidden",
+                  color: "#fff",
+                }}>
+                <div
+                  className="absolute inset-0 bg-cover bg-center opacity-90"
                   style={{
-                    position: "relative",
-                    display: "inline-flex",
-                    alignItems: "center",
-                    justifyContent: "center",
-                    padding: "4px 10px",
-                    borderRadius: "6px",
-                    color: "#fff",
-                    overflow: "hidden",
-                    verticalAlign: "middle",
+                    backgroundImage: "url('/images/gradientText.svg')",
+                  }}
+                />
+                <span
+                  className="relative z-10 font-extrabold"
+                  style={{
+                    fontFamily: "inherit",
+                    textShadow: "0 2px 8px rgba(0,0,0,0.15)",
+                    minWidth: "8ch",
                   }}>
-                  {/* background image */}
-                  <div
+                  {displayedText}
+                  <motion.span
+                    className="inline-block bg-white ml-1"
+                    animate={{ opacity: [0, 1, 0] }}
+                    transition={{ duration: 0.8, repeat: Infinity }}
                     style={{
-                      position: "absolute",
-                      inset: 0,
-                      backgroundImage: "url('/images/gradientText.svg')",
-                      backgroundSize: "cover",
-                      backgroundPosition: "center",
-                      zIndex: 0,
-                      opacity: 0.9,
-                    }}></div>
-
-                  {/* text in front */}
-                  <span
-                    style={{
-                      position: "relative",
-                      zIndex: 1,
-                      fontWeight: 700,
-                    }}>
-                    {currentWord}
-                  </span>
-                </motion.span>
-              </AnimatePresence>
+                      width: "2px",
+                      height: "1.2em",
+                      verticalAlign: "middle",
+                    }}
+                  />
+                </span>
+              </motion.span>
             </span>{" "}
             For Your Exams
             <br />
@@ -116,16 +129,27 @@ export default function HeroSection() {
           </p>
         </div>
 
-        {/* CTA Button with Link */}
+        {/* CTA Button */}
         <div className="text-center mb-12 sm:mb-16">
           <Link href="/signUp">
-            <button className="px-8 py-3.5 bg-[#0A5DEC] cursor-pointer text-white font-semibold rounded-lg transition-all duration-200 shadow-lg hover:shadow-xl transform hover:scale-105">
+            <motion.button
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.97 }}
+              transition={{ type: "spring", stiffness: 300 }}
+              className="px-8 py-3.5 bg-[#0A5DEC] text-white font-semibold rounded-lg shadow-lg hover:shadow-xl transition-all duration-200">
               Get Started
-            </button>
+            </motion.button>
           </Link>
         </div>
 
-        <ImageCarouselSection />
+        {/* Hero Carousel */}
+        <motion.div
+        
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}>
+          <ImageCarouselSection />
+        </motion.div>
       </div>
     </section>
   );
