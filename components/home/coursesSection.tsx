@@ -159,7 +159,7 @@ export default function CoursesSection() {
           </h2>
           <p className="text-gray-600 text-sm sm:text-base max-w-2xl mx-auto">
             Interactive lessons, AI insights, and expert mentorship across all
-            subject streams—from nursery to career-ready.
+            subject streams, from nursery to career ready.
           </p>
         </motion.div>
 

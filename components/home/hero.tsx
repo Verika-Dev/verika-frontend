@@ -47,7 +47,7 @@ export default function HeroSection() {
 
   return (
     <section className="py-12 sm:py-16 lg:py-20 overflow-hidden">
-      <div className="container mx-auto px-4 lg:px-12">
+      <div className="">
         {/* Trust Badge */}
         <div className="flex items-center justify-center max-w-xs sm:max-w-sm rounded-full mx-auto bg-white p-3 border-2 gap-2 mb-10 shadow-sm">
           <div className="flex -space-x-2">
@@ -144,6 +144,7 @@ export default function HeroSection() {
 
         {/* Hero Carousel */}
         <motion.div
+        
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}>

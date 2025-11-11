@@ -19,7 +19,7 @@ export default function CoreValues() {
       icon: <Image src={ai} alt="" className="object-cover" />,
       title: "Predictive AI Insights",
       description:
-        "Real-time, personalized predictions for likely exam topics and mastery gaps—so students always focus where it matters most.",
+        "Real-time, personalized predictions for likely exam topics and mastery gaps, so students always focus where it matters most.",
     },
     {
       icon: <Image src={gamification} alt="" className="object-cover" />,

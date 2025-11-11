@@ -48,7 +48,7 @@ export default function AboutPrypar() {
             </h3>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
               To empower every African learner with personalized, predictive,
-              and engaging digital education—ready for any exam or future
+              and engaging digital education,ready for any exam or future
               career.
             </p>
           </div>
@@ -62,7 +62,7 @@ export default function AboutPrypar() {
               Our Vision
             </h3>
             <p className="text-gray-600 text-sm sm:text-base leading-relaxed">
-              A continent where all students have equal access to high-quality
+              A continent where all students have equal access to high quality
               learning, mentorship, and success opportunities.
             </p>
           </div>
@@ -81,7 +81,7 @@ export default function AboutPrypar() {
             resources, predictive exam preparation, practical digital content,
             and a reliable support system for maximizing achievement. Prypar
             bridges these gaps with AI, mentorship, gamification, and
-            easy-to-use analytics—equipping every learner for greater confidence
+            easy-to-use analytics, equipping every learner for greater confidence
             and results.
           </p>
         </div>
