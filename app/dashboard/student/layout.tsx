@@ -17,6 +17,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AdminNav from "@/components/dashboard/admin/navbar";
+import { useLogout } from "@/hooks/useLogout";
 
 const menuItems = [
   {
@@ -90,6 +91,7 @@ export default function DashboardLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const { logout, loading } = useLogout();
 
   return (
     <div className="flex h-screen bg-gray-50">
@@ -154,6 +156,7 @@ export default function DashboardLayout({
               </div>
               <ChevronRight
                 size={20}
+                onClick={logout}
                 className="text-gray-400 cursor-pointer "
               />
             </button>
