@@ -20,7 +20,7 @@ interface SignupData {
   // Tutor fields
   fullName?: string;
   yearsOfExperience?: string;
-  subjectOfExpertise?: string[]; // must be array
+  subjectOfExpertise?: string[]; 
   location?: string;
   bankName?: string;
   rank?: string;
