@@ -43,13 +43,9 @@ export const useLogin = () => {
     setLoading(true);
     setError(null);
 
-    console.log("payload", formData);
-
     try {
       const response = await axios.post<LoginResponse>(
-        formData.role == "user"
-          ? "http://178.128.64.203:8080/api/v1/auth/login"
-          : "http://178.128.64.203:8080/api/v1/auth/admin-login",
+        `${process.env.NEXT_PUBLIC_BASE_URL}/auth/login`,
         {
           email: formData.email,
           password: formData.password,
@@ -77,8 +73,6 @@ export const useLogin = () => {
         router.push("/dashboard/student");
       } else if (role === "tutor") {
         router.push("/dashboard/tutor");
-      } else if (role === "admin") {
-        router.push("/dashboard/admin");
       } else {
         router.push("/dashboard/institution");
       }

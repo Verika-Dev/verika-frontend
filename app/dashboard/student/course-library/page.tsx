@@ -1,15 +1,22 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Search, Filter, ArrowUpDown, BookOpen, Users } from "lucide-react";
 import Image from "next/image";
-
+import { useGetCourses } from "@/hooks/useGetCourses";
 const CourseLibrary = () => {
   const [activeTab, setActiveTab] = useState("explore");
   const [searchQuery, setSearchQuery] = useState("");
   const [showFilterMenu, setShowFilterMenu] = useState(false);
   const [showSortMenu, setShowSortMenu] = useState(false);
+  const { loading, fetchCourses, courses, error } = useGetCourses();
 
-  const courses = [
+  useEffect(() => {
+    fetchCourses();
+
+    console.log("courses", courses);
+  }, [courses]);
+
+  const mockCourses = [
     {
       id: 1,
       title: "English Language",
@@ -66,7 +73,7 @@ const CourseLibrary = () => {
     },
   ];
 
-  const filteredCourses = courses.filter((course) =>
+  const filteredCourses = mockCourses.filter((course) =>
     course.title.toLowerCase().includes(searchQuery.toLowerCase())
   );
 
