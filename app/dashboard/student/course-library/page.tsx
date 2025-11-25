@@ -1,6 +1,7 @@
-"use client"
+"use client";
 import React, { useState } from "react";
 import { Search, Filter, ArrowUpDown, BookOpen, Users } from "lucide-react";
+import Image from "next/image";
 
 const CourseLibrary = () => {
   const [activeTab, setActiveTab] = useState("explore");
@@ -70,8 +71,8 @@ const CourseLibrary = () => {
   );
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50 p-6">
-      <div className="max-w-7xl mx-auto">
+    <div className="min-h-screen bg-white rounded-lg p-6">
+      <div className="">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-3xl font-bold text-gray-800 mb-2">
@@ -84,19 +85,19 @@ const CourseLibrary = () => {
         <div className="flex gap-2 mb-6">
           <button
             onClick={() => setActiveTab("explore")}
-            className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
+            className={`px-6 py-2.5 rounded-lg cursor-pointer font-medium transition-all ${
               activeTab === "explore"
-                ? "bg-purple-100 text-purple-700"
-                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                ? "bg-[#C4CAFD] text-black "
+                : "text-black   hover:border-gray-300 hover:bg-gray-100"
             }`}>
             Explore Courses
           </button>
           <button
             onClick={() => setActiveTab("enrolled")}
-            className={`px-6 py-2.5 rounded-lg font-medium transition-all ${
+            className={`px-6 py-2.5 rounded-lg cursor-pointer font-medium transition-all ${
               activeTab === "enrolled"
-                ? "bg-purple-100 text-purple-700"
-                : "text-gray-600 hover:text-gray-800 hover:bg-gray-100"
+                ? "bg-[#c4cafd] text-black "
+                : "text-black   hover:border-gray-300 hover:bg-gray-100"
             }`}>
             Enrolled Courses
           </button>
@@ -121,6 +122,12 @@ const CourseLibrary = () => {
               className="flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors">
               <Filter className="w-5 h-5 text-gray-600" />
               <span className="text-gray-700 font-medium">Filter by</span>
+              <Image
+                src="/icons/arrow-down.svg"
+                alt="Down Arrow"
+                width={20}
+                height={20}
+              />
             </button>
             {showFilterMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-10">
@@ -146,6 +153,12 @@ const CourseLibrary = () => {
               className="flex items-center gap-2 px-5 py-3 rounded-xl border border-gray-200 bg-white hover:bg-gray-50 transition-colors">
               <ArrowUpDown className="w-5 h-5 text-gray-600" />
               <span className="text-gray-700 font-medium">Sort by</span>
+              <Image
+                src="/icons/arrow-down.svg"
+                alt="Down Arrow"
+                width={20}
+                height={20}
+              />
             </button>
             {showSortMenu && (
               <div className="absolute right-0 mt-2 w-48 bg-white rounded-xl shadow-lg border border-gray-200 py-2 z-10">
@@ -192,17 +205,29 @@ const CourseLibrary = () => {
                 {/* Stats */}
                 <div className="flex items-center gap-4 mb-4 text-sm text-gray-600">
                   <div className="flex items-center gap-1.5">
-                    <BookOpen className="w-4 h-4" />
+                    {/* <BookOpen className="w-4 h-4" /> */}
+                    <Image
+                      src="/icons/book-lesson.svg"
+                      alt="Lessons"
+                      width={16}
+                      height={16}
+                    />
                     <span>{course.lessons} lesson</span>
                   </div>
                   <div className="flex items-center gap-1.5">
-                    <Users className="w-4 h-4" />
+                    {/* <Users className="w-4 h-4" /> */}
+                    <Image
+                      src="/icons/students-enrolled.svg"
+                      alt="Students"
+                      width={16}
+                      height={16}
+                    />
                     <span>{course.students} Students Enrolled</span>
                   </div>
                 </div>
 
                 {/* Enroll Button */}
-                <button className="w-full bg-gradient-to-r from-purple-600 to-purple-700 hover:from-purple-700 hover:to-purple-800 text-white font-semibold py-3 rounded-lg transition-all">
+                <button className="w-full bg-[#0A5DEC] cursor-pointer text-white font-semibold py-3 rounded-lg transition-all">
                   Enroll
                 </button>
               </div>
