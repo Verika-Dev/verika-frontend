@@ -9,11 +9,11 @@ function LoginForm() {
   const [formData, setFormData] = useState({
     username: "",
     password: "",
-    role: "user", 
+    role: "user",
   });
 
   const [showPassword, setShowPassword] = useState(false);
-  const { login, loading, error, data } = useLogin();
+  const { login, loading, error } = useLogin();
 
   const handleInputChange = (field: keyof typeof formData, value: string) => {
     setFormData((prev) => ({
@@ -31,7 +31,6 @@ function LoginForm() {
     await login({
       email: formData.username,
       password: formData.password,
-      role: formData.role,
     });
   };
 
@@ -40,8 +39,6 @@ function LoginForm() {
   return (
     <div className="w-full mx-auto p-6 bg-white">
       <div className="space-y-6">
-     
-
         {/* Email Field */}
         <div>
           <label
@@ -107,11 +104,6 @@ function LoginForm() {
 
         {/* Error Message */}
         {error && <p className="text-red-500 text-sm mt-2">{error}</p>}
-
-        {/* Success Message */}
-        {data?.message && (
-          <p className="text-green-600 text-sm mt-2">{data.message}</p>
-        )}
 
         {/* Create Account Link */}
         <div className="text-center">
