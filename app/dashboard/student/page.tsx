@@ -11,14 +11,15 @@ import {
   X,
 } from "lucide-react";
 import AdminNav from "@/components/dashboard/admin/navbar";
+import Image from "next/image";
 
 const JAMBDashboard = () => {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-purple-50 to-pink-50">
+    <div className="min-h-screen bg-white p-6 rounded-lg">
       {/* <AdminNav/> */}
-      <div className="max-w-7xl mx-auto">
+      <div className="">
         {/* Header Section */}
-        <div className="bg-gradient-to-r from-purple-100 to-blue-100 rounded-2xl p-6 mb-8 shadow-sm">
+        <div className="bg-[#E0E8FF] rounded-2xl p-6 mb-8 shadow-sm">
           <div className="flex justify-between items-start">
             <div>
               <h1 className="text-2xl font-bold text-gray-800 mb-1">
@@ -30,7 +31,16 @@ const JAMBDashboard = () => {
             </div>
             <div className="text-right">
               <p className="text-xs text-gray-500 mb-1">Current Streak</p>
-              <p className="text-3xl font-bold text-purple-600">0</p>
+
+              <p className="text-3xl font-bold text-purple-600 flex items-center gap-1">
+                <Image
+                  src="/icons/firestreak.png"
+                  alt="streak"
+                  width={30}
+                  height={30}
+                />
+                0
+              </p>
             </div>
           </div>
         </div>
