@@ -11,6 +11,7 @@ import {
   Video,
 } from "lucide-react";
 import Image from "next/image";
+import SessionDetails from "@/components/dashboard/live-session/sessionDetails";
 
 const LiveClasses = () => {
   const [activeTab, setActiveTab] = useState("findTutor");
@@ -18,6 +19,7 @@ const LiveClasses = () => {
   const [selectedSubject, setSelectedSubject] = useState("all");
   const [selectedPrice, setSelectedPrice] = useState("all");
   const [sessionTab, setSessionTab] = useState("upcoming");
+  const [selectedSession, setSelectedSession] = useState<any>(null); // Track session for modal
 
   const tutors = [
     {
@@ -560,6 +562,7 @@ const LiveClasses = () => {
                   ) : (
                     <div className="p-4">
                       <button
+                        onClick={() => setSelectedSession(session)}
                         className="
       w-full 
       bg-blue-600 
@@ -596,6 +599,14 @@ const LiveClasses = () => {
             </div>
           )}
         </>
+      )}
+
+      {/* Session Details Modal */}
+      {selectedSession && (
+        <SessionDetails
+          session={selectedSession}
+          onClose={() => setSelectedSession(null)}
+        />
       )}
     </div>
   );
