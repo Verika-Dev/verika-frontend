@@ -16,7 +16,7 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import AdminNav from "@/components/dashboard/admin/navbar";
+import AdminNav from "@/components/dashboard/header/navbar";
 import { useLogout } from "@/hooks/useLogout";
 
 const menuItems = [

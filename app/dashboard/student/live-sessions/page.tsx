@@ -11,6 +11,7 @@ import {
   Video,
 } from "lucide-react";
 import Image from "next/image";
+import Link from "next/link";
 import SessionDetails from "@/components/dashboard/live-session/sessionDetails";
 
 const LiveClasses = () => {
@@ -552,9 +553,11 @@ const LiveClasses = () => {
                 <div>
                   {session.status === "upcoming" ? (
                     <div className="p-4 flex gap-2">
-                      <button className="flex-1 bg-blue-600 cursor-pointer text-white py-2.5 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
-                        Join Session
-                      </button>
+                      <Link href="/live-session" className="flex-1">
+                        <button className="w-full bg-blue-600 cursor-pointer text-white py-2.5 px-4 rounded-lg text-sm font-medium hover:bg-blue-700 transition-colors">
+                          Join Session
+                        </button>
+                      </Link>
                       <button className="flex-1 bg-white border cursor-pointer border-gray-300 text-blue-700 py-2.5 px-4 rounded-lg text-sm font-medium hover:bg-gray-200 transition-colors">
                         Message
                       </button>

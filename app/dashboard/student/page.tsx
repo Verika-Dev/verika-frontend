@@ -10,7 +10,7 @@ import {
   Upload,
   X,
 } from "lucide-react";
-import AdminNav from "@/components/dashboard/admin/navbar";
+import AdminNav from "@/components/dashboard/header/navbar";
 import Image from "next/image";
 
 const JAMBDashboard = () => {
