@@ -1,11 +1,13 @@
 "use client";
 
+
+import Link from "next/link";
 import React, { useState, useRef, useEffect } from "react";
 import { useVerifyOtp } from "@/hooks/useVerifyOtp";
 import { useResendOtp } from "@/hooks/useResendOtp";
 
 function OtpVerificationForm({
-  expirationTime = 15,
+  expirationTime = 5,
 }: {
   expirationTime?: number;
 }) {
@@ -103,8 +105,15 @@ function OtpVerificationForm({
     setTimeLeft(expirationTime * 60);
     setOtp(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
+    const email = localStorage.getItem("signupEmail");
+    console.log("resend otp", email);
+
+    if (!email) {
+      console.error("Email missing. Cannot resend OTP.");
+      return;
+    }
     await resendOtp({
-      email: "",
+      email: email,
     });
   };
 
@@ -179,15 +188,16 @@ function OtpVerificationForm({
         )}
 
         {/* Login Link */}
+        {/* Login Link */}
         <div className="text-center">
           <span className="text-gray-600 text-sm">
             Already have an account?{" "}
           </span>
-          <button
-            type="button"
+          <Link
+            href="/login"
             className="text-[#192BC2] font-medium text-sm focus:outline-none focus:underline">
             Login
-          </button>
+          </Link>
         </div>
       </div>
     </div>
