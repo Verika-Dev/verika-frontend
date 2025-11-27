@@ -12,7 +12,7 @@ function OtpVerificationForm({
   expirationTime?: number;
 }) {
   const [otp, setOtp] = useState(["", "", "", "", "", ""]);
-  const [timeLeft, setTimeLeft] = useState(expirationTime * 60); // Convert to seconds
+  const [timeLeft, setTimeLeft] = useState(expirationTime * 60);
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // from hook
