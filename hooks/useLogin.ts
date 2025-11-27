@@ -39,7 +39,7 @@ export const useLogin = () => {
       else router.push("/dashboard/institution");
     } catch (err) {
       console.log(err);
-      
+
       setError("Unexpected error occurred");
     } finally {
       setLoading(false);
