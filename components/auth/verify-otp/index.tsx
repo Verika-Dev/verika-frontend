@@ -1,7 +1,8 @@
 "use client";
 
 import React, { useState, useRef, useEffect } from "react";
-import { useVerifyOtp } from "@/hooks/useVerifyOtp"; // <-- import your hook
+import { useVerifyOtp } from "@/hooks/useVerifyOtp";
+import { useResendOtp } from "@/hooks/useResendOtp";
 
 function OtpVerificationForm({
   expirationTime = 15,
@@ -13,7 +14,13 @@ function OtpVerificationForm({
   const inputRefs = useRef<(HTMLInputElement | null)[]>([]);
 
   // from hook
-  const { verifyOtp,  loading, error, response } = useVerifyOtp();
+  const { verifyOtp, loading, error, response } = useVerifyOtp();
+  const {
+    resendOtp,
+    loading: resendLoading,
+    error: resendError,
+    success: resendSuccess,
+  } = useResendOtp();
 
   // Timer effect
   useEffect(() => {
@@ -45,7 +52,7 @@ function OtpVerificationForm({
     setOtp(newOtp);
 
     // Auto-focus next input
-    if (value && index <5) {
+    if (value && index < 5) {
       inputRefs.current[index + 1]?.focus();
     }
 
@@ -96,7 +103,9 @@ function OtpVerificationForm({
     setTimeLeft(expirationTime * 60);
     setOtp(["", "", "", "", "", ""]);
     inputRefs.current[0]?.focus();
-    // await resendOtp();
+    await resendOtp({
+      email: "",
+    });
   };
 
   const isExpired = timeLeft <= 0;
@@ -143,7 +152,7 @@ function OtpVerificationForm({
                   ? "text-[#192BC2] cursor-pointer"
                   : "text-gray-400 cursor-not-allowed"
               }`}>
-              Resend
+              {resendLoading ? "Resending..." : "Resend"}
             </button>
           </div>
         </div>
