@@ -322,7 +322,7 @@ export default function LiveSession() {
 
       {/* Start Session Modal */}
       {showStartModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center p-4 z-50">
+        <div className="fixed inset-0 bg-white/90 bg-opacity-50 flex items-center justify-center p-4 z-50">
           <div className="bg-white rounded-2xl shadow-2xl max-w-md w-full p-6 relative">
             <button
               onClick={() => setShowStartModal(false)}
