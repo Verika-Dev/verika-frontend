@@ -11,6 +11,7 @@ import {
   ChevronDown,
   Wallet,
 } from "lucide-react";
+import Image from "next/image";
 
 interface Stats {
   totalStudents: number;
@@ -100,7 +101,7 @@ export default function TutorDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl bg-white p-7 rounded-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
@@ -123,8 +124,8 @@ export default function TutorDashboard() {
                   Actively learning with you
                 </p>
               </div>
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <Users size={20} className="text-purple-600" />
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <Users size={20} className="text-blue-600" />
               </div>
             </div>
           </div>
@@ -141,21 +142,22 @@ export default function TutorDashboard() {
                   First lesson at 10:00 AM
                 </p>
               </div>
-              <div className="w-10 h-10 bg-purple-100 rounded-lg flex items-center justify-center">
-                <BookOpen size={20} className="text-purple-600" />
+              <div className="w-10 h-10 bg-blue-100 rounded-lg flex items-center justify-center">
+                <BookOpen size={20} className="text-blue-600" />
               </div>
             </div>
           </div>
 
           {/* Wallet Balance */}
-          <div className="bg-gradient-to-br from-purple-700 to-purple-600 rounded-lg shadow-sm p-6 text-white">
+          <div className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-lg relative shadow-sm p-6 text-white">
+            <Image src="/images/signUpBg.png" alt="bg" fill className="absolute inset-0 object-cover rounded-lg opacity-10" />
             <div className="flex items-start justify-between">
               <div>
-                <p className="text-purple-100 text-sm mb-2">Wallet Balance</p>
+                <p className="text-blue-100 text-sm mb-2">Wallet Balance</p>
                 <p className="text-3xl font-bold">
                   ₦{stats.walletBalance.toLocaleString()}
                 </p>
-                <p className="text-purple-100 text-sm mt-1">
+                <p className="text-blue-100 text-sm mt-1">
                   Available for payout
                 </p>
               </div>
@@ -176,7 +178,7 @@ export default function TutorDashboard() {
               <button
                 key={index}
                 className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow text-center">
-                <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mx-auto mb-3">
+                <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
                   {/* <action.icon size={24} className="text-purple-600" /> */}
                 </div>
                 <p className="text-sm font-medium text-gray-900">
@@ -228,7 +230,7 @@ export default function TutorDashboard() {
                         {item.subject}
                       </td>
                       <td className="py-4">
-                        <button className="text-sm text-purple-600 font-medium hover:text-purple-700 underline">
+                        <button className="text-sm text-blue-600 cursor-pointer font-medium hover:text-blue-700 underline">
                           Join Class
                         </button>
                       </td>
@@ -280,7 +282,7 @@ export default function TutorDashboard() {
                       <button
                         className={`w-full h-full rounded-lg text-sm font-medium transition-colors ${
                           highlightedDays.includes(day)
-                            ? "bg-purple-600 text-white hover:bg-purple-700"
+                            ? "bg-blue-600 text-white hover:bg-blue-700"
                             : "text-gray-900 hover:bg-gray-100"
                         }`}>
                         {day}

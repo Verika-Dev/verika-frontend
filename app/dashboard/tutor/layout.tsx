@@ -1,19 +1,14 @@
 "use client";
+
 import React from "react";
 import {
   LayoutDashboard,
   Award,
   Building2,
-  BookOpen,
   Users,
-  Wallet,
-  MessageSquare,
-  BarChart3,
-  HelpCircle,
   Settings,
-  ChevronRight,
 } from "lucide-react";
-import Image from "next/image";
+import { motion } from "framer-motion";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import AdminNav from "@/components/dashboard/header/navbar";
@@ -38,44 +33,20 @@ const menuItems = [
     icon: Building2,
     href: "/dashboard/tutor/schedule",
   },
-  // {
-  //   id: "assignments",
-  //   label: "Assignments",
-  //   icon: BookOpen,
-  //   href: "/dashboard/tutor/assignments",
-  // },
   {
     id: "mentorship-request",
     label: "Mentorship Request",
     icon: Users,
     href: "/dashboard/tutor/mentorship-request",
   },
-  // {
-  //   id: "earning-payout",
-  //   label: "Earning & Payout",
-  //   icon: Wallet,
-  //   href: "/dashboard/tutor/earning-payout",
-  // },
-  // {
-  //   id: "rating-review",
-  //   label: "Rating & Review",
-  //   icon: MessageSquare,
-  //   href: "/dashboard/tutor/ratings-reviews",
-  // },
 ];
 
 const bottomItems = [
   {
-    id: "support",
-    label: "Support & Comms",
-    icon: HelpCircle,
-    href: "/dashboard/admin/support",
-  },
-  {
     id: "settings",
     label: "Settings",
     icon: Settings,
-    href: "/dashboard/admin/settings",
+    href: "/dashboard/tutor/settings",
   },
 ];
 
@@ -90,83 +61,119 @@ export default function DashboardLayout({
   return (
     <div className="flex h-screen bg-gray-50">
       {/* Sidebar */}
-      <aside className="w-64 bg-white border-r border-gray-200 flex flex-col">
-        {/* Menu Items */}
+      <motion.aside
+        initial={{ x: -20, opacity: 0 }}
+        animate={{ x: 0, opacity: 1 }}
+        transition={{ duration: 0.3 }}
+        className="w-64 bg-white border-r border-gray-200 flex flex-col shadow-sm">
+        {/* Top Menu */}
         <div className="flex-1 overflow-y-auto">
-          <div className="p-4 space-y-1">
-            {menuItems.map(({ id, label, icon: Icon, href }) => {
-              const isActive = pathname === href;
-              return (
-                <Link
-                  key={id}
-                  href={href}
-                  className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition ${
-                    isActive
-                      ? "bg-[#1E40AF] text-white"
-                      : "text-gray-700 hover:bg-gray-100"
-                  }`}>
-                  <Icon size={18} />
-                  <span>{label}</span>
-                </Link>
-              );
-            })}
+          <div className="p-4 space-y-2">
+            <motion.div layout>
+              {menuItems.map(({ id, label, icon: Icon, href }) => {
+                const isActive = pathname === href;
+
+                return (
+                  <motion.div key={id} layout>
+                    <Link href={href}>
+                      <motion.div
+                        whileHover={{ scale: 1.02 }}
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 20,
+                        }}
+                        className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm cursor-pointer overflow-hidden ${
+                          isActive
+                            ? "text-white"
+                            : "text-gray-700 hover:bg-gray-100"
+                        }`}>
+                        {isActive && (
+                          <motion.div
+                            layoutId="activeHighlight"
+                            className="absolute inset-0 bg-[#1E40AF] rounded-md z-0"
+                            transition={{
+                              type: "spring",
+                              stiffness: 300,
+                              damping: 25,
+                            }}
+                          />
+                        )}
+
+                        <Icon size={18} className="z-10" />
+                        <span className="z-10">{label}</span>
+                      </motion.div>
+                    </Link>
+                  </motion.div>
+                );
+              })}
+            </motion.div>
           </div>
         </div>
 
-        {/* Bottom Items */}
-        <div className="p-4 space-y-1">
+        {/* Bottom Settings + Logout */}
+        <div className="p-4 space-y-2">
           {bottomItems.map(({ id, label, icon: Icon, href }) => {
             const isActive = pathname === href;
+
             return (
-              <Link
-                key={id}
-                href={href}
-                className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm transition ${
-                  isActive
-                    ? "bg-[#1E40AF] text-white"
-                    : "text-gray-700 hover:bg-gray-100"
-                }`}>
-                <Icon size={18} />
-                <span>{label}</span>
-              </Link>
+              <motion.div key={id} layout>
+                <Link href={href}>
+                  <motion.div
+                    whileHover={{ scale: 1.02 }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    className={`relative w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm cursor-pointer overflow-hidden ${
+                      isActive
+                        ? "text-white"
+                        : "text-gray-700 hover:bg-gray-100"
+                    }`}>
+                    {isActive && (
+                      <motion.div
+                        layoutId="activeHighlight"
+                        className="absolute inset-0 bg-[#1E40AF] rounded-md z-0"
+                        transition={{
+                          type: "spring",
+                          stiffness: 300,
+                          damping: 25,
+                        }}
+                      />
+                    )}
+
+                    <Icon size={18} className="z-10" />
+                    <span className="z-10">{label}</span>
+                  </motion.div>
+                </Link>
+              </motion.div>
             );
           })}
 
-          {/* Profile Footer */}
-          <div className="mt-4 pt-4 border-t border-gray-200">
-            <button className="w-full flex items-center gap-3 px-3 py-2 hover:bg-gray-100 rounded-md">
-              <div className="w-8 h-8 bg-purple-600 rounded-full flex items-center justify-center text-white text-sm font-semibold">
-                <Image
-                  src="/icons/admin.png"
-                  alt="User Avatar"
-                  width={32}
-                  height={32}
-                  className="rounded-full"
-                />
-              </div>
-              <div className="flex-1 text-left">
-                <p className="text-sm font-medium text-gray-800">Alison Eyo</p>
-                <p className="text-xs text-gray-500">Super admin</p>
-              </div>
-              <ChevronRight
-                size={20}
-                onClick={logout}
-                className="text-gray-400 cursor-pointer "
-              />
-            </button>
-          </div>
+          {/* Logout Button */}
+          <motion.button
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.96 }}
+            onClick={logout}
+            disabled={loading}
+            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-md text-sm bg-gray-100 text-gray-800 hover:bg-gray-200 transition cursor-pointer">
+            <span className="font-medium">
+              {loading ? "Logging out..." : "Logout"}
+            </span>
+          </motion.button>
         </div>
-      </aside>
+      </motion.aside>
 
-      {/* Main Content */}
+      {/* Main Section */}
       <main className="flex-1 flex flex-col overflow-hidden">
-        {/* Fixed Navbar */}
         <div className="sticky top-0 z-50">
           <AdminNav />
         </div>
 
-        {/* Scrollable Children */}
-        <div className="flex-1 overflow-y-auto p-8 bg-gray-50">{children}</div>
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ duration: 0.25 }}
+          className="flex-1 overflow-y-auto p-8 bg-gray-50">
+          {children}
+        </motion.div>
       </main>
     </div>
   );
