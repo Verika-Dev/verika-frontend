@@ -27,41 +27,41 @@ const menuItems = [
     href: "/dashboard/tutor",
   },
   {
-    id: "material-lesson",
-    label: "Materials & Lessons",
+    id: "live-session",
+    label: "Live session",
     icon: Award,
-    href: "/dashboard/tutor/material-lesson",
+    href: "/dashboard/tutor/live-session",
   },
   {
     id: "schedules",
     label: "Schedules",
     icon: Building2,
-    href: "/dashboard/tutor/schedules",
+    href: "/dashboard/tutor/schedule",
   },
+  // {
+  //   id: "assignments",
+  //   label: "Assignments",
+  //   icon: BookOpen,
+  //   href: "/dashboard/tutor/assignments",
+  // },
   {
-    id: "assignments",
-    label: "Assignments",
-    icon: BookOpen,
-    href: "/dashboard/tutor/assignments",
-  },
-  {
-    id: "assignment-request",
-    label: "Assignment Request",
+    id: "mentorship-request",
+    label: "Mentorship Request",
     icon: Users,
-    href: "/dashboard/tutor/assignment-request",
+    href: "/dashboard/tutor/mentorship-request",
   },
-  {
-    id: "earning-payout",
-    label: "Earning & Payout",
-    icon: Wallet,
-    href: "/dashboard/tutor/earning-payout",
-  },
-  {
-    id: "rating-review",
-    label: "Rating & Review",
-    icon: MessageSquare,
-    href: "/dashboard/tutor/ratings-reviews",
-  },
+  // {
+  //   id: "earning-payout",
+  //   label: "Earning & Payout",
+  //   icon: Wallet,
+  //   href: "/dashboard/tutor/earning-payout",
+  // },
+  // {
+  //   id: "rating-review",
+  //   label: "Rating & Review",
+  //   icon: MessageSquare,
+  //   href: "/dashboard/tutor/ratings-reviews",
+  // },
 ];
 
 const bottomItems = [
