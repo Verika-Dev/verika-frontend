@@ -84,7 +84,7 @@ export default function LiveSession() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl bg-white p-6 rounded-3xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Live Session</h1>
           <p className="text-gray-600 text-sm mt-1">
@@ -96,8 +96,8 @@ export default function LiveSession() {
           // Pre-Session View
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-8">
             <div className="max-w-2xl mx-auto text-center">
-              <div className="w-24 h-24 bg-purple-100 rounded-full flex items-center justify-center mx-auto mb-6">
-                <Video size={48} className="text-purple-600" />
+              <div className="w-24 h-24 bg-blue-100 rounded-full flex items-center justify-center mx-auto mb-6">
+                <Video size={48} className="text-blue-600" />
               </div>
               <h2 className="text-2xl font-bold text-gray-900 mb-3">
                 Ready to Go Live?
@@ -109,7 +109,7 @@ export default function LiveSession() {
 
               <button
                 onClick={() => setShowStartModal(true)}
-                className="bg-purple-600 hover:bg-purple-700 text-white font-medium px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
+                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
                 <Radio size={20} />
                 Start Live Session
               </button>
@@ -117,7 +117,7 @@ export default function LiveSession() {
               <div className="grid grid-cols-3 gap-6 mt-12 pt-8 border-t border-gray-200">
                 <div className="text-center">
                   <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Video size={24} className="text-purple-600" />
+                    <Video size={24} className="text-blue-600" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">HD Video</h3>
                   <p className="text-sm text-gray-600">
@@ -125,8 +125,8 @@ export default function LiveSession() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <MessageSquare size={24} className="text-purple-600" />
+                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <MessageSquare size={24} className="text-blue-600" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">
                     Live Chat
@@ -136,8 +136,8 @@ export default function LiveSession() {
                   </p>
                 </div>
                 <div className="text-center">
-                  <div className="w-12 h-12 bg-purple-50 rounded-lg flex items-center justify-center mx-auto mb-3">
-                    <Monitor size={24} className="text-purple-600" />
+                  <div className="w-12 h-12 bg-blue-50 rounded-lg flex items-center justify-center mx-auto mb-3">
+                    <Monitor size={24} className="text-blue-600" />
                   </div>
                   <h3 className="font-semibold text-gray-900 mb-1">
                     Screen Share
@@ -184,7 +184,7 @@ export default function LiveSession() {
                   <div className="absolute inset-0 flex items-center justify-center">
                     {videoEnabled ? (
                       <div className="text-center">
-                        <div className="w-32 h-32 bg-purple-600 rounded-full flex items-center justify-center mx-auto mb-4">
+                        <div className="w-32 h-32 bg-blue-600 rounded-full flex items-center justify-center mx-auto mb-4">
                           <span className="text-5xl text-white font-bold">
                             You
                           </span>
@@ -248,7 +248,7 @@ export default function LiveSession() {
                     <button className="p-4 rounded-full bg-gray-100 hover:bg-gray-200 text-gray-700 transition-colors">
                       <Settings size={24} />
                     </button>
-                    <button className="p-4 rounded-full bg-purple-600 hover:bg-purple-700 text-white transition-colors">
+                    <button className="p-4 rounded-full bg-blue-600 hover:bg-purple-700 text-white transition-colors">
                       <Share2 size={24} />
                     </button>
                   </div>
@@ -281,7 +281,7 @@ export default function LiveSession() {
                         <span
                           className={`text-sm font-semibold ${
                             msg.user.includes("Tutor")
-                              ? "text-purple-600"
+                              ? "text-blue-600"
                               : "text-gray-900"
                           }`}>
                           {msg.user}
@@ -305,11 +305,11 @@ export default function LiveSession() {
                         e.key === "Enter" && handleSendMessage()
                       }
                       placeholder="Type a message..."
-                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                      className="flex-1 px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                     />
                     <button
                       onClick={handleSendMessage}
-                      className="p-2 bg-purple-600 hover:bg-purple-700 text-white rounded-lg transition-colors">
+                      className="p-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg transition-colors">
                       <Send size={20} />
                     </button>
                   </div>
@@ -349,7 +349,7 @@ export default function LiveSession() {
                   value={sessionTitle}
                   onChange={(e) => setSessionTitle(e.target.value)}
                   placeholder="e.g., Introduction to Algebra"
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
                 />
               </div>
 
@@ -360,7 +360,7 @@ export default function LiveSession() {
                 <select
                   value={sessionSubject}
                   onChange={(e) => setSessionSubject(e.target.value)}
-                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent">
+                  className="w-full px-4 py-2 border border-gray-300 rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent">
                   <option value="">Select a subject</option>
                   <option value="Mathematics">Mathematics</option>
                   <option value="English">English</option>
@@ -403,7 +403,7 @@ export default function LiveSession() {
               <button
                 onClick={handleStartSession}
                 disabled={!sessionTitle || !sessionSubject}
-                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
                 Go Live
               </button>
             </div>
