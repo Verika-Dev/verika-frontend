@@ -7,6 +7,8 @@ export async function POST(req: NextRequest) {
     // Read the access_token cookie
     const token = req.cookies.get("access_token")?.value;
 
+    console.log("Access Token:", token);
+
     if (!token) {
       return NextResponse.json(
         { message: "Unauthorized - no token found" },
@@ -21,7 +23,7 @@ export async function POST(req: NextRequest) {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`, // must include token
+          Authorization: `Bearer ${token}`,
         },
         body: JSON.stringify(body),
       }
@@ -29,6 +31,8 @@ export async function POST(req: NextRequest) {
 
     // Handle backend errors properly
     const data = await apiRes.json();
+    console.log("Availability API Response:", apiRes.status, data);
+
     if (!apiRes.ok) {
       return NextResponse.json(data, { status: apiRes.status });
     }
