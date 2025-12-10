@@ -109,7 +109,7 @@ export default function LiveSession() {
 
               <button
                 onClick={() => setShowStartModal(true)}
-                className="bg-blue-600 hover:bg-blue-700 text-white font-medium px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
+                className="bg-blue-600 hover:bg-blue-700 cursor-pointer text-white font-medium px-8 py-3 rounded-lg transition-colors inline-flex items-center gap-2">
                 <Radio size={20} />
                 Start Live Session
               </button>
@@ -397,13 +397,13 @@ export default function LiveSession() {
             <div className="flex gap-3">
               <button
                 onClick={() => setShowStartModal(false)}
-                className="flex-1 bg-white hover:bg-gray-50 text-gray-700 font-medium py-3 rounded-lg border border-gray-300 transition-colors">
+                className="flex-1 bg-white hover:bg-gray-50 cursor-pointer text-gray-700 font-medium py-3 rounded-lg border border-gray-300 transition-colors">
                 Cancel
               </button>
               <button
                 onClick={handleStartSession}
                 disabled={!sessionTitle || !sessionSubject}
-                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 cursor-pointer rounded-lg transition-colors disabled:bg-gray-300 disabled:cursor-not-allowed">
                 Go Live
               </button>
             </div>

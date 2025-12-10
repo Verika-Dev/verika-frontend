@@ -2,9 +2,22 @@
 
 import { useState } from "react";
 import { ChevronLeft, ChevronRight, X, Clock } from "lucide-react";
-
+import { useTutorAvailability } from "@/hooks/useTutorAvailability";
 // ---- TYPES ----
 type TimeSlot = string;
+import { buildISO } from "@/utils/buildISO";
+interface AvailabilityPayload {
+  startTime: string;
+  endTime: string;
+  isRecurring: boolean;
+  recurrence: "weekly" | "monthly" | "daily";
+  exceptionDates: string[];
+  overrideSlots: {
+    date: string;
+    startTime: string;
+    endTime: string;
+  }[];
+}
 
 interface AvailabilityMap {
   [dateKey: string]: TimeSlot[];
@@ -16,6 +29,7 @@ export default function TutorSchedule() {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [selectedTimeSlots, setSelectedTimeSlots] = useState<TimeSlot[]>([]);
   const [availability, setAvailability] = useState<AvailabilityMap>({});
+  const { checkAvailability, loading, error, data } = useTutorAvailability();
 
   const timeSlots: TimeSlot[] = [
     "8:00 AM",
@@ -80,13 +94,11 @@ export default function TutorSchedule() {
     );
   };
 
-  const handleDateClick = (date: Date | null): void => {
-    if (date) {
-      setSelectedDate(date);
-      const dateKey = formatDateKey(date);
-      setSelectedTimeSlots(availability[dateKey] || []);
-      setShowModal(true);
-    }
+  const handleDateClick = (date: Date) => {
+    setSelectedDate(date);
+    const key = formatDateKey(date);
+    setSelectedTimeSlots(availability[key] || []);
+    setShowModal(true);
   };
 
   const toggleTimeSlot = (time: TimeSlot): void => {
@@ -95,17 +107,56 @@ export default function TutorSchedule() {
     );
   };
 
-  const saveAvailability = (): void => {
-    if (selectedDate) {
-      const dateKey = formatDateKey(selectedDate);
-      setAvailability((prev) => ({
-        ...prev,
-        [dateKey]: selectedTimeSlots,
-      }));
+  const saveAvailability = async (): Promise<void> => {
+    if (!selectedDate || selectedTimeSlots.length === 0) {
       setShowModal(false);
-      setSelectedDate(null);
-      setSelectedTimeSlots([]);
+      return;
     }
+
+    const dateKey = formatDateKey(selectedDate);
+
+    // Convert each selected time into 1-hour blocks
+    const blocks = selectedTimeSlots.map((t) => {
+      const startISO = buildISO(selectedDate, t);
+
+      const oneHourLater = new Date(startISO);
+      oneHourLater.setHours(oneHourLater.getHours() + 1);
+
+      return {
+        startTime: startISO,
+        endTime: oneHourLater.toISOString(),
+      };
+    });
+
+    const startTime = blocks[0].startTime;
+    const endTime = blocks[blocks.length - 1].endTime;
+
+    // Explicit type
+    const recurrence: "weekly" | "monthly" | "daily" = "weekly";
+
+    const payload: AvailabilityPayload = {
+      startTime,
+      endTime,
+      isRecurring: false,
+      recurrence,
+      exceptionDates: [],
+      overrideSlots: blocks.map((b) => ({
+        date: selectedDate.toISOString().split("T")[0] + "T00:00:00Z",
+        startTime: b.startTime,
+        endTime: b.endTime,
+      })),
+    };
+
+    const res = await checkAvailability(payload);
+
+    setAvailability((prev) => ({
+      ...prev,
+      [dateKey]: selectedTimeSlots,
+    }));
+
+    setShowModal(false);
+    setSelectedDate(null);
+    setSelectedTimeSlots([]);
   };
 
   const hasAvailability = (date: Date | null): boolean => {
@@ -177,21 +228,21 @@ export default function TutorSchedule() {
                     onClick={() => handleDateClick(date)}
                     className={`w-full h-full rounded-lg border transition-all flex flex-col items-center justify-center relative ${
                       isToday(date)
-                        ? "border-purple-600 bg-purple-50"
+                        ? "border-blue-600 bg-purple-50"
                         : hasAvailability(date)
-                        ? "border-purple-300 bg-purple-50 hover:bg-purple-100"
+                        ? "border-blue-300 bg-blue-50 hover:bg-blue-100"
                         : "border-gray-200 hover:bg-gray-50"
                     }`}>
                     <span
                       className={`text-sm font-medium ${
-                        isToday(date) ? "text-purple-600" : "text-gray-900"
+                        isToday(date) ? "text-blue-600" : "text-gray-900"
                       }`}>
                       {date.getDate()}
                     </span>
 
                     {hasAvailability(date) && (
                       <div className="absolute bottom-1">
-                        <div className="w-1.5 h-1.5 rounded-full bg-purple-600"></div>
+                        <div className="w-1.5 h-1.5 rounded-full bg-blue-600"></div>
                       </div>
                     )}
                   </button>
@@ -205,12 +256,12 @@ export default function TutorSchedule() {
           {/* Legend */}
           <div className="flex items-center gap-6 mt-6 pt-6 border-t border-gray-200">
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded border-2 border-purple-600 bg-purple-50"></div>
+              <div className="w-4 h-4 rounded border-2 border-blue-600 bg-blue-50"></div>
               <span className="text-sm text-gray-600">Today</span>
             </div>
             <div className="flex items-center gap-2">
-              <div className="w-4 h-4 rounded border border-purple-300 bg-purple-50 relative">
-                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-purple-600"></div>
+              <div className="w-4 h-4 rounded border border-blue-300 bg-blue-50 relative">
+                <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-1.5 h-1.5 rounded-full bg-blue-600"></div>
               </div>
               <span className="text-sm text-gray-600">Has Availability</span>
             </div>
@@ -252,7 +303,7 @@ export default function TutorSchedule() {
                         {slots.map((slot) => (
                           <span
                             key={slot}
-                            className="px-3 py-1 bg-purple-100 text-purple-700 rounded-full text-xs font-medium">
+                            className="px-3 py-1 bg-blue-100 text-blue-700 rounded-full text-xs font-medium">
                             {slot}
                           </span>
                         ))}
@@ -310,8 +361,8 @@ export default function TutorSchedule() {
                     onClick={() => toggleTimeSlot(time)}
                     className={`py-3 px-4 rounded-lg border-2 transition-all text-sm font-medium ${
                       selectedTimeSlots.includes(time)
-                        ? "border-purple-600 bg-purple-600 text-white"
-                        : "border-gray-200 bg-white text-gray-700 hover:border-purple-300"
+                        ? "border-blue-600 bg-blue-600 text-white"
+                        : "border-gray-200 bg-white text-gray-700 hover:border-blue-300"
                     }`}>
                     {time}
                   </button>
@@ -331,7 +382,7 @@ export default function TutorSchedule() {
               </button>
               <button
                 onClick={saveAvailability}
-                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg">
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-3 rounded-lg">
                 Save Availability
               </button>
             </div>

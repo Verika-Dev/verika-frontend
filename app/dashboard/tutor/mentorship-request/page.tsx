@@ -148,7 +148,7 @@ export default function MentorshipRequests() {
               <div className="flex gap-3 mt-6">
                 <button
                   onClick={() => handleAccept(request)}
-                  className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-2.5 rounded-lg transition-colors text-sm">
+                  className="flex-1 bg-blue-600 hover:bg-blue-700 text-white font-medium py-2.5 rounded-lg transition-colors text-sm">
                   Accept Request
                 </button>
                 <button
@@ -218,7 +218,7 @@ export default function MentorshipRequests() {
               </button>
               <button
                 onClick={confirmAccept}
-                className="flex-1 bg-purple-600 hover:bg-purple-700 text-white font-medium py-3 rounded-lg transition-colors">
+                className="flex-1 bg-blue-600 hover:bg-blue-700 text-white cursor-pointer font-medium py-3 rounded-lg transition-colors">
                 Confirm Accept
               </button>
             </div>
