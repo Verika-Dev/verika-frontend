@@ -16,6 +16,8 @@ import AdminNav from "@/components/dashboard/header/navbar";
 import Image from "next/image";
 import axios from "axios";
 import AssignmentSubmission from "@/components/dashboard/uploads/assignment-upload";
+import UpcomingSessions from "@/components/dashboard/student/upcoming-session";
+import RecentActivities from "@/components/dashboard/student/recent-activities";
 
 interface ModalProps {
   isOpen: boolean;
@@ -186,22 +188,10 @@ const JAMBDashboard = () => {
       {/* Bottom Section */}
       <div className="grid grid-cols-2 gap-6">
         {/* Recent Activity */}
-        <div className="bg-white border-[#EDEFFE] border rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center py-12">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-            <X className="w-8 h-8 text-gray-400" />
-          </div>
-          <p className="text-sm text-gray-500">No recent activities yet</p>
-        </div>
+        <RecentActivities />
 
         {/* Upcoming Sessions */}
-        <div className="bg-white border border-[#EDEFFE] rounded-2xl p-6 shadow-sm flex flex-col items-center justify-center py-12">
-          <div className="w-20 h-20 bg-gray-100 rounded-full flex items-center justify-center mb-4">
-            <X className="w-8 h-8 text-gray-400" />
-          </div>
-          <p className="text-sm text-gray-500">
-            You haven't booked any sessions yet
-          </p>
-        </div>
+        <UpcomingSessions />
       </div>
 
       {/* Assignment Submission Modal */}
