@@ -18,7 +18,7 @@ export const useLogin = () => {
     setError(null);
 
     try {
-      const res = await fetch("api/auth/login", {
+      const res = await fetch("/api/auth/login", {
         method: "POST",
         body: JSON.stringify(formData),
         headers: { "Content-Type": "application/json" },
@@ -31,15 +31,13 @@ export const useLogin = () => {
         return;
       }
 
-      // Redirect based on role
-      const role = data.data.role;
+      // Redirect based on sanitized role
+      const role = data.role;
 
       if (role === "student") router.push("/dashboard/student");
       else if (role === "tutor") router.push("/dashboard/tutor");
-      else router.push("/dashboard/institution");
+      else router.push("/dashboard/organization");
     } catch (err) {
-      console.log(err);
-
       setError("Unexpected error occurred");
     } finally {
       setLoading(false);
