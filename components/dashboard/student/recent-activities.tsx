@@ -44,6 +44,9 @@ export default function RecentActivities() {
 
   return (
     <div className="bg-white border-[#EDEFFE] border rounded-2xl p-6 shadow-sm flex flex-col space-y-3 max-h-96 overflow-y-auto">
+      <h2 className="text-lg font-bold text-gray-800 mb-4">
+        Recent Activities
+      </h2>
       {activities.map((activity) => (
         <div
           key={activity.id}
