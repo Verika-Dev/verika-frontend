@@ -71,20 +71,20 @@ const menuItems = [
   },
 ];
 
-const bottomItems = [
-  {
-    id: "support",
-    label: "Support & Comms",
-    icon: HelpCircle,
-    href: "/dashboard/admin/support",
-  },
-  {
-    id: "settings",
-    label: "Settings",
-    icon: Settings,
-    href: "/dashboard/admin/settings",
-  },
-];
+// const bottomItems = [
+//   {
+//     id: "support",
+//     label: "Support & Comms",
+//     icon: HelpCircle,
+//     href: "/dashboard/admin/support",
+//   },
+//   {
+//     id: "settings",
+//     label: "Settings",
+//     icon: Settings,
+//     href: "/dashboard/admin/settings",
+//   },
+// ];
 
 export default function DashboardLayout({
   children,
@@ -123,7 +123,7 @@ export default function DashboardLayout({
 
         {/* Bottom Items */}
         <div className="p-4 space-y-1">
-          {bottomItems.map(({ id, label, icon: Icon, href }) => {
+          {/* {bottomItems.map(({ id, label, icon: Icon, href }) => {
             const isActive = pathname === href;
             return (
               <Link
@@ -138,7 +138,7 @@ export default function DashboardLayout({
                 <span>{label}</span>
               </Link>
             );
-          })}
+          })} */}
 
           {/* Logout Button */}
           <div className="mt-4 pt-4 border-t border-gray-200">

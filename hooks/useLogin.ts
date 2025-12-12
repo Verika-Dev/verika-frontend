@@ -32,7 +32,9 @@ export const useLogin = () => {
       }
 
       // Redirect based on sanitized role
-      const role = data.role;
+      const role = data.data.role;
+
+      // console.log("role:", role);
 
       if (role === "student") router.push("/dashboard/student");
       else if (role === "tutor") router.push("/dashboard/tutor");
