@@ -6,17 +6,17 @@ function DynamicHeader() {
 
   const getHeaderContent = () => {
     switch (pathname) {
-      case "/login":
+      case "/auth/login":
         return {
           title: "login",
           subtitle: "Fill in your details to create an account",
         };
-      case "/signUp":
+      case "/auth/register":
         return {
           title: "Create Account",
           subtitle: "Fill in your details to create an account",
         };
-      case "/verify":
+      case "/auth/verify-email":
         return {
           title: "Verify your mail",
           subtitle: "Enter 4-digit code sent to Johndoe@gmail.com",

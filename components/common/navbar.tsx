@@ -10,7 +10,7 @@ import pryparLogo from "@/public/images/pryparLogo.svg";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
-  const pathname = usePathname(); // get current path
+  const pathname = usePathname();
 
   const navLinks = [
     { name: "Home", href: "/" },
@@ -63,7 +63,7 @@ export default function Navbar() {
           {/* Get Started Button - Desktop */}
           <div className="hidden md:block">
             <Link
-              href="/signUp"
+              href="/auth/register"
               className="px-8 py-4 bg-[#0A5DEC] hover:bg-[#0A5DEC]/90 text-white font-semibold rounded-lg transition-colors duration-200 text-base">
               Get Started
             </Link>
@@ -117,7 +117,7 @@ export default function Navbar() {
           })}
 
           <Link
-            href="/signUp"
+            href="/auth/register"
             className="block w-full px-4 py-3 mt-3 bg-[#0A5DEC] text-white font-semibold rounded-lg transition-colors duration-200 text-base text-center"
             onClick={() => setIsMenuOpen(false)}>
             Get Started
