@@ -131,7 +131,7 @@ export default function HeroSection() {
 
         {/* CTA Button */}
         <div className="text-center mb-12 sm:mb-16">
-          <Link href="/signUp">
+          <Link href="/auth/register">
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.97 }}

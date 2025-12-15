@@ -324,7 +324,7 @@ function StudentRegistrationForm() {
             Already have an account?{" "}
           </span>
           <Link
-            href="/login"
+            href="/auth/login"
             className="text-[#192BC2] font-medium text-sm hover:underline">
             Login
           </Link>
