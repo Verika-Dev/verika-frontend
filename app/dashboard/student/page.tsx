@@ -1,65 +1,12 @@
 "use client";
 
 import React, { useState } from "react";
-import {
-  BookOpen,
-  Award,
-  Clock,
-  Trophy,
-  Play,
-  FileText,
-  Video,
-  Upload,
-  X,
-} from "lucide-react";
-import AdminNav from "@/components/dashboard/header/navbar";
 import Image from "next/image";
-import axios from "axios";
 import AssignmentSubmission from "@/components/dashboard/uploads/assignment-upload";
 import UpcomingSessions from "@/components/dashboard/student/upcoming-session";
 import RecentActivities from "@/components/dashboard/student/recent-activities";
 
-interface ModalProps {
-  isOpen: boolean;
-  title: string;
-  description: string;
-  onConfirm: () => void;
-  onCancel: () => void;
-}
-
-const Modal = ({
-  isOpen,
-  title,
-  description,
-  onConfirm,
-  onCancel,
-}: ModalProps) => {
-  if (!isOpen) return null;
-  return (
-    <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/40">
-      <div className="bg-white rounded-2xl p-6 w-96 shadow-lg">
-        <h2 className="text-lg font-bold text-gray-800 mb-2">{title}</h2>
-        <p className="text-gray-600 mb-6">{description}</p>
-        <div className="flex justify-end gap-3">
-          <button
-            onClick={onCancel}
-            className="px-4 py-2 rounded-xl bg-gray-100 text-gray-700 hover:bg-gray-200 transition">
-            Cancel
-          </button>
-          <button
-            onClick={onConfirm}
-            className="px-4 py-2 rounded-xl bg-purple-600 text-white hover:bg-purple-700 transition">
-            Confirm
-          </button>
-        </div>
-      </div>
-    </div>
-  );
-};
-
 const JAMBDashboard = () => {
-  const [modalOpen, setModalOpen] = useState(false);
-  const [modalAction, setModalAction] = useState<null | (() => void)>(null);
   const [showAssignmentSubmission, setShowAssignmentSubmission] =
     useState(false);
 
