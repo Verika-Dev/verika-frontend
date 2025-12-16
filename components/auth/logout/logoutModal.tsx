@@ -22,14 +22,14 @@ export default function LogoutModal({
         <div className="flex items-center justify-end gap-3 mt-6">
           <button
             onClick={onCancel}
-            className="px-4 py-2 text-sm rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
+            className="px-4 py-2 text-sm cursor-pointer rounded-md border border-gray-300 text-gray-700 hover:bg-gray-100">
             Cancel
           </button>
 
           <button
             onClick={onConfirm}
             disabled={loading}
-            className="px-4 py-2 text-sm rounded-md bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">
+            className="px-4 py-2 text-sm rounded-md cursor-pointer bg-blue-600 text-white hover:bg-blue-700 disabled:opacity-50">
             {loading ? "Logging out..." : "Logout"}
           </button>
         </div>

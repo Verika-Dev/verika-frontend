@@ -25,7 +25,7 @@ export const useLogout = () => {
       }
 
       // After logout → redirect to login page
-      router.push("/login");
+      router.push("/auth/login");
     } catch (err) {
       console.error(err);
       setError("Unexpected error occurred");
