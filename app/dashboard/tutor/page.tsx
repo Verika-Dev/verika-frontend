@@ -101,7 +101,7 @@ export default function TutorDashboard() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl bg-white p-7 rounded-3xl mx-auto">
+      <div className=" bg-white p-7 rounded-3xl mx-auto">
         {/* Header */}
         <div className="mb-8">
           <h1 className="text-2xl font-bold text-gray-900">Dashboard</h1>
@@ -150,7 +150,12 @@ export default function TutorDashboard() {
 
           {/* Wallet Balance */}
           <div className="bg-gradient-to-br from-blue-700 to-blue-600 rounded-lg relative shadow-sm p-6 text-white">
-            <Image src="/images/signUpBg.png" alt="bg" fill className="absolute inset-0 object-cover rounded-lg opacity-10" />
+            <Image
+              src="/images/signUpBg.png"
+              alt="bg"
+              fill
+              className="absolute inset-0 object-cover rounded-lg opacity-10"
+            />
             <div className="flex items-start justify-between">
               <div>
                 <p className="text-blue-100 text-sm mb-2">Wallet Balance</p>
@@ -179,7 +184,9 @@ export default function TutorDashboard() {
                 key={index}
                 className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 hover:shadow-md transition-shadow text-center">
                 <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  {/* <action.icon size={24} className="text-purple-600" /> */}
+                  <div className="text-blue-600">
+                    <action.icon size={24} />
+                  </div>
                 </div>
                 <p className="text-sm font-medium text-gray-900">
                   {action.label}

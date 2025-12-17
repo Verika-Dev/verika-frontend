@@ -8,21 +8,27 @@
     "start": "next start"
   },
   "dependencies": {
+    "@aws-sdk/client-ivs": "^3.952.0",
+    "@aws-sdk/client-ivschat": "^3.952.0",
     "@reduxjs/toolkit": "^2.8.2",
+    "amazon-ivs-player": "^1.47.0",
+    "amazon-ivs-web-broadcast": "^1.31.1",
     "axios": "^1.13.1",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "framer-motion": "^12.23.24",
     "lucide-react": "^0.542.0",
-    "next": "15.5.2",
+    "next": "^15.5.9",
     "react": "19.1.0",
     "react-dom": "19.1.0",
     "react-hook-form": "^7.62.0",
     "react-redux": "^9.2.0",
     "recharts": "^3.3.0",
+    "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "sonner": "^2.0.7",
     "tailwind-merge": "^3.3.1",
-    "zustand": "^5.0.8"
+    "zustand": "^5.0.9"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

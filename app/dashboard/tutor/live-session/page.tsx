@@ -84,7 +84,7 @@ export default function LiveSession() {
 
   return (
     <div className="min-h-screen bg-gray-50 p-8">
-      <div className="max-w-7xl bg-white p-6 rounded-3xl mx-auto">
+      <div className=" bg-white p-6 rounded-3xl mx-auto">
         <div className="mb-6">
           <h1 className="text-2xl font-bold text-gray-900">Live Session</h1>
           <p className="text-gray-600 text-sm mt-1">
