@@ -1,6 +1,8 @@
 "use client";
 
 import React, { useState } from "react";
+import type { StudentSignupData } from "@/types/auth";
+
 import Link from "next/link";
 import {
   Eye,
@@ -14,7 +16,7 @@ import {
   ChevronDown,
   Loader2,
 } from "lucide-react";
-import { useSignup } from "@/hooks/useSignup"; 
+import { useSignup } from "@/hooks/useRegister"; 
 
 function StudentRegistrationForm() {
   const { signup, loading, error, data } = useSignup();
@@ -114,30 +116,39 @@ function StudentRegistrationForm() {
     }));
   };
 
-  const handleSubmit = async () => {
-    // Basic client validation
-    if (!formData.email || !formData.password || !formData.firstName) {
-      alert("Please fill in all required fields.");
-      return;
-    }
-    if (formData.password !== formData.confirmPassword) {
-      alert("Passwords do not match!");
-      return;
-    }
+const handleSubmit = async () => {
+  if (
+    !formData.firstName ||
+    !formData.lastName ||
+    !formData.email ||
+    !formData.password ||
+    !formData.confirmPassword ||
+    !formData.schoolLevel
+  ) {
+    alert("Please fill in all required fields.");
+    return;
+  }
 
-    await signup({
-      email: formData.email,
-      password: formData.password,
-      confirmPassword: formData.confirmPassword,
-      role: "student",
-      firstName: formData.firstName,
-      lastName: formData.lastName,
-      phoneNumber: formData.phoneNumber,
-      parentEmail: "",
-      parentPhoneNumber: "",
-      schoolLevel: formData.schoolLevel,
-    });
+  if (formData.password !== formData.confirmPassword) {
+    alert("Passwords do not match.");
+    return;
+  }
+
+  const payload: StudentSignupData = {
+    role: "student",
+    email: formData.email,
+    password: formData.password,
+    confirmPassword: formData.confirmPassword,
+    firstName: formData.firstName,
+    lastName: formData.lastName,
+    phoneNumber: formData.phoneNumber,
+    schoolLevel: formData.schoolLevel,
+    parentEmail: undefined,
+    parentPhoneNumber: undefined,
   };
+
+  await signup(payload);
+};
 
   return (
     <div className="w-full mx-auto h-full bg-white p-6">

@@ -2,6 +2,8 @@
 
 import Link from "next/link";
 import React, { useState } from "react";
+import type { TutorSignupData } from "@/types/auth";
+
 import {
   Eye,
   EyeOff,
@@ -12,7 +14,7 @@ import {
   Check,
   ChevronDown,
 } from "lucide-react";
-import { useSignup } from "@/hooks/useSignup";
+import { useSignup } from "@/hooks/useRegister";
 
 interface RegistrationFormProps {
   onSubmit?: (data: any) => void;
@@ -88,12 +90,40 @@ export default function TutorRegistrationForm({
   };
 
   const handleSubmit = async () => {
-    await signup({
-      ...formData,
+    if (
+      !formData.fullName ||
+      !formData.email ||
+      !formData.password ||
+      !formData.confirmPassword ||
+      !formData.yearsOfExperience ||
+      !formData.subjectOfExpertise
+    ) {
+      alert("Please fill in all required fields.");
+      return;
+    }
+
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
+    }
+
+    const payload: TutorSignupData = {
       role: "tutor",
+      email: formData.email,
+      password: formData.password,
+      confirmPassword: formData.confirmPassword,
+      fullName: formData.fullName,
+      yearsOfExperience: formData.yearsOfExperience,
       subjectOfExpertise: [formData.subjectOfExpertise],
-    });
+      location: formData.location || undefined,
+      bankName: formData.bankName || undefined,
+      accountNumber: formData.accountNumber || undefined,
+      rank: formData.rank || undefined,
+    };
+
+    await signup(payload);
   };
+
 
   const baseInput =
     "block w-full border border-gray-300 rounded-lg text-sm text-gray-900 px-10 py-3 focus:outline-none focus:ring-2 focus:ring-[#192BC2] focus:border-transparent";
@@ -332,7 +362,7 @@ export default function TutorRegistrationForm({
         <p className="text-center text-sm text-gray-600">
           Already have an account?
           <Link
-            href="/login"
+            href="/auth/login"
             className="text-[#192BC2] font-medium ml-1 hover:underline">
             Login
           </Link>

@@ -3,18 +3,18 @@
 import React, { useState, useEffect } from "react";
 import { Mail, Building2, Phone, Check, Lock } from "lucide-react";
 import { useSignup } from "@/hooks/useSignup";
+import type { OrganizationSignupData } from "@/types/auth";
 
 export default function InstitutionRegistrationForm() {
   const { signup, loading, error } = useSignup();
-
   const [studentRange, setStudentRange] = useState({ min: "", max: "" });
   const [rangeError, setRangeError] = useState("");
 
-  const [formData, setFormData] = useState({
+  const [formData, setFormData] = useState<OrganizationSignupData>({
+    role: "organization",
     email: "",
     password: "",
     confirmPassword: "",
-    role: "organization" as "student" | "tutor" | "organization",
     organizationName: "",
     typeOfOrganization: "",
     officialEmail: "",
@@ -28,24 +28,18 @@ export default function InstitutionRegistrationForm() {
       officialRole: "",
       emailAddress: "",
       phoneNumber: "",
-      alternateContact: {
-        email: "",
-        phone: "",
-      },
+      alternateContact: { email: "", phone: "" },
     },
-    agreements: {
-      termsAndConditions: false,
-      dataPrivacyPolicy: false,
-    },
-  });
+    agreements: { termsAndConditions: false, dataPrivacyPolicy: false },
+  } as OrganizationSignupData);
 
   const [isVerified, setIsVerified] = useState(false);
 
-  // Helper to update nested values
+  // Nested input helper
   const handleInputChange = (path: string, value: any) => {
     setFormData((prev) => {
       const keys = path.split(".");
-      const updated = { ...prev };
+      const updated: any = { ...prev };
       let obj: any = updated;
       for (let i = 0; i < keys.length - 1; i++) {
         obj[keys[i]] = { ...obj[keys[i]] };
@@ -56,10 +50,9 @@ export default function InstitutionRegistrationForm() {
     });
   };
 
-  // Automatically update estimatedStudents when both min & max are valid
+  // Update estimatedStudents dynamically
   useEffect(() => {
     const { min, max } = studentRange;
-
     if (min && max) {
       if (Number(min) >= Number(max)) {
         setRangeError("Min should be less than Max");
@@ -74,21 +67,33 @@ export default function InstitutionRegistrationForm() {
   }, [studentRange]);
 
   const handleSubmit = async () => {
-    if (!formData.estimatedStudents) {
-      setRangeError("Please enter a valid student range");
+    if (
+      !formData.organizationName ||
+      !formData.officialEmail ||
+      !formData.password
+    ) {
+      alert("Please fill in all required fields.");
       return;
     }
-
-    try {
-      const payload = {
-        ...formData,
-        email: formData.officialEmail,
-      };
-      await signup(payload);
-      setIsVerified(true);
-    } catch (error) {
-      console.error("Institution signup error:", error);
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match.");
+      return;
     }
+    if (!formData.estimatedStudents) {
+      setRangeError("Please enter a valid student range.");
+      return;
+    }
+    const payload: OrganizationSignupData = {
+      ...formData,
+      email: formData.officialEmail, // backend expects email
+      agreements: {
+        termsAndConditions: true,
+        dataPrivacyPolicy: true,
+      },
+    } as const;
+
+    await signup(payload as any);
+    setIsVerified(true);
   };
 
   const organizationTypes = [
@@ -163,7 +168,7 @@ export default function InstitutionRegistrationForm() {
           </div>
         </div>
 
-        {/* Estimated Students Range */}
+        {/* Estimated Students */}
         <div>
           <label className="font-medium text-gray-900">
             Estimated Students
@@ -171,7 +176,7 @@ export default function InstitutionRegistrationForm() {
           <div className="grid grid-cols-2 gap-3">
             <input
               type="number"
-              placeholder="Min (e.g. 100)"
+              placeholder="Min"
               value={studentRange.min}
               onChange={(e) =>
                 setStudentRange((prev) => ({ ...prev, min: e.target.value }))
@@ -180,7 +185,7 @@ export default function InstitutionRegistrationForm() {
             />
             <input
               type="number"
-              placeholder="Max (e.g. 200)"
+              placeholder="Max"
               value={studentRange.max}
               onChange={(e) =>
                 setStudentRange((prev) => ({ ...prev, max: e.target.value }))
@@ -244,7 +249,7 @@ export default function InstitutionRegistrationForm() {
           <h3 className="font-medium text-gray-900 mb-3">Contact Person</h3>
           <input
             type="text"
-            value={formData.contactPerson.fullName}
+            value={formData.contactPerson?.fullName || ""}
             onChange={(e) =>
               handleInputChange("contactPerson.fullName", e.target.value)
             }
@@ -253,7 +258,7 @@ export default function InstitutionRegistrationForm() {
           />
           <input
             type="text"
-            value={formData.contactPerson.officialRole}
+            value={formData.contactPerson?.officialRole || ""}
             onChange={(e) =>
               handleInputChange("contactPerson.officialRole", e.target.value)
             }
@@ -262,7 +267,7 @@ export default function InstitutionRegistrationForm() {
           />
           <input
             type="email"
-            value={formData.contactPerson.emailAddress}
+            value={formData.contactPerson?.emailAddress || ""}
             onChange={(e) =>
               handleInputChange("contactPerson.emailAddress", e.target.value)
             }
@@ -271,7 +276,7 @@ export default function InstitutionRegistrationForm() {
           />
           <input
             type="tel"
-            value={formData.contactPerson.phoneNumber}
+            value={formData.contactPerson?.phoneNumber || ""}
             onChange={(e) =>
               handleInputChange("contactPerson.phoneNumber", e.target.value)
             }
