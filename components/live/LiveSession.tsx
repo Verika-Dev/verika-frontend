@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { useIVSBroadcast } from "@/hooks/useBroadcast";
+// import { useIVSBroadcast } from "@/hooks/useBroadcast";
 import VideoStage from "./VideoStage";
 import StreamControls from "./Controls";
 import ChatPanel from "./ChatPanel";
@@ -16,21 +16,21 @@ export default function LiveSession() {
   const [title, setTitle] = useState("");
   const [subject, setSubject] = useState("");
 
-  const broadcast = useIVSBroadcast();
+  // const broadcast = useIVSBroadcast();
 
   async function startSession() {
     const res = await fetch("/api/ivs/start-session", { method: "POST" });
     const data = await res.json();
 
-    await broadcast.init(data.ingestEndpoint);
-    await broadcast.start(data.streamKey);
+    // await broadcast.init(data.ingestEndpoint);
+    // await broadcast.start(data.streamKey);
 
     setIsLive(true);
     setShowModal(false);
   }
 
   function endSession() {
-    broadcast.stop();
+    // broadcast.stop();
     setIsLive(false);
   }
 
@@ -50,11 +50,11 @@ export default function LiveSession() {
             screenSharing={screenSharing}
             onToggleVideo={() => {
               setVideoEnabled(!videoEnabled);
-              broadcast.toggleVideo(!videoEnabled);
+              // broadcast.toggleVideo(!videoEnabled);
             }}
             onToggleAudio={() => {
               setAudioEnabled(!audioEnabled);
-              broadcast.toggleAudio(!audioEnabled);
+              // broadcast.toggleAudio(!audioEnabled);
             }}
             onToggleScreen={() => setScreenSharing(!screenSharing)}
           />
