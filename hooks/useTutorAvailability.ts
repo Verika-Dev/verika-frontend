@@ -1,5 +1,6 @@
 "use client";
 import { useState } from "react";
+import { toast } from "sonner";
 
 interface OverrideSlot {
   date: string;
@@ -34,7 +35,7 @@ export function useTutorAvailability() {
       });
 
       const json = await res.json();
-      console.log("booking", json);
+      toast.success(`${json.message}`);
 
       if (!res.ok) {
         setError(json?.message || "Request failed");
@@ -45,6 +46,7 @@ export function useTutorAvailability() {
       return json;
     } catch (err: any) {
       console.log("error booking", err);
+      toast.error(`${err}`);
 
       setError("Network error");
       console.error("Client Fetch Error:", err);
