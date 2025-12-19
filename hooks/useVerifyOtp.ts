@@ -47,8 +47,7 @@ export const useVerifyOtp = () => {
       //  clear localStorage after successful verification
       localStorage.removeItem("signupEmail");
 
-  
-      router.push("/login");
+      router.push("/auth/login");
 
       return res.data;
     } catch (err: any) {

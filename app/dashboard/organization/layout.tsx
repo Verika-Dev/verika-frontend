@@ -65,7 +65,7 @@ const bottomItems = [
     id: "settings",
     label: "Settings",
     icon: Settings,
-    href: "/dashboard/tutor/settings",
+    href: "/dashboard/organization/settings",
   },
 ];
 

@@ -162,7 +162,7 @@ export const useSignup = () => {
       // Save email for OTP verification redirect
       if (["student", "organization", "tutor"].includes(formData.role)) {
         localStorage.setItem("signupEmail", formData.email);
-        router.push("/verify-otp");
+        router.push("/auth/verify-email");
       }
 
       return resData;
